@@ -5,6 +5,6 @@ define('GOOGLE_ANALYTICS_READ_WRITE_SETTINGS_JSON_FILE', AUTH_MANAGER_API_CONFIG
 
 CakeLog::config('AuthManager', array(
 	'engine' => 'FileLog',
-	'types' => array('CIA'),
+	'types' => array('AuthManager'),
 	'file' => 'authManager.log',
 ));
