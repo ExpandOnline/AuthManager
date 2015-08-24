@@ -1,4 +1,5 @@
 <?php
+App::uses('AuthContainer', 'AuthManager.Lib');
 
 /**
  * Class GoogleAnalyticsAuthContainer

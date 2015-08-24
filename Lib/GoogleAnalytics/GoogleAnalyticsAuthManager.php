@@ -1,6 +1,7 @@
 <?php
 App::uses('OauthAuthenticationType','AuthManager.Lib/AuthenticationTypes');
 App::uses('MediaPlatformAuthManager','AuthManager.Lib');
+App::uses('GoogleAnalyticsAuthContainer','AuthManager.Lib/GoogleAnalytics');
 
 /**
  * Class GoogleAnalyticsAuthManager
@@ -76,7 +77,7 @@ abstract class GoogleAnalyticsAuthManager extends MediaPlatformAuthManager imple
 			throw new NotFoundException('Could not find the oauth tokens for MediaPlatformUser # ' . $userId . '.');
 		} elseif (strtotime($oauthTokens['OauthToken']['token_expires']) < (time() + 60000)) {
 			$this->_client->refreshToken($oauthTokens['OauthToken']['refresh_token']);
-			$token = $this->_client->getAccessToken();
+			$token = json_decode($this->_client->getAccessToken());
 			$this->MediaPlatformUser->updateTokenInDatabase($oauthTokens['OauthToken']['id'], $token->access_token,
 				date('Y-m-d H:i:s', ($token->created + $token->expires_in)));
 		} else {
@@ -93,17 +94,6 @@ abstract class GoogleAnalyticsAuthManager extends MediaPlatformAuthManager imple
 		$authContainer->client = $this->_client;
 		$authContainer->service = $this->_service;
 		return $authContainer;
-	}
-
-/**
- * @param $id
- *
- * @return string
- */
-	public function getMediaPlatformId($id) {
-		return $this->field('media_platform_id', array(
-			'id' => $id
-		));
 	}
 
 }

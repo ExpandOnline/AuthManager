@@ -79,4 +79,15 @@ class MediaPlatformUser extends AuthManagerAppModel {
 		return $this->OauthToken->updateTokenInDatabase($oauthTokenId, $accessToken, $tokenExpires);
 	}
 
+/**
+ * @param $id
+ *
+ * @return string
+ */
+	public function getMediaPlatformId($id) {
+		return $this->field('media_platform_id', array(
+			'id' => $id
+		));
+	}
+
 }

@@ -1,4 +1,5 @@
 <?php
+App::uses('MediaPlatformAuthManagerFactory', 'AuthManager.Lib');
 App::uses('MediaPlatformUser', 'AuthManager.Model');
 
 /**
