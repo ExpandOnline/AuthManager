@@ -8,16 +8,6 @@ App::uses('GoogleAnalyticsAuthManager','AuthManager.Lib/GoogleAnalytics');
 class GoogleAnalyticsReadWriteAuthManager extends GoogleAnalyticsAuthManager {
 
 /**
- * @var Google_Client
- */
-	public $_client;
-
-/**
- * @var Google_Service_Analytics
- */
-	public $_service;
-
-/**
  * Set the google client and service.
  */
 	public function __construct() {

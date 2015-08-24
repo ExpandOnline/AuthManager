@@ -3,7 +3,7 @@
 /**
  * Interface OauthMediaPlatform
  */
-interface OauthMediaPlatform {
+interface OauthAuthenticationType {
 
 /**
  * @param $data

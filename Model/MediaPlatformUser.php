@@ -5,6 +5,7 @@ App::uses('AuthManagerAppModel', 'AuthManager.Model');
  * Class MediaPlatformUser
  *
  * @property MediaPlatform $MediaPlatform
+ * @property OauthToken $OauthToken
  */
 class MediaPlatformUser extends AuthManagerAppModel {
 
@@ -51,6 +52,31 @@ class MediaPlatformUser extends AuthManagerAppModel {
 			'contain' => $contain,
 			'order' => $this->alias . '.id ASC'
 		));
+	}
+
+/**
+ * @param $id
+ *
+ * @return mixed
+ */
+	public function getOauthTokens($id) {
+		return $this->OauthToken->find('first', array(
+			'conditions' => array(
+				'media_platform_user_id' => $id
+			)
+		));
+	}
+
+/**
+ * @param int $oauthTokenId
+ * @param string $accessToken
+ * @param string $tokenExpires
+ *
+ * @return mixed
+ * @throws Exception
+ */
+	public function updateTokenInDatabase($oauthTokenId, $accessToken, $tokenExpires) {
+		return $this->OauthToken->updateTokenInDatabase($oauthTokenId, $accessToken, $tokenExpires);
 	}
 
 }

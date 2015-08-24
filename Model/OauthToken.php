@@ -23,4 +23,21 @@ class OauthToken extends AuthManagerAppModel {
 		)
 	);
 
+/**
+ * @param int $oauthTokenId
+ * @param string $accessToken
+ * @param string $tokenExpires
+ *
+ * @return mixed
+ * @throws Exception
+ */
+	public function updateTokenInDatabase($oauthTokenId, $accessToken, $tokenExpires) {
+		$this->create();
+		$this->id = $oauthTokenId;
+		return $this->save(array(
+			'access_token' => $accessToken,
+			'token_expires' => $tokenExpires
+		));
+	}
+
 }

@@ -9,16 +9,6 @@ App::uses('GoogleAnalyticsAuthManager','AuthManager.Lib/GoogleAnalytics');
 class GoogleAnalyticsReadOnlyAuthManager extends GoogleAnalyticsAuthManager {
 
 /**
- * @var Google_Client
- */
-	protected $_client;
-
-/**
- * @var Google_AnalyticsService
- */
-	protected $_service;
-
-/**
  * Setup the Google Analytics API version from december 2013.
  * The API version from 2013 uses the config.php located in the vendor map.
  * TODO: Upgrade this to the latest API version.
