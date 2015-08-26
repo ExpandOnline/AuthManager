@@ -1,5 +1,4 @@
 <?php
-App::uses('OauthAuthenticationType','AuthManager.Lib/AuthenticationTypes');
 App::uses('MediaPlatformAuthManager','AuthManager.Lib');
 App::uses('GoogleAnalyticsAuthContainer','AuthManager.Lib/GoogleAnalytics');
 
@@ -38,20 +37,7 @@ abstract class GoogleAnalyticsAuthManager extends MediaPlatformAuthManager {
 				'token_expires' => date('Y-m-d H:i:s', $oauthTokens['created'] + $oauthTokens['expires_in']),
 			)
 		);
-		$mediaPlatformUser = $this->MediaPlatformUser->find('first', array(
-			'conditions' => array(
-				'username' => $username,
-				'media_platform_id' => $mediaPlatformId
-			),
-			'contain' => array(
-				'OauthToken'
-			)
-		));
-		if (!empty($mediaPlatformUser)) {
-			$saveData['MediaPlatformUser']['id'] = $mediaPlatformUser['MediaPlatformUser']['id'];
-			$saveData['OauthToken']['id'] = $mediaPlatformUser['OauthToken']['id'];
-		}
-		return $this->MediaPlatformUser->saveAssociated($saveData);
+		return $this->MediaPlatformUser->saveOauthUser($saveData);
 	}
 
 /**
@@ -74,7 +60,7 @@ abstract class GoogleAnalyticsAuthManager extends MediaPlatformAuthManager {
 	public function getAuthContainer($userId) {
 		$oauthTokens = $this->MediaPlatformUser->getOauthTokens($userId);
 		if (empty($oauthTokens)) {
-			throw new NotFoundException('Could not find the oauth tokens for MediaPlatformUser # ' . $userId . '.');
+			throw new NotFoundException('Could not find the oauth tokens for MediaPlatformUser #' . $userId . '.');
 		} elseif (strtotime($oauthTokens['OauthToken']['token_expires']) < (time() + 60000)) {
 			$this->_client->refreshToken($oauthTokens['OauthToken']['refresh_token']);
 			$token = json_decode($this->_client->getAccessToken());

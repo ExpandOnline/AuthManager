@@ -1,0 +1,9 @@
+<?php
+$config = array (
+  'FacebookAds' =>
+  array (
+    'app_id' => '',
+    'app_secret' => '',
+    'version' => '',
+  ),
+);

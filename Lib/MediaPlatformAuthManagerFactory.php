@@ -2,6 +2,7 @@
 App::uses('MediaPlatform','AuthManager.Model');
 App::uses('GoogleAnalyticsReadOnlyAuthManager','AuthManager.Lib/GoogleAnalytics');
 App::uses('GoogleAnalyticsReadWriteAuthManager','AuthManager.Lib/GoogleAnalytics');
+App::uses('FacebookAdsAuthManager','AuthManager.Lib/Facebook');
 
 /**
  * Class MediaPlatformAuthManagerFactory
@@ -14,13 +15,15 @@ class MediaPlatformAuthManagerFactory {
  */
 	protected $_types  = array(
 		MediaPlatform::GOOGLE_ANALYTICS_READONLY => 'GoogleAnalyticsReadOnlyAuthManager',
-		MediaPlatform::GOOGLE_ANALYTICS_READWRITE => 'GoogleAnalyticsReadWriteAuthManager'
+		MediaPlatform::GOOGLE_ANALYTICS_READWRITE => 'GoogleAnalyticsReadWriteAuthManager',
+		MediaPlatform::FACEBOOK_ADS => 'FacebookAdsAuthManager',
 	);
 
 /**
  * @param $mediaPlatformId
  *
  * @return MediaPlatformAuthManager
+ * @throws Exception
  */
 	public function createAuthManager($mediaPlatformId) {
 		if (!array_key_exists($mediaPlatformId, $this->_types)) {
