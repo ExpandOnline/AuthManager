@@ -90,4 +90,45 @@ class MediaPlatformUser extends AuthManagerAppModel {
 		));
 	}
 
+/**
+ * @param $mediaPlatformId
+ *
+ * @return array|null
+ */
+	public function listUsers($mediaPlatformId) {
+		return $this->find('list', array(
+			'conditions' => array(
+				'media_platform_id' => $mediaPlatformId
+			),
+			'fields' => array(
+				'id',
+				'username'
+			)
+		));
+	}
+
+/**
+ * Inserts or updates a user with oauth tokens.
+ *
+ * @param array $data
+ *
+ * @return mixed
+ */
+	public function saveOauthUser($data) {
+		$mediaPlatformUser = $this->find('first', array(
+			'conditions' => array(
+				'username' => $data['MediaPlatformUser']['username'],
+				'media_platform_id' => $data['MediaPlatformUser']['media_platform_id']
+			),
+			'contain' => array(
+				'OauthToken'
+			)
+		));
+		if (!empty($mediaPlatformUser)) {
+			$data['MediaPlatformUser']['id'] = $mediaPlatformUser['MediaPlatformUser']['id'];
+			$data['OauthToken']['id'] = $mediaPlatformUser['OauthToken']['id'];
+		}
+		return $this->saveAssociated($data);
+	}
+
 }

@@ -34,7 +34,7 @@ abstract class MediaPlatformAuthManager {
  *
  * @param $userId
  *
- * @return AuthContainer
+ * @return Object
  */
 	public abstract function getAuthContainer($userId);
 

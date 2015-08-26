@@ -41,6 +41,7 @@ class MediaPlatform extends AuthManagerAppModel {
  */
 	const GOOGLE_ANALYTICS_READONLY = 1;
 	const GOOGLE_ANALYTICS_READWRITE = 2;
+	const FACEBOOK_ADS = 3;
 
 /**
  * @return array|null
