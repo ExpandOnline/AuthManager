@@ -17,9 +17,9 @@ class GoogleAnalyticsReadWriteAuthManager extends GoogleAnalyticsAuthManager {
  */
 	public function __construct() {
 		parent::__construct();
+		$this->_configFile = CakePlugin::path('AuthManager') . 'Config' . DS . 'API' . DS . 'googleAnalyticsReadWrite.json';
 		$this->_setGoogleClient();
 		$this->_setGoogleService();
-		$this->_configFile = CakePlugin::path('AuthManager') . 'Config' . DS . 'API' . DS . 'googleAnalyticsReadWrite.json';
 	}
 
 /**
