@@ -1,3 +1,4 @@
 Config/API/*
 !Config/API/empty
 !Config/API/*.default
+Lib/facebook-php-ads-sdk
