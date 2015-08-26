@@ -6,7 +6,7 @@ App::uses('GoogleAnalyticsAuthContainer','AuthManager.Lib/GoogleAnalytics');
 /**
  * Class GoogleAnalyticsAuthManager
  */
-abstract class GoogleAnalyticsAuthManager extends MediaPlatformAuthManager implements OauthAuthenticationType {
+abstract class GoogleAnalyticsAuthManager extends MediaPlatformAuthManager {
 
 /**
  * @var Google_Client
