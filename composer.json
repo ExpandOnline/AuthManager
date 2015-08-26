@@ -13,6 +13,7 @@
     "require": {
         "php": ">=5.3.3",
         "composer/installers": "*",
+        "cakedc/migrations":"2.4.0",
         "ExpandOnline/google-api-php-client": "dev-master",
         "google/apiclient": "v1.1.4"
     }
