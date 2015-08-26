@@ -8,10 +8,16 @@ App::uses('GoogleAnalyticsAuthManager','AuthManager.Lib/GoogleAnalytics');
 class GoogleAnalyticsReadWriteAuthManager extends GoogleAnalyticsAuthManager {
 
 /**
+ * @var string
+ */
+	protected $_configFile;
+
+/**
  * Set the google client and service.
  */
 	public function __construct() {
 		parent::__construct();
+		$this->_configFile = CakePlugin::path('AuthManager') . 'Config' . DS . 'API' . DS . 'googleAnalyticsReadWrite.json';
 		$this->_setGoogleClient();
 		$this->_setGoogleService();
 	}
@@ -21,7 +27,7 @@ class GoogleAnalyticsReadWriteAuthManager extends GoogleAnalyticsAuthManager {
  */
 	protected function _setGoogleClient() {
 		$googleClient = new Google_Client();
-		$googleClient->setAuthConfigFile(GOOGLE_ANALYTICS_READ_WRITE_SETTINGS_JSON_FILE);
+		$googleClient->setAuthConfigFile($this->_configFile);
 		$googleClient->addScope(Google_Service_Analytics::ANALYTICS_EDIT);
 		$googleClient->setRedirectUri(Router::url(array(
 			'plugin' => 'auth_manager',
@@ -54,11 +60,12 @@ class GoogleAnalyticsReadWriteAuthManager extends GoogleAnalyticsAuthManager {
 	}
 
 /**
- * @param array $data
+ * @param array $request
  *
  * @return bool
  */
-	public function authenticateUser($data) {
+	public function authenticateUser($request) {
+		$data = $request->query;
 		if (!array_key_exists('code', $data)) {
 			return false;
 		}

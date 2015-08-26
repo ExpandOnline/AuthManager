@@ -9,19 +9,13 @@ App::uses('GoogleAnalyticsReadWriteAuthManager','AuthManager.Lib/GoogleAnalytics
 class MediaPlatformAuthManagerFactory {
 
 /**
+ * Implemented media platforms with the respectively class name to use.
  * @var array
  */
-	protected $_types;
-
-/**
- * Set our implemented MediaPlatformAuthManager classes
- */
-	public function __construct() {
-		$this->_types = array(
-			MediaPlatform::GOOGLE_ANALYTICS_READONLY => 'GoogleAnalyticsReadOnlyAuthManager',
-			MediaPlatform::GOOGLE_ANALYTICS_READWRITE => 'GoogleAnalyticsReadWriteAuthManager'
-		);
-	}
+	protected $_types  = array(
+		MediaPlatform::GOOGLE_ANALYTICS_READONLY => 'GoogleAnalyticsReadOnlyAuthManager',
+		MediaPlatform::GOOGLE_ANALYTICS_READWRITE => 'GoogleAnalyticsReadWriteAuthManager'
+	);
 
 /**
  * @param $mediaPlatformId
@@ -33,6 +27,10 @@ class MediaPlatformAuthManagerFactory {
 			throw new InvalidArgumentException('Media platform ID #' . $mediaPlatformId . ' is not yet implemented.');
 		}
 		$className = $this->_types[$mediaPlatformId];
+
+		if (!class_exists($className)) {
+			throw new Exception('Could not find class \'' . $className . '\'.');
+		}
 
 		return new $className();
 	}
