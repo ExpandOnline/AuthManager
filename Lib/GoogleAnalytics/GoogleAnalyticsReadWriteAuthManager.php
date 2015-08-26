@@ -8,6 +8,11 @@ App::uses('GoogleAnalyticsAuthManager','AuthManager.Lib/GoogleAnalytics');
 class GoogleAnalyticsReadWriteAuthManager extends GoogleAnalyticsAuthManager {
 
 /**
+ * @var string
+ */
+	protected $_configFile;
+
+/**
  * Set the google client and service.
  */
 	public function __construct() {
@@ -22,7 +27,7 @@ class GoogleAnalyticsReadWriteAuthManager extends GoogleAnalyticsAuthManager {
  */
 	protected function _setGoogleClient() {
 		$googleClient = new Google_Client();
-		$googleClient->setAuthConfigFile(GOOGLE_ANALYTICS_READ_WRITE_SETTINGS_JSON_FILE);
+		$googleClient->setAuthConfigFile($this->_configFile);
 		$googleClient->addScope(Google_Service_Analytics::ANALYTICS_EDIT);
 		$googleClient->setRedirectUri(Router::url(array(
 			'plugin' => 'auth_manager',
