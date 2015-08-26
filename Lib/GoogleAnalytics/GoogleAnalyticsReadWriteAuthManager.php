@@ -14,6 +14,7 @@ class GoogleAnalyticsReadWriteAuthManager extends GoogleAnalyticsAuthManager {
 		parent::__construct();
 		$this->_setGoogleClient();
 		$this->_setGoogleService();
+		$this->_configFile = CakePlugin::path('AuthManager') . 'Config' . DS . 'API' . DS . 'googleAnalyticsReadWrite.json';
 	}
 
 /**
@@ -54,11 +55,12 @@ class GoogleAnalyticsReadWriteAuthManager extends GoogleAnalyticsAuthManager {
 	}
 
 /**
- * @param array $data
+ * @param array $request
  *
  * @return bool
  */
-	public function authenticateUser($data) {
+	public function authenticateUser($request) {
+		$data = $request->query;
 		if (!array_key_exists('code', $data)) {
 			return false;
 		}

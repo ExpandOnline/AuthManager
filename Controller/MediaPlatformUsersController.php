@@ -5,6 +5,8 @@ App::uses('AuthenticationType', 'AuthManager.Model');
 
 /**
  * Class MediaPlatformUsersController
+ * This controller class handles adding new users to the AuthManager.
+ * We use the AuthManager
  *
  * @property MediaPlatformUser $MediaPlatformUser
  */
@@ -55,19 +57,10 @@ class MediaPlatformUsersController extends AuthManagerController {
 		 * @var MediaPlatformAuthManager $mediaPlatformAuthManager
 		 */
 		$mediaPlatformAuthManager = $this->_getAuthManager($mediaPlatformId);
-		$authenticationType = $this->MediaPlatformUser->MediaPlatform->getAuthenticationType($mediaPlatformId);
-		$response = false;
-		switch ($authenticationType) {
-			case AuthenticationType::OAUTH:
-				$response = $mediaPlatformAuthManager->authenticateUser($this->request->query);
-				break;
-			default:
-				throw new InvalidArgumentException('Unknown authentication type #' . $authenticationType);
-		}
-		if ($response) {
-			$this->Session->setFlash(__d('AuthManager', 'Succesvol geauthenticeerd!'), 'successbox');
+		if ($mediaPlatformAuthManager->authenticateUser($this->request)) {
+			$this->Session->setFlash(__d('AuthManager', 'Successfully authenticated!'), 'successbox');
 		} else {
-			$this->Session->setFlash(__d('AuthManager', 'Er ging iets mis bij het authenticeren!'), 'errorbox');
+			$this->Session->setFlash(__d('AuthManager', 'There went something wrong authenticating you!'), 'errorbox');
 		}
 		$this->redirect(array(
 			'action' => 'index'

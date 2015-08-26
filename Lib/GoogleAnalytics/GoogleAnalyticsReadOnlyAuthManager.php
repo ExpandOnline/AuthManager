@@ -29,11 +29,12 @@ class GoogleAnalyticsReadOnlyAuthManager extends GoogleAnalyticsAuthManager {
 	}
 
 /**
- * @param $data
+ * @param CakeRequest $request
  *
  * @return bool
  */
-	public function authenticateUser($data) {
+	public function authenticateUser($request) {
+		$data = $request->query;
 		if (!array_key_exists('code', $data)) {
 			return false;
 		}
