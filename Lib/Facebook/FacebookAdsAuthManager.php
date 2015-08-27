@@ -161,6 +161,7 @@ class FacebookAdsAuthManager extends MediaPlatformAuthManager {
 		}
 
 		$facebookAuthContainer = new FacebookAdsAuthContainer();
+		$this->_facebook->setDefaultAccessToken($oauthTokens['OauthToken']['access_token']);
 		$facebookAuthContainer->facebookSdk = $this->_facebook;
 		$facebookAuthContainer->facebookAds = Api::init(Configure::read('FacebookAds.app_id'),
 			Configure::read('FacebookAds.app_secret'),
