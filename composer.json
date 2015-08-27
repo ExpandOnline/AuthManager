@@ -14,7 +14,6 @@
         "php": ">=5.3.3",
         "composer/installers": "*",
         "ExpandOnline/google-api-php-client": "dev-master",
-        "google/apiclient": "v1.1.4",
-        "facebook/php-sdk-v4": "~5.0"
+        "google/apiclient": "v1.1.4"
     }
 }
