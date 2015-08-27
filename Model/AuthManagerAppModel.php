@@ -1,10 +1,10 @@
 <?php
-App::uses('AppModel', 'Model');
+App::uses('Model', 'Model');
 
 /**
  * Class AuthManagerAppModel
  */
-class AuthManagerAppModel extends AppModel {
+class AuthManagerAppModel extends Model {
 
 /**
  * @var int
