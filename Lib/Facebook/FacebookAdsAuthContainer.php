@@ -1,9 +1,10 @@
 <?php
+App::uses('AuthContainer', 'AuthManager.Lib');
 
 /**
  * Class FacebookAdsAuthContainer
  */
-class FacebookAdsAuthContainer {
+class FacebookAdsAuthContainer extends AuthContainer {
 
 /**
  * @var Facebook

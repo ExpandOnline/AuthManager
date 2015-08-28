@@ -1,9 +1,10 @@
 <?php
+App::uses('AuthContainer', 'AuthManager.Lib');
 
 /**
  * Class GoogleAnalyticsAuthContainer
  */
-class GoogleAnalyticsAuthContainer {
+class GoogleAnalyticsAuthContainer extends AuthContainer {
 
 /**
  * @var Google_Client
