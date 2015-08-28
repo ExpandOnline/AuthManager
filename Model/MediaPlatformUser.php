@@ -38,11 +38,12 @@ class MediaPlatformUser extends AuthManagerAppModel {
 	);
 
 /**
+ * @param array $conditions
  * @param array $contain
  *
  * @return array|null
  */
-	public function getAllUsers($contain = array()) {
+	public function getAllUsers($conditions = array(), $contain = array()) {
 		if (empty($contain)) {
 			$contain = array(
 				'MediaPlatform.name'
@@ -50,6 +51,7 @@ class MediaPlatformUser extends AuthManagerAppModel {
 		}
 		return $this->find('all', array(
 			'contain' => $contain,
+			'conditions' => $conditions,
 			'order' => $this->alias . '.id ASC'
 		));
 	}
