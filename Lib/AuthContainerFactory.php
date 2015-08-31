@@ -17,7 +17,7 @@ class AuthContainerFactory {
 /**
  * @param $userId
  *
- * @return GoogleAnalyticsAuthContainer|FacebookAdsAuthContainer
+ * @return AuthContainer
  */
 	public function createAuthContainer($userId) {
 		$mediaPlatformId = $this->MediaPlatformUser->getMediaPlatformId($userId);
@@ -27,7 +27,10 @@ class AuthContainerFactory {
 		$mediaPlatformAuthManagerFactory = new MediaPlatformAuthManagerFactory();
 		$authManager = $mediaPlatformAuthManagerFactory->createAuthManager($mediaPlatformId);
 
-		return $authManager->getAuthContainer($userId);
+		$authContainer = $authManager->getAuthContainer($userId);
+		$authContainer->userId = $userId;
+
+		return $authContainer;
 	}
 
 }
