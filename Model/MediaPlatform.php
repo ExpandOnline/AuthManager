@@ -3,6 +3,8 @@ App::uses('AuthManagerAppModel', 'AuthManager.Model');
 
 /**
  * Class MediaPlatform
+ *
+ * @property MediaPlatformUser $MediaPlatformUser
  */
 class MediaPlatform extends AuthManagerAppModel {
 
