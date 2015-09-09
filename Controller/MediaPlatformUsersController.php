@@ -10,15 +10,7 @@ App::uses('AuthenticationType', 'AuthManager.Model');
  *
  * @property MediaPlatformUser $MediaPlatformUser
  */
-class MediaPlatformUsersController extends AuthManagerController {
-
-/**
- * Displays the table with MediaPlatformUsers.
- */
-	public function index() {
-		$this->set('mediaPlatformUsers', $this->MediaPlatformUser->getAllUsers());
-		$this->set('mediaPlatforms', $this->MediaPlatformUser->MediaPlatform->listActive());
-	}
+class MediaPlatformUsersController extends AuthManagerAppController {
 
 /**
  * Authorize an account, which can be either a new or existing account.
@@ -32,6 +24,7 @@ class MediaPlatformUsersController extends AuthManagerController {
 		 * @var MediaPlatformAuthManager $mediaPlatformAuthManager
 		 */
 		$mediaPlatformAuthManager = $this->_getAuthManager($mediaPlatformId);
+		$this->_saveReferrer();
 		$this->redirect($mediaPlatformAuthManager->getAuthUrl());
 	}
 
@@ -62,9 +55,7 @@ class MediaPlatformUsersController extends AuthManagerController {
 		} else {
 			$this->Session->setFlash(__d('AuthManager', 'There went something wrong authenticating you!'), 'errorbox');
 		}
-		$this->redirect(array(
-			'action' => 'index'
-		));
+		$this->_redirectToLastSavedReferrer();
 	}
 
 /**
