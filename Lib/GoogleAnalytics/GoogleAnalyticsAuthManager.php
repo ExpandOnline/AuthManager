@@ -61,7 +61,8 @@ abstract class GoogleAnalyticsAuthManager extends MediaPlatformAuthManager {
 		$oauthTokens = $this->MediaPlatformUser->getOauthTokens($userId);
 		if (empty($oauthTokens)) {
 			throw new NotFoundException('Could not find the oauth tokens for MediaPlatformUser #' . $userId . '.');
-		} elseif (strtotime($oauthTokens['OauthToken']['token_expires']) < (time() + 60000)) {
+		} elseif (strtotime($oauthTokens['OauthToken']['token_expires']) < (time() + 600)
+			|| Configure::read('debug') >= 1) {
 			$this->_client->refreshToken($oauthTokens['OauthToken']['refresh_token']);
 			$token = json_decode($this->_client->getAccessToken());
 			$this->MediaPlatformUser->updateTokenInDatabase($oauthTokens['OauthToken']['id'], $token->access_token,
