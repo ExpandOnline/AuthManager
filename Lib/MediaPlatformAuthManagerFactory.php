@@ -1,8 +1,9 @@
 <?php
-App::uses('MediaPlatform','AuthManager.Model');
-App::uses('GoogleAnalyticsReadOnlyAuthManager','AuthManager.Lib/GoogleAnalytics');
 App::uses('GoogleAnalyticsReadWriteAuthManager','AuthManager.Lib/GoogleAnalytics');
+App::uses('GoogleAnalyticsReadOnlyAuthManager','AuthManager.Lib/GoogleAnalytics');
 App::uses('FacebookAdsAuthManager','AuthManager.Lib/Facebook');
+App::uses('BitlyAuthManager','AuthManager.Lib/Bitly');
+App::uses('MediaPlatform','AuthManager.Model');
 
 /**
  * Class MediaPlatformAuthManagerFactory
@@ -17,6 +18,7 @@ class MediaPlatformAuthManagerFactory {
 		MediaPlatform::GOOGLE_ANALYTICS_READONLY => 'GoogleAnalyticsReadOnlyAuthManager',
 		MediaPlatform::GOOGLE_ANALYTICS_READWRITE => 'GoogleAnalyticsReadWriteAuthManager',
 		MediaPlatform::FACEBOOK_ADS => 'FacebookAdsAuthManager',
+		MediaPlatform::BITLY => 'BitlyAuthManager',
 	);
 
 /**

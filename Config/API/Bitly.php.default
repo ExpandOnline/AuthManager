@@ -1,0 +1,8 @@
+<?php
+$config = array (
+  'Bitly' =>
+  array (
+    'client_id' => '',
+    'client_secret' => '',
+  ),
+);
