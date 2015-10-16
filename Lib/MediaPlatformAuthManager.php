@@ -47,4 +47,38 @@ abstract class MediaPlatformAuthManager {
  */
 	public abstract function authenticateUser($request);
 
+/**
+ * @param $username
+ * @param $accessToken
+ * @param $mediaPlatform
+ *
+ * @return mixed
+ */
+	protected function _saveUser($username, $accessToken, $mediaPlatform) {
+		$saveData = array(
+			'MediaPlatformUser' => array(
+				'username' => $username,
+				'media_platform_id' => $mediaPlatform
+			),
+			'OauthToken' => array(
+				'access_token' => $accessToken
+			)
+		);
+		return $this->MediaPlatformUser->saveOauthUser($saveData);
+	}
+
+/**
+ * @param $mediaPlatform
+ *
+ * @return string
+ */
+	protected function _getCallbackUrl($mediaPlatform) {
+		return Router::url(array(
+			'plugin' => 'auth_manager',
+			'controller' => 'media_platform_users',
+			'action' => 'callback',
+			$mediaPlatform
+		), true);
+	}
+
 }

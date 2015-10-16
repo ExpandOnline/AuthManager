@@ -48,12 +48,7 @@ class FacebookAdsAuthManager extends MediaPlatformAuthManager {
 			'email'
 		);
 		return $redirectLoginHelper->getLoginUrl(
-			Router::url(array(
-				'plugin' => 'auth_manager',
-				'controller' => 'media_platform_users',
-				'action' => 'callback',
-				MediaPlatform::FACEBOOK_ADS
-			), true),
+			$this->_getCallbackUrl(MediaPlatform::FACEBOOK_ADS),
 			$permissions
 		);
 	}
@@ -74,7 +69,7 @@ class FacebookAdsAuthManager extends MediaPlatformAuthManager {
 			return false;
 		}
 		$username = $this->_getUsername($accessToken);
-		return $this->_saveUser($username, $accessToken);
+		return $this->_saveUser($username, $accessToken, MediaPlatform::FACEBOOK_ADS);
 	}
 
 /**
@@ -127,26 +122,6 @@ class FacebookAdsAuthManager extends MediaPlatformAuthManager {
 		$tokenMetadata = $oAuth2Client->debugToken($accessToken);
 		$user = $this->_facebook->get('/' . $tokenMetadata->getUserId() . '?fields=name,email', $accessToken)->getGraphUser();
 		return $user->getField('email') !== null ? $user->getField('email') : $user->getField('name');
-	}
-
-/**
- * @param string $username
- * @param string $accessToken
- *
- * @return mixed
- * @throws Exception
- */
-	protected function _saveUser($username, $accessToken) {
-		$saveData = array(
-			'MediaPlatformUser' => array(
-				'username' => $username,
-				'media_platform_id' => MediaPlatform::FACEBOOK_ADS
-			),
-			'OauthToken' => array(
-				'access_token' => $accessToken
-			)
-		);
-		return $this->MediaPlatformUser->saveOauthUser($saveData);
 	}
 
 /**
