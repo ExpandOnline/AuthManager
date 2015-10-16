@@ -133,4 +133,17 @@ class MediaPlatformUser extends AuthManagerAppModel {
 		return $this->saveAssociated($data);
 	}
 
+/**
+ * @param $mediaPlatformId
+ *
+ * @return array|null
+ */
+	public function getFirstOfMediaPlatform($mediaPlatformId) {
+		return $this->find('first', array(
+			'conditions' => array(
+				'media_platform_id' => $mediaPlatformId
+			)
+		));
+	}
+
 }
