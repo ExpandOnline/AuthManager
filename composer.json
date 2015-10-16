@@ -22,6 +22,6 @@
     "google/apiclient": "v1.1.4",
     "facebook/php-ads-sdk": "2.4.*",
     "facebook/php-sdk-v4": "~5.0",
-    "bitly/bitly-api-php": "dev-master"
+    "ExpandOnline/bitly-api-php": "dev-master"
   }
 }
