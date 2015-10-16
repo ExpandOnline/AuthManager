@@ -1,7 +1,7 @@
 <?php
 App::uses('MediaPlatformAuthManager','AuthManager.Lib');
 App::uses('BitlyAuthContainer','AuthManager.Lib/Bitly');
-App::import('Vendor', array('file' => 'bitly' . DS . 'bitly-api-php' . DS . 'Bitly'));
+App::import('Vendor', array('file' => 'ExpandOnline' . DS . 'bitly-api-php' . DS . 'Bitly'));
 
 /**
  * Class BitlyAuthManager
