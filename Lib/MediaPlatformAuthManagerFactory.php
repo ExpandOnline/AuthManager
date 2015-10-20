@@ -41,11 +41,4 @@ class MediaPlatformAuthManagerFactory {
 		return new $className();
 	}
 
-/**
- * @return int
- */
-	protected function _getPlatformId() {
-		return MediaPlatform::GOOGLE_ANALYTICS_READONLY;
-	}
-
 }
