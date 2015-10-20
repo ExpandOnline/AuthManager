@@ -27,6 +27,31 @@ abstract class GoogleAuthManager extends MediaPlatformAuthManager {
 	}
 
 /**
+ * @param CakeRequest $request
+ *
+ * @return bool
+ */
+	public function authenticateUser($request) {
+		$data = $request->query;
+		if (!array_key_exists('code', $data)) {
+			return false;
+		}
+		$oauthTokens = $this->_getOauthTokens($data['code']);
+		$username = $this->_getUserName();
+		return $this->_saveUser($username, $oauthTokens, $this->_getPlatformId());
+	}
+
+/**
+ * @return String
+ */
+	protected abstract function _getUserName();
+
+/**
+ * @return int
+ */
+	protected abstract function _getPlatformId();
+
+/**
  * @param string $username
  * @param array $oauthTokens
  * @param int $mediaPlatformId
@@ -68,35 +93,20 @@ abstract class GoogleAuthManager extends MediaPlatformAuthManager {
  */
 	public function getAuthContainer($userId) {
 		$this->_setTokenOnClient($userId);
-		$authContainer = new GoogleAnalyticsAuthContainer();
+		$authContainer = $this->_getContainer();
 		$authContainer->client = $this->_client;
 		$authContainer->service = $this->_service;
 		return $authContainer;
 	}
 
 /**
- * @param CakeRequest $request
- *
- * @return bool
+ * @return AuthContainer
  */
-	public function authenticateUser($request) {
-		$data = $request->query;
-		if (!array_key_exists('code', $data)) {
-			return false;
-		}
-		$oauthTokens = $this->_getOauthTokens($data['code']);
-		$webProperties = $this->_service->management_webproperties->listManagementWebproperties("~all");
-		return $this->_saveUser($webProperties['username'], $oauthTokens, $this->_getPlatformId());
-	}
+	protected abstract function _getContainer();
 
 /**
- * @return int
+ * @param $userId
  */
-	protected abstract function _getPlatformId();
-
-	/**
-	 * @param $userId
-	 */
 	public function _setTokenOnClient($userId) {
 		$oauthTokens = $this->MediaPlatformUser->getOauthTokens($userId);
 		if (empty($oauthTokens)) {

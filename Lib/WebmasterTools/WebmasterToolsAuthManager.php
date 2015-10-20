@@ -17,42 +17,25 @@ protected $_configFile;
 /**
  * Set the google client and service.
  */
-public function __construct() {
-	parent::__construct();
-	$this->_configFile = CakePlugin::path('AuthManager') . 'Config' . DS . 'API' . DS . 'webmasterTools.json';
-	$this->_setGoogleClient();
-	$this->_setGoogleService();
-}
-
-/**
- * Handles the request when being returned to the AuthManager plugin.
- *
- * @param CakeRequest $request
- *
- * @return bool
- */
-	public function authenticateUser($request) {
-		$data = $request->query;
-		if (!array_key_exists('code', $data)) {
-			return false;
-		}
-		$oauthTokens = $this->_getOauthTokens($data['code']);
-		$service = new Google_Service_Plus($this->_client);
-		$user = $service->people->get('me');
-		return $this->_saveUser($user['displayName'], $oauthTokens, $this->_getPlatformId());
+	public function __construct() {
+		parent::__construct();
+		$this->_configFile = CakePlugin::path('AuthManager') . 'Config' . DS . 'API' . DS . 'webmasterTools.json';
+		$this->_setGoogleClient();
+		$this->_setGoogleService();
 	}
 
 /**
- * @param $userId
- *
- * @return GoogleAnalyticsAuthContainer
+ * Get the username for the authenticated user.
+ * @return mixed
  */
-	public function getAuthContainer($userId) {
-		$this->_setTokenOnClient($userId);
-		$authContainer = new WebmasterToolsAuthContainer();
-		$authContainer->client = $this->_client;
-		$authContainer->service = $this->_service;
-		return $authContainer;
+	protected function _getUserName() {
+		$service = new Google_Service_Plus($this->_client);
+		$user = $service->people->get('me');
+		return $user['displayName'];
+	}
+
+	protected function _getContainer() {
+		return new WebmasterToolsAuthContainer();
 	}
 
 /**
@@ -91,6 +74,4 @@ public function __construct() {
 	public function _getPlatformId() {
 		return MediaPlatform::WEBMASTER_TOOLS;
 	}
-
-
 }
