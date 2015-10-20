@@ -1,12 +1,12 @@
 <?php
 App::import('Vendor','expandonline/google-api-php-client/src/Google_Client');
 App::import('Vendor','expandonline/google-api-php-client/src/contrib/Google_AnalyticsService');
-App::uses('GoogleAnalyticsAuthManager','AuthManager.Lib/GoogleAnalytics');
+App::uses('GoogleAuthManager','AuthManager.Lib/GoogleAnalytics');
 
 /**
  * Class GoogleAnalyticsReadOnlyAuthManager
  */
-class GoogleAnalyticsReadOnlyAuthManager extends GoogleAnalyticsAuthManager {
+class GoogleAnalyticsReadOnlyAuthManager extends GoogleAuthManager {
 
 /**
  * Setup the Google Analytics API version from december 2013.
@@ -19,29 +19,28 @@ class GoogleAnalyticsReadOnlyAuthManager extends GoogleAnalyticsAuthManager {
 		$this->_service = new Google_AnalyticsService($this->_client);
 	}
 
+	/**
+	 * Get the username for the authenticated user.
+	 * @return mixed
+	 */
+	protected function _getUserName() {
+		$webProperties = $this->_service->management_webproperties->listManagementWebproperties("~all");
+		return $webProperties['username'];
+	}
+
+
 /**
- * Get the authorization URL to redirect to.
- *
- * @return string
+ * @return int
  */
-	public function getAuthUrl() {
-		return $this->_client->createAuthUrl();
+	protected function _getPlatformId() {
+		return MediaPlatform::GOOGLE_ANALYTICS_READONLY;
 	}
 
 /**
- * @param CakeRequest $request
- *
- * @return bool
+ * @return GoogleAnalyticsAuthContainer
  */
-	public function authenticateUser($request) {
-		$data = $request->query;
-		if (!array_key_exists('code', $data)) {
-			return false;
-		}
-		$oauthTokens = $this->_getOauthTokens($data['code']);
-		$webProperties = $this->_service->management_webproperties->listManagementWebproperties("~all");
-
-		return $this->_saveUser($webProperties['username'], $oauthTokens, MediaPlatform::GOOGLE_ANALYTICS_READONLY);
+	protected function _getContainer() {
+		return new GoogleAnalyticsAuthContainer();
 	}
 
 }

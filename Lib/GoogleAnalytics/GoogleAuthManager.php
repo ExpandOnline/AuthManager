@@ -5,7 +5,7 @@ App::uses('GoogleAnalyticsAuthContainer','AuthManager.Lib/GoogleAnalytics');
 /**
  * Class GoogleAnalyticsAuthManager
  */
-abstract class GoogleAnalyticsAuthManager extends MediaPlatformAuthManager {
+abstract class GoogleAuthManager extends MediaPlatformAuthManager {
 
 /**
  * @var Google_Client
@@ -16,6 +16,40 @@ abstract class GoogleAnalyticsAuthManager extends MediaPlatformAuthManager {
  * @var Google_AnalyticsService|Google_Service_Analytics
  */
 	protected $_service;
+
+/**
+ * Get the authorization URL to redirect to.
+ *
+ * @return string
+ */
+	public function getAuthUrl() {
+		return $this->_client->createAuthUrl();
+	}
+
+/**
+ * @param CakeRequest $request
+ *
+ * @return bool
+ */
+	public function authenticateUser($request) {
+		$data = $request->query;
+		if (!array_key_exists('code', $data)) {
+			return false;
+		}
+		$oauthTokens = $this->_getOauthTokens($data['code']);
+		$username = $this->_getUserName();
+		return $this->_saveUser($username, $oauthTokens, $this->_getPlatformId());
+	}
+
+/**
+ * @return String
+ */
+	protected abstract function _getUserName();
+
+/**
+ * @return int
+ */
+	protected abstract function _getPlatformId();
 
 /**
  * @param string $username
@@ -58,11 +92,29 @@ abstract class GoogleAnalyticsAuthManager extends MediaPlatformAuthManager {
  * @return GoogleAnalyticsAuthContainer
  */
 	public function getAuthContainer($userId) {
+		$this->_setTokenOnClient($userId);
+		$authContainer = $this->_getContainer();
+		$authContainer->client = $this->_client;
+		$authContainer->service = $this->_service;
+		$authContainer->userId = $userId;
+		return $authContainer;
+	}
+
+/**
+ * @return AuthContainer
+ */
+	protected abstract function _getContainer();
+
+/**
+ * @param $userId
+ */
+	public function _setTokenOnClient($userId) {
 		$oauthTokens = $this->MediaPlatformUser->getOauthTokens($userId);
 		if (empty($oauthTokens)) {
 			throw new NotFoundException('Could not find the oauth tokens for MediaPlatformUser #' . $userId . '.');
 		} elseif (strtotime($oauthTokens['OauthToken']['token_expires']) < (time() + 600)
-			|| Configure::read('debug') >= 1) {
+			|| Configure::read('debug') >= 1
+		) {
 			$this->_client->refreshToken($oauthTokens['OauthToken']['refresh_token']);
 			$token = json_decode($this->_client->getAccessToken());
 			$this->MediaPlatformUser->updateTokenInDatabase($oauthTokens['OauthToken']['id'], $token->access_token,
@@ -76,11 +128,5 @@ abstract class GoogleAnalyticsAuthManager extends MediaPlatformAuthManager {
 
 			$this->_client->setAccessToken($token);
 		}
-
-		$authContainer = new GoogleAnalyticsAuthContainer();
-		$authContainer->client = $this->_client;
-		$authContainer->service = $this->_service;
-		return $authContainer;
 	}
-
 }

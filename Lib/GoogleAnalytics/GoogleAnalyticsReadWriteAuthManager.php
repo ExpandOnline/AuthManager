@@ -1,11 +1,11 @@
 <?php
 App::import('Vendor','google/apiclient/src/Google/autoload');
-App::uses('GoogleAnalyticsAuthManager','AuthManager.Lib/GoogleAnalytics');
+App::uses('GoogleAuthManager','AuthManager.Lib/GoogleAnalytics');
 
 /**
  * Class GoogleAnalyticsReadWriteAuthManager
  */
-class GoogleAnalyticsReadWriteAuthManager extends GoogleAnalyticsAuthManager {
+class GoogleAnalyticsReadWriteAuthManager extends GoogleAuthManager {
 
 /**
  * @var string
@@ -44,6 +44,15 @@ class GoogleAnalyticsReadWriteAuthManager extends GoogleAnalyticsAuthManager {
 	}
 
 /**
+ * Get the username for the authenticated user.
+ * @return mixed
+ */
+	protected function _getUserName() {
+		$webProperties = $this->_service->management_webproperties->listManagementWebproperties("~all");
+		return $webProperties['username'];
+	}
+
+	/**
  * Set the google service.
  */
 	protected function _setGoogleService() {
@@ -51,28 +60,17 @@ class GoogleAnalyticsReadWriteAuthManager extends GoogleAnalyticsAuthManager {
 	}
 
 /**
- * Get the authentication URL.
- *
- * @return string
+ * @return int
  */
-	public function getAuthUrl() {
-		return $this->_client->createAuthUrl();
+	protected function _getPlatformId() {
+		return MediaPlatform::GOOGLE_ANALYTICS_READWRITE;
 	}
 
 /**
- * @param array $request
- *
- * @return bool
+ * @return GoogleAnalyticsAuthContainer
  */
-	public function authenticateUser($request) {
-		$data = $request->query;
-		if (!array_key_exists('code', $data)) {
-			return false;
-		}
-		$authenticationData = $this->_getOauthTokens($data['code']);
-		$webProperties = $this->_service->management_webproperties->listManagementWebproperties("~all");
-
-		return $this->_saveUser($webProperties->username, $authenticationData, MediaPlatform::GOOGLE_ANALYTICS_READWRITE);
+	protected function _getContainer() {
+		return new GoogleAnalyticsAuthContainer();
 	}
 
 }
