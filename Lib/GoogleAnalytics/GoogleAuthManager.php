@@ -96,6 +96,7 @@ abstract class GoogleAuthManager extends MediaPlatformAuthManager {
 		$authContainer = $this->_getContainer();
 		$authContainer->client = $this->_client;
 		$authContainer->service = $this->_service;
+		$authContainer->userId = $userId;
 		return $authContainer;
 	}
 

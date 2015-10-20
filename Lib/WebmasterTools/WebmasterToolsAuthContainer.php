@@ -2,7 +2,6 @@
 App::uses('AuthContainer', 'AuthManager.Lib');
 
 /**
- * Class ExampleMediaPlatformAuthContainer
  *
  * This class will be returned to dependencies of the AuthManager plugin.
  * The authenticated API object will be stored by this class and used by the dependencies to communicate
