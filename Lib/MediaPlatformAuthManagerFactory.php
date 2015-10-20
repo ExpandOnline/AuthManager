@@ -3,6 +3,7 @@ App::uses('GoogleAnalyticsReadWriteAuthManager','AuthManager.Lib/GoogleAnalytics
 App::uses('GoogleAnalyticsReadOnlyAuthManager','AuthManager.Lib/GoogleAnalytics');
 App::uses('FacebookAdsAuthManager','AuthManager.Lib/Facebook');
 App::uses('BitlyAuthManager','AuthManager.Lib/Bitly');
+App::uses('WebmasterToolsAuthManager','AuthManager.Lib/WebmasterTools');
 App::uses('MediaPlatform','AuthManager.Model');
 
 /**
@@ -19,6 +20,7 @@ class MediaPlatformAuthManagerFactory {
 		MediaPlatform::GOOGLE_ANALYTICS_READWRITE => 'GoogleAnalyticsReadWriteAuthManager',
 		MediaPlatform::FACEBOOK_ADS => 'FacebookAdsAuthManager',
 		MediaPlatform::BITLY => 'BitlyAuthManager',
+		MediaPlatform::WEBMASTER_TOOLS => 'WebmasterToolsAuthManager'
 	);
 
 /**
@@ -36,7 +38,14 @@ class MediaPlatformAuthManagerFactory {
 		if (!class_exists($className)) {
 			throw new Exception('Could not find class \'' . $className . '\'.');
 		}
-
 		return new $className();
 	}
+
+/**
+ * @return int
+ */
+	protected function _getPlatformId() {
+		return MediaPlatform::GOOGLE_ANALYTICS_READONLY;
+	}
+
 }

@@ -6,7 +6,7 @@ App::uses('GoogleAnalyticsAuthManager','AuthManager.Lib/GoogleAnalytics');
 /**
  * Class GoogleAnalyticsReadOnlyAuthManager
  */
-class GoogleAnalyticsReadOnlyAuthManager extends GoogleAnalyticsAuthManager {
+class GoogleAnalyticsReadOnlyAuthManager extends GoogleAuthManager {
 
 /**
  * Setup the Google Analytics API version from december 2013.
@@ -17,15 +17,6 @@ class GoogleAnalyticsReadOnlyAuthManager extends GoogleAnalyticsAuthManager {
 		parent::__construct();
 		$this->_client = new Google_Client();
 		$this->_service = new Google_AnalyticsService($this->_client);
-	}
-
-/**
- * Get the authorization URL to redirect to.
- *
- * @return string
- */
-	public function getAuthUrl() {
-		return $this->_client->createAuthUrl();
 	}
 
 /**
@@ -40,8 +31,14 @@ class GoogleAnalyticsReadOnlyAuthManager extends GoogleAnalyticsAuthManager {
 		}
 		$oauthTokens = $this->_getOauthTokens($data['code']);
 		$webProperties = $this->_service->management_webproperties->listManagementWebproperties("~all");
-
 		return $this->_saveUser($webProperties['username'], $oauthTokens, MediaPlatform::GOOGLE_ANALYTICS_READONLY);
+	}
+
+/**
+ * @return int
+ */
+	protected function _getPlatformId() {
+		return MediaPlatform::WEBMASTER_TOOLS;
 	}
 
 }

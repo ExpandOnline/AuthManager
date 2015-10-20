@@ -8,6 +8,16 @@ App::uses('AuthManagerAppModel', 'AuthManager.Model');
  */
 class MediaPlatform extends AuthManagerAppModel {
 
+
+/**
+ * Implemented media platforms.
+ */
+	const GOOGLE_ANALYTICS_READONLY = 1;
+	const GOOGLE_ANALYTICS_READWRITE = 2;
+	const FACEBOOK_ADS = 3;
+	const BITLY = 4;
+	const WEBMASTER_TOOLS = 5;
+
 /**
  * The table is prefixed with 'auth_manager'.
  * @var string
@@ -38,13 +48,6 @@ class MediaPlatform extends AuthManagerAppModel {
 		)
 	);
 
-/**
- * Implemented media platforms.
- */
-	const GOOGLE_ANALYTICS_READONLY = 1;
-	const GOOGLE_ANALYTICS_READWRITE = 2;
-	const FACEBOOK_ADS = 3;
-	const BITLY = 4;
 
 /**
  * @return array|null

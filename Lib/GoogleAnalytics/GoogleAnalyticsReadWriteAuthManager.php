@@ -5,7 +5,7 @@ App::uses('GoogleAnalyticsAuthManager','AuthManager.Lib/GoogleAnalytics');
 /**
  * Class GoogleAnalyticsReadWriteAuthManager
  */
-class GoogleAnalyticsReadWriteAuthManager extends GoogleAnalyticsAuthManager {
+class GoogleAnalyticsReadWriteAuthManager extends GoogleAuthManager {
 
 /**
  * @var string
@@ -44,23 +44,7 @@ class GoogleAnalyticsReadWriteAuthManager extends GoogleAnalyticsAuthManager {
 	}
 
 /**
- * Set the google service.
- */
-	protected function _setGoogleService() {
-		$this->_service = new Google_Service_Analytics($this->_client);
-	}
-
-/**
- * Get the authentication URL.
- *
- * @return string
- */
-	public function getAuthUrl() {
-		return $this->_client->createAuthUrl();
-	}
-
-/**
- * @param array $request
+ * @param CakeRequest $request
  *
  * @return bool
  */
@@ -69,10 +53,23 @@ class GoogleAnalyticsReadWriteAuthManager extends GoogleAnalyticsAuthManager {
 		if (!array_key_exists('code', $data)) {
 			return false;
 		}
-		$authenticationData = $this->_getOauthTokens($data['code']);
+		$oauthTokens = $this->_getOauthTokens($data['code']);
 		$webProperties = $this->_service->management_webproperties->listManagementWebproperties("~all");
+		return $this->_saveUser($webProperties['username'], $oauthTokens, $this->_getPlatformId());
+	}
 
-		return $this->_saveUser($webProperties->username, $authenticationData, MediaPlatform::GOOGLE_ANALYTICS_READWRITE);
+/**
+ * Set the google service.
+ */
+	protected function _setGoogleService() {
+		$this->_service = new Google_Service_Analytics($this->_client);
+	}
+
+/**
+ * @return int
+ */
+	protected function _getPlatformId() {
+		return MediaPlatform::GOOGLE_ANALYTICS_READWRITE;
 	}
 
 }
