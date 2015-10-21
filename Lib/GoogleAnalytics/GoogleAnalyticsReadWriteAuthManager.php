@@ -1,6 +1,6 @@
 <?php
 App::import('Vendor','google/apiclient/src/Google/autoload');
-App::uses('GoogleAuthManager','AuthManager.Lib/GoogleAnalytics');
+App::uses('GoogleAuthManager','AuthManager.Lib/Google');
 
 /**
  * Class GoogleAnalyticsReadWriteAuthManager
@@ -13,37 +13,6 @@ class GoogleAnalyticsReadWriteAuthManager extends GoogleAuthManager {
 	protected $_configFile;
 
 /**
- * Set the google client and service.
- */
-	public function __construct() {
-		parent::__construct();
-		$this->_configFile = CakePlugin::path('AuthManager') . 'Config' . DS . 'API' . DS . 'googleAnalyticsReadWrite.json';
-		$this->_setGoogleClient();
-		$this->_setGoogleService();
-	}
-
-/**
- * Set the google client.
- */
-	protected function _setGoogleClient() {
-		$googleClient = new Google_Client();
-		$googleClient->setAuthConfigFile($this->_configFile);
-		$googleClient->addScope(Google_Service_Analytics::ANALYTICS_EDIT);
-		$googleClient->setRedirectUri(Router::url(array(
-			'plugin' => 'auth_manager',
-			'controller' => 'media_platform_users',
-			'action' => 'callback',
-			MediaPlatform::GOOGLE_ANALYTICS_READWRITE
-		), true));
-
-		// This will force Google to always return the refresh_token.
-		$googleClient->setAccessType('offline');
-		$googleClient->setApprovalPrompt('force');
-
-		$this->_client = $googleClient;
-	}
-
-/**
  * Get the username for the authenticated user.
  * @return mixed
  */
@@ -52,7 +21,7 @@ class GoogleAnalyticsReadWriteAuthManager extends GoogleAuthManager {
 		return $webProperties['username'];
 	}
 
-	/**
+/**
  * Set the google service.
  */
 	protected function _setGoogleService() {
@@ -67,10 +36,19 @@ class GoogleAnalyticsReadWriteAuthManager extends GoogleAuthManager {
 	}
 
 /**
- * @return GoogleAnalyticsAuthContainer
+ * @return array
  */
-	protected function _getContainer() {
-		return new GoogleAnalyticsAuthContainer();
+	protected function _getScopes() {
+		return array(
+			Google_Service_Analytics::ANALYTICS_EDIT
+		);
+	}
+
+/**
+ * @return string
+ */
+	protected function _getConfigFilePath() {
+		return CakePlugin::path('AuthManager') . 'Config' . DS . 'API' . DS . 'googleAnalyticsReadWrite.json';
 	}
 
 }
