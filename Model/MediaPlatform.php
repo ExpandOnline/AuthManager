@@ -17,6 +17,7 @@ class MediaPlatform extends AuthManagerAppModel {
 	const FACEBOOK_ADS = 3;
 	const BITLY = 4;
 	const WEBMASTER_TOOLS = 5;
+	const TAG_MANAGER = 6;
 
 /**
  * The table is prefixed with 'auth_manager'.

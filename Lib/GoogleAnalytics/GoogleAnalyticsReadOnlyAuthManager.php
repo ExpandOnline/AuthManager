@@ -1,7 +1,7 @@
 <?php
 App::import('Vendor','expandonline/google-api-php-client/src/Google_Client');
 App::import('Vendor','expandonline/google-api-php-client/src/contrib/Google_AnalyticsService');
-App::uses('GoogleAuthManager','AuthManager.Lib/GoogleAnalytics');
+App::uses('GoogleAuthManager','AuthManager.Lib/Google');
 
 /**
  * Class GoogleAnalyticsReadOnlyAuthManager
@@ -9,25 +9,13 @@ App::uses('GoogleAuthManager','AuthManager.Lib/GoogleAnalytics');
 class GoogleAnalyticsReadOnlyAuthManager extends GoogleAuthManager {
 
 /**
- * Setup the Google Analytics API version from december 2013.
- * The API version from 2013 uses the config.php located in the vendor map.
- * TODO: Upgrade this to the latest API version.
+ * Get the username for the authenticated user.
+ * @return mixed
  */
-	public function __construct() {
-		parent::__construct();
-		$this->_client = new Google_Client();
-		$this->_service = new Google_AnalyticsService($this->_client);
-	}
-
-	/**
-	 * Get the username for the authenticated user.
-	 * @return mixed
-	 */
 	protected function _getUserName() {
 		$webProperties = $this->_service->management_webproperties->listManagementWebproperties("~all");
 		return $webProperties['username'];
 	}
-
 
 /**
  * @return int
@@ -37,10 +25,34 @@ class GoogleAnalyticsReadOnlyAuthManager extends GoogleAuthManager {
 	}
 
 /**
- * @return GoogleAnalyticsAuthContainer
+ * @return array
  */
-	protected function _getContainer() {
-		return new GoogleAnalyticsAuthContainer();
+	protected function _getScopes() {
+		return array(
+			Google_Service_Analytics::ANALYTICS_READONLY
+		);
 	}
+
+/**
+ *	Old analytics uses a default config file.
+ */
+	protected function _setGoogleClient() {
+		$this->_client = new Google_Client();
+	}
+
+/**
+ *
+ */
+	protected function _setGoogleService() {
+		$this->_service = new Google_AnalyticsService($this->_client);
+	}
+
+/**
+ *
+ */
+	protected function _getConfigFilePath() {
+		throw new InternalErrorException('Analytics ReadOnly does not use a config file.');
+	}
+
 
 }
