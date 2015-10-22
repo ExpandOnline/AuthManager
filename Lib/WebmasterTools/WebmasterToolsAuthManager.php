@@ -51,7 +51,7 @@ class WebmasterToolsAuthManager extends GoogleAuthManager {
  * @return int
  */
 	public function _getPlatformId() {
-		return MediaPlatform::TagManager;
+		return MediaPlatform::WEBMASTER_TOOLS;
 	}
 
 

@@ -6,7 +6,7 @@ App::uses('MediaPlatformAuthManager','AuthManager.Lib');
 /**
  * Class ExampleMediaPlatformAuthManager
  */
-class WebmasterToolsAuthManager extends GoogleAuthManager {
+class TagManagerAuthManager extends GoogleAuthManager {
 
 	/**
 	 * @var string
@@ -35,7 +35,7 @@ class WebmasterToolsAuthManager extends GoogleAuthManager {
 	protected function _getScopes() {
 		return array(
 			Google_Service_Plus::USERINFO_EMAIL,
-			Google_Service_Tagmanager::TAGMANAGER_READONLY,
+			Google_Service_TagManager::TAGMANAGER_READONLY,
 		);
 	}
 
@@ -43,14 +43,14 @@ class WebmasterToolsAuthManager extends GoogleAuthManager {
 	 * Set the Google Service
 	 */
 	protected function _setGoogleService() {
-		$this->_service = new Google_Service_Tagmanager($this->_client);
+		$this->_service = new Google_Service_TagManager($this->_client);
 	}
 
 	/**
 	 * @return int
 	 */
 	public function _getPlatformId() {
-		return MediaPlatform::WEBMASTER_TOOLS;
+		return MediaPlatform::TAG_MANAGER;
 	}
 
 
