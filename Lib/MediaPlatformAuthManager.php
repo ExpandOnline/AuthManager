@@ -81,4 +81,16 @@ abstract class MediaPlatformAuthManager {
 		), true);
 	}
 
+/**
+ * Allows us to test protected methods in unit tests.
+ *
+ * @param       $methodName
+ * @param array $args
+ *
+ * @return mixed
+ */
+	public function testProtected($methodName, array $args) {
+		return call_user_func_array(array($this, $methodName), $args);
+	}
+
 }
