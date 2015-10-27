@@ -73,6 +73,28 @@ class FacebookAdsAuthManager extends MediaPlatformAuthManager {
 	}
 
 /**
+ * @param                                      $username
+ * @param \Facebook\Authentication\AccessToken $accessToken
+ * @param                                      $mediaPlatformId
+ *
+ * @return mixed
+ */
+	protected function _saveUser($username, $accessToken, $mediaPlatformId) {
+		$saveData = array(
+			'MediaPlatformUser' => array(
+				'username' => $username,
+				'media_platform_id' => $mediaPlatformId
+			),
+			'OauthToken' => array(
+				'access_token' => $accessToken->getValue(),
+				'token_expires' => $accessToken->getExpiresAt()->format('Y-m-d H:i:s')
+			)
+		);
+
+		return $this->MediaPlatformUser->saveOauthUser($saveData);
+	}
+
+/**
  * @return bool|\Facebook\Authentication\AccessToken|null
  * @throws Exceptions\FacebookSDKException
  */
