@@ -164,8 +164,28 @@ class FacebookAdsAuthManager extends MediaPlatformAuthManager {
 			Configure::read('FacebookAds.app_secret'),
 			$oauthTokens['OauthToken']['access_token']
 		);
+		$this->_sendEventIfTokenExpiresInTwoWeeks($userId, $oauthTokens['OauthToken']['token_expires']);
 
 		return $facebookAuthContainer;
+	}
+
+
+/**
+ * @param int $userId
+ * @param string $tokenExpiresAt
+ *
+ * @return bool
+ */
+	protected function _sendEventIfTokenExpiresInTwoWeeks($userId, $tokenExpiresAt) {
+		if (strtotime($tokenExpiresAt) > strtotime('+2 weeks')) {
+			return false;
+		}
+		$event = new CakeEvent('AuthManager.FacebookAdsAuthManager.tokenExpiresInTwoWeeks', $this, array(
+			'media_platform_user_id' => $userId
+		));
+		CakeEventManager::instance()->dispatch($event);
+
+		return true;
 	}
 
 }
