@@ -7,6 +7,9 @@ Currently supported authentication methods:
 Supported media platforms:
 - Google Analytics
 - Facebook Ads
+- Bitly
+- Google Tag Manager
+- Google Webmaster Tools
 
 Adding a new Media Platform
 ---
