@@ -1,10 +1,11 @@
 <?php
 App::uses('GoogleAnalyticsReadWriteAuthManager','AuthManager.Lib/GoogleAnalytics');
 App::uses('GoogleAnalyticsReadOnlyAuthManager','AuthManager.Lib/GoogleAnalytics');
-App::uses('FacebookAdsAuthManager','AuthManager.Lib/Facebook');
-App::uses('BitlyAuthManager','AuthManager.Lib/Bitly');
 App::uses('WebmasterToolsAuthManager','AuthManager.Lib/WebmasterTools');
 App::uses('TagManagerAuthManager','AuthManager.Lib/TagManager');
+App::uses('FacebookAdsAuthManager','AuthManager.Lib/Facebook');
+App::uses('BitlyAuthManager','AuthManager.Lib/Bitly');
+App::uses('BingAdsAuthManager','AuthManager.Lib/BingAds');
 App::uses('MediaPlatform','AuthManager.Model');
 
 /**
@@ -22,7 +23,8 @@ class MediaPlatformAuthManagerFactory {
 		MediaPlatform::FACEBOOK_ADS => 'FacebookAdsAuthManager',
 		MediaPlatform::BITLY => 'BitlyAuthManager',
 		MediaPlatform::WEBMASTER_TOOLS => 'WebmasterToolsAuthManager',
-		MediaPlatform::TAG_MANAGER => 'TagManagerAuthManager'
+		MediaPlatform::TAG_MANAGER => 'TagManagerAuthManager',
+		MediaPlatform::BING_ADS => 'BingAdsAuthManager',
 	);
 
 /**

@@ -10,6 +10,7 @@ Supported media platforms:
 - Bitly
 - Google Tag Manager
 - Google Webmaster Tools
+- Bing Ads
 
 Adding a new Media Platform
 ---

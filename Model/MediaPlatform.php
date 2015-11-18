@@ -18,6 +18,7 @@ class MediaPlatform extends AuthManagerAppModel {
 	const BITLY = 4;
 	const WEBMASTER_TOOLS = 5;
 	const TAG_MANAGER = 6;
+	const BING_ADS = 7;
 
 /**
  * The table is prefixed with 'auth_manager'.

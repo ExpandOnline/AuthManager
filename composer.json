@@ -12,6 +12,8 @@
     "google/apiclient": "v1.1.4",
     "facebook/php-ads-sdk": "2.4.*",
     "facebook/php-sdk-v4": "~5.0",
-    "ExpandOnline/bitly-api-php": "dev-master"
+    "ExpandOnline/bitly-api-php": "dev-master",
+    "league/oauth2-client": "0.12.1",
+    "ExpandOnline/bing-ads-sdk-php": "dev-master"
   }
 }

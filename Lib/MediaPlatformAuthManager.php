@@ -64,6 +64,7 @@ abstract class MediaPlatformAuthManager {
 				'access_token' => $accessToken
 			)
 		);
+
 		return $this->MediaPlatformUser->saveOauthUser($saveData);
 	}
 
@@ -91,6 +92,16 @@ abstract class MediaPlatformAuthManager {
  */
 	public function testProtected($methodName, array $args) {
 		return call_user_func_array(array($this, $methodName), $args);
+	}
+
+/**
+ * @param $timeStamp
+ * @param $in
+ *
+ * @return bool
+ */
+	protected function _expiresIn($timeStamp, $in) {
+		return $timeStamp < (time() + $in);
 	}
 
 }
