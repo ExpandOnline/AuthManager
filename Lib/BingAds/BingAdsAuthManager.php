@@ -52,19 +52,32 @@ class BingAdsAuthManager extends MediaPlatformAuthManager {
 			return false;
 		}
 
-		try {
-			/**
-			 * @var \League\OAuth2\Client\Token\AccessToken $tokens
-			 */
-			$tokens = $this->_microsoftProvider->getAccessToken('authorization_code', [
-				'code' => $request->query['code']
-			]);
-		} catch (Exception $e) {
+		/**
+		 * @var \League\OAuth2\Client\Token\AccessToken|boolean $tokens
+		 */
+		$tokens = $this->_getAccessToken($request);
+		if (!$tokens) {
 			return false;
 		}
 		$username = $this->_getUsername($tokens->accessToken);
 
 		return $this->_saveUser($username, $tokens, MediaPlatform::BING_ADS);
+	}
+
+/**
+ * @param $request
+ *
+ * @return mixed
+ * @throws \League\OAuth2\Client\Exception\IDPException
+ */
+	protected function _getAccessToken($request) {
+		try {
+			return $this->_microsoftProvider->getAccessToken('authorization_code', [
+				'code' => $request->query['code']
+			]);
+		} catch (Exception $e) {
+			return false;
+		}
 	}
 
 /**
