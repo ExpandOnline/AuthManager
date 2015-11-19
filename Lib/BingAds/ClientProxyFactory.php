@@ -9,11 +9,6 @@ class ClientProxyFactory {
 /**
  * @var string
  */
-	protected $_apiVersion = BingAdsApi::VERSION_10;
-
-/**
- * @var string
- */
 	protected $_accessToken;
 
 /**
@@ -21,57 +16,55 @@ class ClientProxyFactory {
  */
 	protected $_developerToken;
 
+	protected $_clientProxies = [
+		BingAdsApi::VERSION_9 => '\BingAds\v9\Proxy\ClientProxy',
+		BingAdsApi::VERSION_10 => '\BingAds\v10\Proxy\ClientProxy',
+	];
+
 /**
- * @param $endPoint
+ * @param        $endPoint
+ * @param string $apiVersion
  *
  * @return \BingAds\v10\Proxy\ClientProxy|\BingAds\v9\Proxy\ClientProxy
  */
-	public function createClientProxy($endPoint) {
-		$wsdl = $this->_buildWsdl($endPoint);
-		if ($this->_apiVersion == BingAdsApi::VERSION_9) {
-			return \BingAds\v9\Proxy\ClientProxy::ConstructWithCredentials(
-				$wsdl,
-				null,
-				null,
-				$this->_developerToken,
-				$this->_accessToken
-			);
-		} elseif ($this->_apiVersion == BingAdsApi::VERSION_10) {
-			return \BingAds\v10\Proxy\ClientProxy::ConstructWithCredentials(
-				$wsdl,
-				null,
-				null,
-				$this->_developerToken,
-				$this->_accessToken
-			);
-		}
+	public function createClientProxy($endPoint, $apiVersion = BingAdsApi::VERSION_10) {
+		$wsdl = $this->_buildWsdl($endPoint, $apiVersion);
+		return forward_static_call(array($this->_clientProxies[$apiVersion], 'ConstructWithCredentials'),
+			$wsdl,
+			null,
+			null,
+			$this->_developerToken,
+			$this->_accessToken
+		);
+	}
+
+/**
+ * @param        $endPoint
+ * @param        $accountId
+ * @param string $apiVersion
+ *
+ * @return \BingAds\v10\Proxy\ClientProxy|\BingAds\v9\Proxy\ClientProxy
+ */
+	public function createClientProxyWithAccountId($endPoint, $accountId, $apiVersion = BingAdsApi::VERSION_10) {
+		$wsdl = $this->_buildWsdl($endPoint, $apiVersion);
+		return forward_static_call(array($this->_clientProxies[$apiVersion], 'ConstructWithAccountId'),
+			$wsdl,
+			null,
+			null,
+			$this->_developerToken,
+			$accountId,
+			$this->_accessToken
+		);
 	}
 
 /**
  * @param $endPoint
+ * @param $apiVersion
  *
  * @return string
  */
-	protected function _buildWsdl($endPoint) {
-		return sprintf(BingAdsApi::$wsdlEndPoints[$endPoint], $this->_apiVersion);
-	}
-
-/**
- * @return string
- */
-	public function getApiVersion() {
-		return $this->_apiVersion;
-	}
-
-/**
- * @param string $apiVersion
- *
- * @return ClientProxyFactory
- */
-	public function setApiVersion($apiVersion) {
-		$this->_apiVersion = $apiVersion;
-
-		return $this;
+	protected function _buildWsdl($endPoint, $apiVersion) {
+		return sprintf(BingAdsApi::$wsdlEndPoints[$endPoint], $apiVersion);
 	}
 
 /**

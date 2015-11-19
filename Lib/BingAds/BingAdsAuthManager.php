@@ -1,6 +1,7 @@
 <?php
 App::uses('BingAdsAuthContainer','AuthManager.Lib/BingAds');
 App::uses('ClientProxyFactory','AuthManager.Lib/BingAds');
+App::uses('BingAdsApiWrapper','AuthManager.Lib/BingAds');
 App::uses('MediaPlatformAuthManager','AuthManager.Lib');
 App::uses('BingAdsApi','AuthManager.Lib/BingAds');
 use League\OAuth2\Client\Provider\Microsoft;
@@ -86,23 +87,10 @@ class BingAdsAuthManager extends MediaPlatformAuthManager {
  * @return string
  */
 	protected function _getUsername($accessToken) {
-		$clientProxy = $this->_getClientProxy(BingAdsApi::CUSTOMER_ENDPOINT, $accessToken, BingAdsApi::VERSION_9);
-		$request = new \BingAds\v9\CustomerManagement\GetUserRequest();
-		$user = $clientProxy->GetService()->GetUser($request)->User;
+		$bingAdsApiWrapper = new BingAdsApiWrapper($this->_getClientProxyFactory($accessToken));
+		$user = $bingAdsApiWrapper->getUser();
 
 		return $user->UserName;
-	}
-
-/**
- * @param $endPoint
- * @param $accessToken
- * @param $apiVersion
- *
- * @return \BingAds\v10\Proxy\ClientProxy|\BingAds\v9\Proxy\ClientProxy
- */
-	protected function _getClientProxy($endPoint, $accessToken, $apiVersion) {
-		$clientProxyFactory = $this->_getClientProxyFactory($accessToken, $apiVersion);
-		return $clientProxyFactory->createClientProxy($endPoint);
 	}
 
 /**
@@ -111,11 +99,10 @@ class BingAdsAuthManager extends MediaPlatformAuthManager {
  *
  * @return ClientProxyFactory
  */
-	protected function _getClientProxyFactory($accessToken, $apiVersion = BingAdsApi::VERSION_10) {
+	protected function _getClientProxyFactory($accessToken) {
 		$developerToken = Configure::read('BingAds.developer_token');
 		$clientProxyFactory = new ClientProxyFactory();
 		$clientProxyFactory->setAccessToken($accessToken);
-		$clientProxyFactory->setApiVersion($apiVersion);
 		$clientProxyFactory->setDeveloperToken($developerToken);
 
 		return $clientProxyFactory;
@@ -161,9 +148,9 @@ class BingAdsAuthManager extends MediaPlatformAuthManager {
 
 		$bingAdsAuthContainer = new BingAdsAuthContainer();
 		$bingAdsAuthContainer->microsoftProvider = $this->_microsoftProvider;
-		$bingAdsAuthContainer->clientProxyFactory = $this->_getClientProxyFactory(
+		$bingAdsAuthContainer->bingAdsApi = new BingAdsApiWrapper($this->_getClientProxyFactory(
 			$oauthTokens['OauthToken']['access_token']
-		);
+		));
 
 		return $bingAdsAuthContainer;
 	}

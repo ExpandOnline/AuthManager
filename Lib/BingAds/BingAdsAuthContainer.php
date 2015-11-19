@@ -12,8 +12,8 @@ class BingAdsAuthContainer extends AuthContainer {
 	public $microsoftProvider;
 
 /**
- * @var
+ * @var BingAdsApiWrapper
  */
-	public $clientProxyFactory;
+	public $bingAdsApi;
 
 }

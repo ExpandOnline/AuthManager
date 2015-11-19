@@ -15,13 +15,16 @@ class BingAdsApi {
  * Endpoints
  */
 	const CUSTOMER_ENDPOINT = 1;
+	const CAMPAIGN_ENDPOINT = 2;
 
 /**
  * @var array
  */
 	public static $wsdlEndPoints = [
 		BingAdsApi::CUSTOMER_ENDPOINT
-			=> 'https://clientcenter.api.bingads.microsoft.com/Api/CustomerManagement/%s/CustomerManagementService.svc?singleWsdl'
+			=> 'https://clientcenter.api.bingads.microsoft.com/Api/CustomerManagement/%s/CustomerManagementService.svc?singleWsdl',
+		BingAdsApi::CAMPAIGN_ENDPOINT
+			=> 'https://campaign.api.bingads.microsoft.com/Api/Advertiser/CampaignManagement/%s/CampaignManagementService.svc?singleWsdl'
 	];
 
 }
