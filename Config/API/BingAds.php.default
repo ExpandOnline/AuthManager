@@ -1,0 +1,9 @@
+<?php
+$config = array (
+	'BingAds' =>
+		array (
+			'client_id' => '',
+			'client_secret' => '',
+			'developer_token' => ''
+		),
+);

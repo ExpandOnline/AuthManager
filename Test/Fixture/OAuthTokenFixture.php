@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class MediaPlatformUserFixture
+ * Class OAuthTokenFixture
  */
 class OAuthTokenFixture extends CakeTestFixture {
 

@@ -14,7 +14,7 @@ class WebmasterToolsAuthManagerTest extends CakeTestCase {
  */
 	public $fixtures = array(
 		'plugin.AuthManager.MediaPlatformUser',
-		'plugin.AuthManager.OauthToken'
+		'plugin.AuthManager.OAuthToken'
 	);
 
 /**
