@@ -24,11 +24,12 @@ class BingAdsAuthManagerTest extends CakeTestCase {
 			'_getAccessToken',
 			'_getUsername'
 		), array(), '', false);
+		$date = date('Y-m-d H:i:s', strtotime('+1 hour'));
 		$manager->MediaPlatformUser = $MediaPlatformUser;
 		$options = [
 			'access_token' => '1234',
 			'refresh_token' => '4321',
-			'expires' => strtotime('2015-11-18 17:00'),
+			'expires' => strtotime($date),
 		];
 		$accessToken = new League\OAuth2\Client\Token\AccessToken($options);
 		$manager->expects($this->once())->method('_getAccessToken')->will($this->returnValue($accessToken));
@@ -48,7 +49,7 @@ class BingAdsAuthManagerTest extends CakeTestCase {
 
 		$this->assertEquals(MediaPlatform::BING_ADS, $user['MediaPlatformUser']['media_platform_id']);
 		$this->assertEquals('Michael van Tricht', $user['MediaPlatformUser']['username']);
-		$this->assertEquals('2015-11-18 17:00:00', $user['OauthToken']['token_expires']);
+		$this->assertEquals($date, $user['OauthToken']['token_expires']);
 		$this->assertEquals('1234', $user['OauthToken']['access_token']);
 		$this->assertEquals('4321', $user['OauthToken']['refresh_token']);
 	}
