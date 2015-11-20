@@ -32,7 +32,10 @@ class BingAdsApiWrapper {
 		$request = new \BingAds\v9\CustomerManagement\GetUserRequest();
 		$request->UserId = $userId;
 
-		return $clientProxy->GetService()->GetUser($request)->User;
+		return $this->_returnIfPropertyMissing(
+			$clientProxy->GetService()->GetUser($request),
+			'User'
+		);
 	}
 
 /**
@@ -47,7 +50,7 @@ class BingAdsApiWrapper {
 		$request->CustomerId = $customerId;
 		$request->OnlyParentAccounts = $onlyParentAccounts;
 
-		return $this->_returnEmptyArrayIfPropertyMissing(
+		return $this->_returnIfPropertyMissing(
 			$clientProxy->GetService()->GetAccountsInfo($request)->AccountsInfo,
 			'AccountInfo'
 		);
@@ -63,7 +66,7 @@ class BingAdsApiWrapper {
 		$request = new \BingAds\v9\CustomerManagement\GetAccountRequest();
 		$request->AccountId = $id;
 
-		return $this->_returnEmptyArrayIfPropertyMissing(
+		return $this->_returnIfPropertyMissing(
 			$clientProxy->GetService()->GetAccount($request),
 			'Account'
 		);
@@ -84,21 +87,70 @@ class BingAdsApiWrapper {
 		$request->AccountId = $id;
 		$request->CampaignType = $campaignType;
 
-		return $this->_returnEmptyArrayIfPropertyMissing(
+		return $this->_returnIfPropertyMissing(
 			$clientProxy->GetService()->GetCampaignsByAccountId($request)->Campaigns,
 			'Campaign'
 		);
 	}
 
 /**
+ * @param $report
+ * @param $accountId
+ * @param $reportType
+ *
+ * @return array|bool
+ */
+	public function submitReport($report, $accountId, $reportType) {
+		$clientProxy = $this->_getClientProxyWithAccountId(
+			BingAdsApi::REPORTING_ENDPOINT,
+			$accountId,
+			BingAdsApi::VERSION_9
+		);
+		$report = new SoapVar(
+			$report, SOAP_ENC_OBJECT, $reportType, $clientProxy->GetNamespace()
+		);
+		$request = new \BingAds\v9\Reporting\SubmitGenerateReportRequest();
+		$request->ReportRequest = $report;
+
+		return $this->_returnIfPropertyMissing(
+			$clientProxy->GetService()->SubmitGenerateReport($request),
+			'ReportRequestId',
+			false
+		);
+	}
+
+/**
+ * @param $reportRequestId
+ * @param $accountId
+ *
+ * @return array|bool
+ */
+	public function pollReportRequest($reportRequestId, $accountId) {
+		$clientProxy = $this->_getClientProxyWithAccountId(
+			BingAdsApi::REPORTING_ENDPOINT,
+			$accountId,
+			BingAdsApi::VERSION_9
+		);
+		$request = new \BingAds\v9\Reporting\PollGenerateReportRequest();
+		$request->ReportRequestId = $reportRequestId;
+
+		return $this->_returnIfPropertyMissing(
+			$clientProxy->GetService()->PollGenerateReport($request),
+			'ReportRequestStatus',
+			false
+		);
+	}
+
+/**
  * @param $object
  * @param $propertyName
+ * @param $returnIfEmpty
  *
  * @return array
  */
-	protected function _returnEmptyArrayIfPropertyMissing($object, $propertyName) {
+	protected function _returnIfPropertyMissing($object, $propertyName, $returnIfEmpty = []) {
 		if (!property_exists($object, $propertyName)) {
-			return array();
+			return $returnIfEmpty;
 		}
 
 		return $object->{$propertyName};
