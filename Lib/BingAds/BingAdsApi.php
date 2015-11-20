@@ -16,6 +16,7 @@ class BingAdsApi {
  */
 	const CUSTOMER_ENDPOINT = 1;
 	const CAMPAIGN_ENDPOINT = 2;
+	const REPORTING_ENDPOINT = 3;
 
 /**
  * @var array
@@ -24,7 +25,9 @@ class BingAdsApi {
 		BingAdsApi::CUSTOMER_ENDPOINT
 			=> 'https://clientcenter.api.bingads.microsoft.com/Api/CustomerManagement/%s/CustomerManagementService.svc?singleWsdl',
 		BingAdsApi::CAMPAIGN_ENDPOINT
-			=> 'https://campaign.api.bingads.microsoft.com/Api/Advertiser/CampaignManagement/%s/CampaignManagementService.svc?singleWsdl'
+			=> 'https://campaign.api.bingads.microsoft.com/Api/Advertiser/CampaignManagement/%s/CampaignManagementService.svc?singleWsdl',
+		BingAdsApi::REPORTING_ENDPOINT
+			=> 'https://api.bingads.microsoft.com/Api/Advertiser/Reporting/%s/ReportingService.svc?singleWsdl'
 	];
 
 }
