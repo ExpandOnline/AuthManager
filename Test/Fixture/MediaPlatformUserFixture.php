@@ -22,6 +22,11 @@ class MediaPlatformUserFixture extends CakeTestFixture {
 			'id' => '1',
 			'media_platform_id' => 3,
 			'username' => 'test@test.com'
+		),
+		array(
+			'id' => '2',
+			'media_platform_id' => 3,
+			'username' => 'test@test.com'
 		)
 	);
 
