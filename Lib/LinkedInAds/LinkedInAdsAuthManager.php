@@ -1,6 +1,6 @@
 <?php
 App::uses('MediaPlatformAuthManager','AuthManager.Lib');
-App::uses('ExampleMediaPlatformAuthContainer','AuthManager.Lib/Facebook');
+App::uses('LinkedInAdsAuthContainer','AuthManager.Lib/LinkedInAds');
 
 /**
  * Class LinkedInAdsAuthManager
