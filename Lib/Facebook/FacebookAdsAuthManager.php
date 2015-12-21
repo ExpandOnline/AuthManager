@@ -87,7 +87,7 @@ class FacebookAdsAuthManager extends MediaPlatformAuthManager {
 			),
 			'OauthToken' => array(
 				'access_token' => $accessToken->getValue(),
-				'token_expires' => $accessToken->getExpiresAt()->format('Y-m-d H:i:s')
+				'token_expires' => $this->_getExpirationDate($accessToken)
 			)
 		);
 
@@ -186,6 +186,21 @@ class FacebookAdsAuthManager extends MediaPlatformAuthManager {
 		CakeEventManager::instance()->dispatch($event);
 
 		return true;
+	}
+
+	/**
+	 * @param $accessToken
+	 *
+	 * @return mixed
+	 */
+	protected function _getExpirationDate($accessToken) {
+		$expirationDate = $accessToken->getExpiresAt();
+		// If getExpiresAt is null, it means the token will never expire!
+		if (is_null($expirationDate)) {
+			$expirationDate = new DateTime('+10 years');
+		}
+
+		return $expirationDate->format('Y-m-d H:i:s');
 	}
 
 }
