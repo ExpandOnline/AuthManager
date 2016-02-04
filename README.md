@@ -11,6 +11,7 @@ Supported media platforms:
 - Google Tag Manager
 - Google Webmaster Tools
 - Bing Ads
+- DoubleClick (DCM/DFA Reporting and Trafficking API)
 
 Adding a new Media Platform
 ---

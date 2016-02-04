@@ -20,6 +20,7 @@ class MediaPlatform extends AuthManagerAppModel {
 	const TAG_MANAGER = 6;
 	const BING_ADS = 7;
 	const LINKED_IN_ADS = 8;
+	const DOUBLE_CLICK = 9;
 
 /**
  * The table is prefixed with 'auth_manager'.

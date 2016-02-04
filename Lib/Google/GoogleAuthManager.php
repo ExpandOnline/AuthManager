@@ -22,7 +22,7 @@ abstract class GoogleAuthManager extends MediaPlatformAuthManager {
 	protected $_client;
 
 /**
- * @var Google_AnalyticsService|Google_Service_Analytics
+ * @var Google_AnalyticsService|Google_Service_Analytics|Google_Service_Dfareporting
  */
 	protected $_service;
 

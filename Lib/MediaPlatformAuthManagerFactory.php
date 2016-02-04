@@ -2,9 +2,10 @@
 App::uses('GoogleAnalyticsReadWriteAuthManager','AuthManager.Lib/GoogleAnalytics');
 App::uses('GoogleAnalyticsReadOnlyAuthManager','AuthManager.Lib/GoogleAnalytics');
 App::uses('WebmasterToolsAuthManager','AuthManager.Lib/WebmasterTools');
+App::uses('DoubleClickAuthManager','AuthManager.Lib/DoubleClick');
+App::uses('LinkedInAdsAuthManager','AuthManager.Lib/LinkedInAds');
 App::uses('TagManagerAuthManager','AuthManager.Lib/TagManager');
 App::uses('FacebookAdsAuthManager','AuthManager.Lib/Facebook');
-App::uses('LinkedInAdsAuthManager','AuthManager.Lib/LinkedInAds');
 App::uses('BingAdsAuthManager','AuthManager.Lib/BingAds');
 App::uses('BitlyAuthManager','AuthManager.Lib/Bitly');
 App::uses('MediaPlatform','AuthManager.Model');
@@ -27,6 +28,7 @@ class MediaPlatformAuthManagerFactory {
 		MediaPlatform::TAG_MANAGER => 'TagManagerAuthManager',
 		MediaPlatform::BING_ADS => 'BingAdsAuthManager',
 		MediaPlatform::LINKED_IN_ADS => 'LinkedInAdsAuthManager',
+		MediaPlatform::DOUBLE_CLICK => 'DoubleClickAuthManager',
 	);
 
 /**
