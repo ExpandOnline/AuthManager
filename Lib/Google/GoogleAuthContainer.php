@@ -12,7 +12,7 @@ class GoogleAuthContainer extends AuthContainer {
 	public $client;
 
 	/**
-	 * @var Google_AnalyticsService|Google_Service_Analytics
+	 * @var Google_AnalyticsService|Google_Service_Analytics|Google_Service_Dfareporting
 	 */
 	public $service;
 
