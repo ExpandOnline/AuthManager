@@ -1,11 +1,9 @@
 <?php
-App::import('Vendor','google/apiclient/src/Google/autoload');
-App::uses('GoogleAuthManager','AuthManager.Lib/Google');
-
+App::uses('UpdatedGoogleAuthManager','AuthManager.Lib/Google');
 /**
  * Class DoubleClickAuthManager
  */
-class DoubleClickAuthManager extends GoogleAuthManager {
+class DoubleClickAuthManager extends UpdatedGoogleAuthManager {
 
 /**
  * @var string

@@ -1,11 +1,10 @@
 <?php
-App::import('Vendor','google/apiclient/src/Google/autoload');
-App::uses('GoogleAuthManager','AuthManager.Lib/Google');
+App::uses('UpdatedGoogleAuthManager','AuthManager.Lib/Google');
 
 /**
  * Class GoogleAnalyticsReadWriteAuthManager
  */
-class GoogleAnalyticsReadWriteAuthManager extends GoogleAuthManager {
+class GoogleAnalyticsReadWriteAuthManager extends UpdatedGoogleAuthManager {
 
 /**
  * @var string
