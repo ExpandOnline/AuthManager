@@ -23,8 +23,11 @@ abstract class UpdatedGoogleAuthManager extends GoogleAuthManager {
 	protected function _refreshTokens($oauthTokens) {
 		$this->_client->refreshToken($oauthTokens['OauthToken']['refresh_token']);
 		$token = $this->_client->getAccessToken();
-		$this->MediaPlatformUser->updateTokenInDatabase($oauthTokens['OauthToken']['id'], $token->access_token,
-			date('Y-m-d H:i:s', ($token->created + $token->expires_in)));
+		$this->MediaPlatformUser->updateTokenInDatabase(
+			$oauthTokens['OauthToken']['id'],
+			$token['access_token'],
+			date('Y-m-d H:i:s', ($token['created'] + $token['expires_in']))
+		);
 	}
 
 }
