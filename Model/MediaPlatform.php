@@ -77,4 +77,15 @@ class MediaPlatform extends AuthManagerAppModel {
 		));
 	}
 
+	/**
+	 * @param $id
+	 *
+	 * @return string
+	 */
+	public function getName($id) {
+		return $this->field('name', [
+			'id' => $id
+		]);
+	}
+
 }
