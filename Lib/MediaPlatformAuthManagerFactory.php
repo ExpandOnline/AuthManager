@@ -7,6 +7,7 @@ App::uses('LinkedInAdsAuthManager','AuthManager.Lib/LinkedInAds');
 App::uses('TagManagerAuthManager','AuthManager.Lib/TagManager');
 App::uses('FacebookAdsAuthManager','AuthManager.Lib/Facebook');
 App::uses('BingAdsAuthManager','AuthManager.Lib/BingAds');
+App::uses('CoostoAuthManager','AuthManager.Lib/Coosto');
 App::uses('BitlyAuthManager','AuthManager.Lib/Bitly');
 App::uses('MediaPlatform','AuthManager.Model');
 
@@ -29,6 +30,7 @@ class MediaPlatformAuthManagerFactory {
 		MediaPlatform::BING_ADS => 'BingAdsAuthManager',
 		MediaPlatform::LINKED_IN_ADS => 'LinkedInAdsAuthManager',
 		MediaPlatform::DOUBLE_CLICK => 'DoubleClickAuthManager',
+		MediaPlatform::COOSTO => 'CoostoAuthManager',
 	);
 
 /**
