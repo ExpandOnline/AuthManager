@@ -36,7 +36,11 @@ class UserCredentials extends AuthManagerAppModel {
 		return $this->save([
 			'media_platform_user_id' => $mediaPlatformUserId,
 			'username' => $username,
-			'password' => openssl_encrypt($password, 'AES-128-ECB', Configure::read('UserCredentials.key'))
+			'password' => openssl_encrypt(
+				$password,
+				Configure::read('UserCredentials.encryptionMethod'),
+				Configure::read('UserCredentials.key')
+			)
 		]);
 	}
 
@@ -53,7 +57,7 @@ class UserCredentials extends AuthManagerAppModel {
 		]);
 		$userCredentials['UserCredentials']['password'] = openssl_decrypt(
 			$userCredentials['UserCredentials']['password'],
-			'AES-128-ECB',
+			Configure::read('UserCredentials.encryptionMethod'),
 			Configure::read('UserCredentials.key')
 		);
 		
