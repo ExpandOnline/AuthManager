@@ -26,5 +26,7 @@ class AuthenticationType extends AuthManagerAppModel {
  * Implemented authentication types.
  */
 	const OAUTH = 1;
+	const LINKED_IN_ADS = 2;
+	const USER_CREDENTIALS = 3;
 
 }
