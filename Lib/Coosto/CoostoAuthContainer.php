@@ -9,5 +9,5 @@ class CoostoAuthContainer extends AuthContainer {
 	/***
 	 * @var CoostoApi
 	 */
-	protected $_coostoApi;
+	public $coostoApi;
 }
