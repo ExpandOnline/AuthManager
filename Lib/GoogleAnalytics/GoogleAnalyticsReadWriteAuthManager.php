@@ -39,7 +39,8 @@ class GoogleAnalyticsReadWriteAuthManager extends UpdatedGoogleAuthManager {
  */
 	protected function _getScopes() {
 		return array(
-			Google_Service_Analytics::ANALYTICS_EDIT
+			Google_Service_Analytics::ANALYTICS_EDIT,
+			Google_Service_AnalyticsReporting::ANALYTICS_READONLY
 		);
 	}
 
@@ -49,5 +50,17 @@ class GoogleAnalyticsReadWriteAuthManager extends UpdatedGoogleAuthManager {
 	protected function _getConfigFilePath() {
 		return CakePlugin::path('AuthManager') . 'Config' . DS . 'API' . DS . 'googleAnalyticsReadWrite.json';
 	}
+
+	/**
+	 * @param $userId
+	 *
+	 * @return GoogleAuthContainer
+	 */
+	public function getAuthContainer($userId) {
+		$authContainer =  parent::getAuthContainer($userId);
+		$authContainer->reportingService = new Google_Service_AnalyticsReporting($this->_client);
+		return $authContainer;
+	}
+
 
 }
