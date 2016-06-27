@@ -51,4 +51,16 @@ class GoogleAnalyticsReadWriteAuthManager extends UpdatedGoogleAuthManager {
 		return CakePlugin::path('AuthManager') . 'Config' . DS . 'API' . DS . 'googleAnalyticsReadWrite.json';
 	}
 
+	/**
+	 * @param $userId
+	 *
+	 * @return GoogleAuthContainer
+	 */
+	public function getAuthContainer($userId) {
+		$authContainer =  parent::getAuthContainer($userId);
+		$authContainer->reportingService = new Google_Service_AnalyticsReporting($this->_client);
+		return $authContainer;
+	}
+
+
 }
