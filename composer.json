@@ -15,6 +15,7 @@
     "ExpandOnline/bitly-api-php": "dev-master",
     "league/oauth2-client": "0.12.1",
     "ExpandOnline/bing-ads-sdk-php": "dev-master",
-    "guzzlehttp/guzzle": "5.3"
+    "guzzlehttp/guzzle": "5.3",
+    "cosenary/instagram": "2.3"
   }
 }
