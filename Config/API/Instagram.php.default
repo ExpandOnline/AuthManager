@@ -1,0 +1,8 @@
+<?php
+$config = array (
+	'Instagram' =>
+		array (
+			'client_id' => '',
+			'client_secret' => ''
+		),
+);

@@ -13,7 +13,8 @@ Supported media platforms:
 5. Google Webmaster Tools
 6. Bing Ads
 7. DoubleClick DCM/DFA Reporting and Trafficking API and DoubleClick Bid Manager API
-8. Coosto (DCM/DFA Reporting and Trafficking API)
+8. Coosto
+9. Instagram
 
 Usage
 ---
