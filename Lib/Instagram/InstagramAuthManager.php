@@ -1,6 +1,6 @@
 <?php
+App::uses('InstagramAuthContainer','AuthManager.Lib/Instagram');
 App::uses('MediaPlatformAuthManager','AuthManager.Lib');
-App::uses('InstagramAuthContainer','AuthManager.Lib/Facebook');
 
 use MetzWeb\Instagram\Instagram;
 
@@ -40,8 +40,10 @@ class InstagramAuthManager extends MediaPlatformAuthManager {
 	 * @return string
 	 */
 	public function getAuthUrl() {
-		//TODO: Pass correct scopes, once we know which we need.
-		return $this->_instagram->getLoginUrl();
+		return $this->_instagram->getLoginUrl([
+			'basic',
+			'public_content'
+		]);
 	}
 
 	/**
