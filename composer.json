@@ -16,6 +16,6 @@
     "league/oauth2-client": "0.12.1",
     "ExpandOnline/bing-ads-sdk-php": "dev-master",
     "guzzlehttp/guzzle": "5.3",
-    "cosenary/instagram": "dev-master"
+    "ExpandOnline/Instagram-PHP-API": "dev-master"
   }
 }
