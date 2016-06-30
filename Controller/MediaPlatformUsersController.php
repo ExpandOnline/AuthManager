@@ -52,10 +52,23 @@ class MediaPlatformUsersController extends AuthManagerAppController {
 		$mediaPlatformAuthManager = $this->_getAuthManager($mediaPlatformId);
 		if ($mediaPlatformAuthManager->authenticateUser($this->request)) {
 			$this->Session->setFlash(__d('AuthManager', 'Successfully authenticated!'), 'successbox');
+			$this->_newUserEvent($mediaPlatformId, $this->MediaPlatformUser->getLastInsertID());
 		} else {
 			$this->Session->setFlash(__d('AuthManager', 'There went something wrong authenticating you!'), 'errorbox');
 		}
 		$this->_redirectToLastSavedReferrer();
+	}
+
+	/**
+	 * @param $mediaPlatformId
+	 * @param $mediaPlatformUserId
+	 */
+	protected function _newUserEvent($mediaPlatformId, $mediaPlatformUserId) {
+		$event = new CakeEvent('AuthManager.MediaPlatformUser.new', $this, array(
+			'media_platform_id' => $mediaPlatformId,
+			'media_platform_user_id' =>$mediaPlatformUserId
+		));
+		CakeEventManager::instance()->dispatch($event);
 	}
 
 /**
