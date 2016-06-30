@@ -6,4 +6,9 @@ App::uses('AuthContainer', 'AuthManager.Lib');
  */
 class InstagramAuthContainer extends AuthContainer {
 
+	/**
+	 * @var \MetzWeb\Instagram\Instagram
+	 */
+	public $instagram;
+
 }
