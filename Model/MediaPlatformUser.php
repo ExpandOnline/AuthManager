@@ -130,7 +130,11 @@ class MediaPlatformUser extends AuthManagerAppModel {
 			$data['MediaPlatformUser']['id'] = $mediaPlatformUser['MediaPlatformUser']['id'];
 			$data['OauthToken']['id'] = $mediaPlatformUser['OauthToken']['id'];
 		}
-		return $this->saveAssociated($data);
+		return $this->saveAssociated($data)
+			? (empty($mediaPlatformUser)
+				? $this->getLastInsertID()
+				: $data['MediaPlatformUser']['id'])
+			: false;
 	}
 
 /**

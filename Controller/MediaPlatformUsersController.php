@@ -50,9 +50,10 @@ class MediaPlatformUsersController extends AuthManagerAppController {
 		 * @var MediaPlatformAuthManager $mediaPlatformAuthManager
 		 */
 		$mediaPlatformAuthManager = $this->_getAuthManager($mediaPlatformId);
-		if ($mediaPlatformAuthManager->authenticateUser($this->request)) {
+		$mediaPlatformUserId = $mediaPlatformAuthManager->authenticateUser($this->request);
+		if ($mediaPlatformUserId) {
 			$this->Session->setFlash(__d('AuthManager', 'Successfully authenticated!'), 'successbox');
-			$this->_newUserEvent($mediaPlatformId, $this->MediaPlatformUser->getLastInsertID());
+			$this->_newUserEvent($mediaPlatformId, $mediaPlatformUserId);
 		} else {
 			$this->Session->setFlash(__d('AuthManager', 'There went something wrong authenticating you!'), 'errorbox');
 		}
