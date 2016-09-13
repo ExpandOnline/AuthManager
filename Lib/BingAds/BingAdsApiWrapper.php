@@ -16,6 +16,11 @@ class BingAdsApiWrapper {
  */
 	protected $_clientProxies = [];
 
+	/**
+	 * @var bool
+	 */
+	protected $_useCache = true;
+
 /**
  * @param ClientProxyFactory $clientProxyFactory
  */
@@ -210,12 +215,31 @@ class BingAdsApiWrapper {
  * @return \BingAds\v10\Proxy\ClientProxy|\BingAds\v9\Proxy\ClientProxy
  */
 	protected function _getClientProxyWithAccountId($endPoint, $accountId, $apiVersion = BingAdsApi::VERSION_10) {
-		if (isset($this->_clientProxies[$apiVersion][$endPoint][$accountId])) {
+		if (!$this->isUseCache()) {
+			return $this->_clientProxyFactory->createClientProxyWithAccountId($endPoint, $accountId, $apiVersion);
+		} elseif (isset($this->_clientProxies[$apiVersion][$endPoint][$accountId])) {
 			return $this->_clientProxies[$apiVersion][$endPoint][$accountId];
 		}
 
 		return $this->_clientProxies[$apiVersion][$endPoint][$accountId]
 			= $this->_clientProxyFactory->createClientProxyWithAccountId($endPoint, $accountId, $apiVersion);
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isUseCache() {
+		return $this->_useCache;
+	}
+
+	/**
+	 * @param boolean $useCache
+	 *
+	 * @return BingAdsApiWrapper
+	 */
+	public function setUseCache($useCache) {
+		$this->_useCache = $useCache;
+		return $this;
 	}
 
 }
