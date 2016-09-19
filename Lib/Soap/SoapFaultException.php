@@ -11,7 +11,9 @@ class SoapFaultException extends Exception {
 	 * @return SoapFaultException
 	 */
 	public static function createBySoapFault(SoapFault $e) {
-		$operationError = $e->detail->ApiFaultDetail->OperationErrors->OperationError;
+		$operationError = property_exists($e->detail, 'AdApiFaultDetail')
+			? $e->detail->AdApiFaultDetail->Errors->AdApiError
+			: $e->detail->ApiFaultDetail->OperationErrors->OperationError;
 		return new SoapFaultException($operationError->ErrorCode . ' - ' . $operationError->Message);
 	}
 
