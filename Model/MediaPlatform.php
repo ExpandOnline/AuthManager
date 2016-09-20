@@ -16,7 +16,7 @@ class MediaPlatform extends AuthManagerAppModel {
 	const GOOGLE_ANALYTICS_READWRITE = 2;
 	const FACEBOOK_ADS = 3;
 	const BITLY = 4;
-	const WEBMASTER_TOOLS = 5;
+	const SEARCH_CONSOLE = 5;
 	const TAG_MANAGER = 6;
 	const BING_ADS = 7;
 	const LINKED_IN_ADS = 8;

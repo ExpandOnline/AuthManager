@@ -2,11 +2,10 @@
 App::uses('GoogleAuthManager', 'AuthManager.Lib/Google');
 App::uses('MediaPlatformAuthManager','AuthManager.Lib');
 
-
 /**
- * Class TagManagerAuthManager
+ * Class SearchConsoleAuthManager
  */
-class TagManagerAuthManager extends GoogleAuthManager {
+class SearchConsoleAuthManager extends GoogleAuthManager {
 
 	/**
 	 * Get the username for the authenticated user.
@@ -22,30 +21,30 @@ class TagManagerAuthManager extends GoogleAuthManager {
 	 * @return array
 	 */
 	protected function _getScopes() {
-		return array(
-			Google_Service_Plus::USERINFO_EMAIL,
-			Google_Service_TagManager::TAGMANAGER_READONLY,
-		);
+		return [
+			Google_Service_Webmasters::WEBMASTERS_READONLY,
+			Google_Service_Plus::USERINFO_EMAIL
+		];
 	}
 
 	/**
 	 * Set the Google Service
 	 */
 	protected function _setGoogleService() {
-		$this->_service = new Google_Service_TagManager($this->_client);
+		$this->_service = new Google_Service_Webmasters($this->_client);
 	}
 
 	/**
 	 * @return int
 	 */
 	public function _getPlatformId() {
-		return MediaPlatform::TAG_MANAGER;
+		return MediaPlatform::SEARCH_CONSOLE;
 	}
 
 	/**
 	 * @return string
 	 */
 	protected function _getConfigFilePath() {
-		return CakePlugin::path('AuthManager') . 'Config' . DS . 'API' . DS . 'tagManager.json';
+		return CakePlugin::path('AuthManager') . 'Config' . DS . 'API' . DS . 'searchConsole.json';
 	}
 }

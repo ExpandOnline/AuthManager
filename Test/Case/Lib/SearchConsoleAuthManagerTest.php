@@ -1,29 +1,26 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: switteveen
- * Date: 20-10-2015
- * Time: 11:47
- */
-
-App::uses('WebmasterToolsAuthManager', 'AuthManager.Lib/WebmasterTools');
-class WebmasterToolsAuthManagerTest extends CakeTestCase {
+App::uses('SearchConsoleAuthManager', 'AuthManager.Lib/WebmasterTools');
 
 /**
- * @var array
+ * Class SearchConsoleAuthManagerTest
  */
+class SearchConsoleAuthManagerTest extends CakeTestCase {
+
+	/**
+	 * @var array
+	 */
 	public $fixtures = array(
 		'plugin.AuthManager.MediaPlatformUser',
 		'plugin.AuthManager.OAuthToken'
 	);
 
-/**
- *
- */
+	/**
+	 *
+	 */
 	public function testAuthenticateUser() {
 		$MediaPlatformUser = $this->getMockForModel('AuthManager.MediaPlatformUser', null);
 
-		$manager = $this->getMock('WebmasterToolsAuthManager', array(
+		$manager = $this->getMock('SearchConsoleAuthManager', array(
 			'_getOauthTokens',
 			'_getUserName'
 		), array(), '', false);
@@ -49,17 +46,17 @@ class WebmasterToolsAuthManagerTest extends CakeTestCase {
 			)
 		));
 
-		$this->assertEquals(MediaPlatform::WEBMASTER_TOOLS, $user['MediaPlatformUser']['media_platform_id']);
+		$this->assertEquals(MediaPlatform::SEARCH_CONSOLE, $user['MediaPlatformUser']['media_platform_id']);
 		$this->assertEquals('Sven Witteveen', $user['MediaPlatformUser']['username']);
 		$this->assertEquals('refresh_token_xyz', $user['OauthToken']['refresh_token']);
 		$this->assertEquals('access_token_xyz', $user['OauthToken']['access_token']);
 	}
 
-/**
- *
- */
+	/**
+	 *
+	 */
 	public function testSetGoogleClient() {
-		$wmtAuthManager = new WebmasterToolsAuthManager();
+		$wmtAuthManager = new SearchConsoleAuthManager();
 		$client = $this->getProtected($wmtAuthManager, '_client');
 		/**
 		 * @var Google_Client $client
@@ -71,11 +68,11 @@ class WebmasterToolsAuthManagerTest extends CakeTestCase {
 		), $client->getScopes());
 	}
 
-/**
- *
- */
+	/**
+	 *
+	 */
 	public function testSetGoogleService() {
-		$wmtAuthManager = new WebmasterToolsAuthManager();
+		$wmtAuthManager = new SearchConsoleAuthManager();
 		$service = $this->getProtected($wmtAuthManager, '_service');
 		/**
 		 * @var Google_Service_Webmasters $service
@@ -83,12 +80,12 @@ class WebmasterToolsAuthManagerTest extends CakeTestCase {
 		$this->assertEquals('webmasters', $service->serviceName);
 	}
 
-/**
- * @param Object $object
- * @param String $propertyName
- *
- * @return mixed Property value
- */
+	/**
+	 * @param Object $object
+	 * @param String $propertyName
+	 *
+	 * @return mixed Property value
+	 */
 	public function getProtected($object, $propertyName) {
 		$refl = new ReflectionClass($object);
 		$property = $refl->getProperty($propertyName);
