@@ -10,7 +10,7 @@ Supported media platforms:
 2. Facebook Ads
 3. Bitly
 4. Google Tag Manager
-5. Google Webmaster Tools
+5. Google Search Console
 6. Bing Ads
 7. DoubleClick DCM/DFA Reporting and Trafficking API and DoubleClick Bid Manager API
 8. Coosto
