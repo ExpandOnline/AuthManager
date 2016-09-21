@@ -1,7 +1,7 @@
 <?php
 App::uses('GoogleAnalyticsReadWriteAuthManager','AuthManager.Lib/GoogleAnalytics');
 App::uses('GoogleAnalyticsReadOnlyAuthManager','AuthManager.Lib/GoogleAnalytics');
-App::uses('WebmasterToolsAuthManager','AuthManager.Lib/WebmasterTools');
+App::uses('SearchConsoleAuthManager','AuthManager.Lib/SearchConsole');
 App::uses('DoubleClickAuthManager','AuthManager.Lib/DoubleClick');
 App::uses('LinkedInAdsAuthManager','AuthManager.Lib/LinkedInAds');
 App::uses('TagManagerAuthManager','AuthManager.Lib/TagManager');
@@ -26,7 +26,7 @@ class MediaPlatformAuthManagerFactory {
 		MediaPlatform::GOOGLE_ANALYTICS_READWRITE => 'GoogleAnalyticsReadWriteAuthManager',
 		MediaPlatform::FACEBOOK_ADS => 'FacebookAdsAuthManager',
 		MediaPlatform::BITLY => 'BitlyAuthManager',
-		MediaPlatform::WEBMASTER_TOOLS => 'WebmasterToolsAuthManager',
+		MediaPlatform::SEARCH_CONSOLE => 'SearchConsoleAuthManager',
 		MediaPlatform::TAG_MANAGER => 'TagManagerAuthManager',
 		MediaPlatform::BING_ADS => 'BingAdsAuthManager',
 		MediaPlatform::LINKED_IN_ADS => 'LinkedInAdsAuthManager',
