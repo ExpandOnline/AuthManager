@@ -47,4 +47,13 @@ class SearchConsoleAuthManager extends GoogleAuthManager {
 	protected function _getConfigFilePath() {
 		return CakePlugin::path('AuthManager') . 'Config' . DS . 'API' . DS . 'searchConsole.json';
 	}
+
+	/**
+	 * @param $code
+	 *
+	 * @return array
+	 */
+	protected function _getOauthTokens($code) {
+		return $this->_client->authenticate($code);
+	}
 }
