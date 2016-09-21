@@ -1,5 +1,5 @@
 <?php
-App::uses('SearchConsoleAuthManager', 'AuthManager.Lib/WebmasterTools');
+App::uses('SearchConsoleAuthManager', 'AuthManager.Lib/SearchConsole');
 
 /**
  * Class SearchConsoleAuthManagerTest
@@ -63,7 +63,6 @@ class SearchConsoleAuthManagerTest extends CakeTestCase {
 		 */
 		$this->assertEquals(array(
 			'https://www.googleapis.com/auth/webmasters.readonly',
-			'http://www.google.com/webmasters/tools/feeds/',
 			'https://www.googleapis.com/auth/userinfo.email'
 		), $client->getScopes());
 	}
