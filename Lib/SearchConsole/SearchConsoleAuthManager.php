@@ -1,11 +1,11 @@
 <?php
-App::uses('GoogleAuthManager', 'AuthManager.Lib/Google');
+App::uses('UpdatedGoogleAuthManager', 'AuthManager.Lib/Google');
 App::uses('MediaPlatformAuthManager','AuthManager.Lib');
 
 /**
  * Class SearchConsoleAuthManager
  */
-class SearchConsoleAuthManager extends GoogleAuthManager {
+class SearchConsoleAuthManager extends UpdatedGoogleAuthManager {
 
 	/**
 	 * Get the username for the authenticated user.
@@ -47,4 +47,5 @@ class SearchConsoleAuthManager extends GoogleAuthManager {
 	protected function _getConfigFilePath() {
 		return CakePlugin::path('AuthManager') . 'Config' . DS . 'API' . DS . 'searchConsole.json';
 	}
+
 }
