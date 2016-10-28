@@ -15,6 +15,7 @@ Supported media platforms:
 7. DoubleClick DCM/DFA Reporting and Trafficking API and DoubleClick Bid Manager API
 8. Coosto
 9. Instagram
+10. Dropbox
 
 Usage
 ---

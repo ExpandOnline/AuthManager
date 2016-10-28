@@ -10,6 +10,7 @@ App::uses('InstagramAuthManager','AuthManager.Lib/Instagram');
 App::uses('BingAdsAuthManager','AuthManager.Lib/BingAds');
 App::uses('CoostoAuthManager','AuthManager.Lib/Coosto');
 App::uses('BitlyAuthManager','AuthManager.Lib/Bitly');
+App::uses('DropboxAuthManager','AuthManager.Lib/Dropbox');
 App::uses('MediaPlatform','AuthManager.Model');
 
 /**
@@ -33,6 +34,7 @@ class MediaPlatformAuthManagerFactory {
 		MediaPlatform::DOUBLE_CLICK => 'DoubleClickAuthManager',
 		MediaPlatform::COOSTO => 'CoostoAuthManager',
 		MediaPlatform::INSTAGRAM => 'InstagramAuthManager',
+		MediaPlatform::DROPBOX => 'DropboxAuthManager',
 	);
 
 /**
