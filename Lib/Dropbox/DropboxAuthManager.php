@@ -4,7 +4,7 @@ App::uses('DropboxOauthProvider', 'AuthManager.Lib/Dropbox');
 App::uses('DropboxAuthContainer', 'AuthManager.Lib/Dropbox');
 
 /**
- * Class ExampleMediaPlatformAuthManager
+ * Class DropboxAuthManager
  */
 class DropboxAuthManager extends MediaPlatformAuthManager {
 
@@ -52,7 +52,7 @@ class DropboxAuthManager extends MediaPlatformAuthManager {
 			return false;
 		}
 		$this->_dropboxProvider->authorizationHeader = 'Bearer';
-		$details = $this->_dropboxProvider->getUserDetails($tokens);;
+		$details = $this->_dropboxProvider->getUserDetails($tokens);
 
 		return $this->_saveUser($details->email, $tokens, MediaPlatform::DROPBOX);
 	}

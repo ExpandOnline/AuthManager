@@ -16,6 +16,7 @@
     "league/oauth2-client": "0.12.1",
     "ExpandOnline/bing-ads-sdk-php": "dev-master",
     "guzzlehttp/guzzle": "5.3",
-    "ExpandOnline/Instagram-PHP-API": "dev-master"
+    "ExpandOnline/Instagram-PHP-API": "dev-master",
+    "ExpandOnline/dropbox-php-api-library": "dev-master",
   }
 }
