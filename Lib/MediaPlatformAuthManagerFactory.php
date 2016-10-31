@@ -8,9 +8,10 @@ App::uses('TagManagerAuthManager','AuthManager.Lib/TagManager');
 App::uses('FacebookAdsAuthManager','AuthManager.Lib/Facebook');
 App::uses('InstagramAuthManager','AuthManager.Lib/Instagram');
 App::uses('BingAdsAuthManager','AuthManager.Lib/BingAds');
+App::uses('DropboxAuthManager','AuthManager.Lib/Dropbox');
+App::uses('AdWordsAuthManager','AuthManager.Lib/AdWords');
 App::uses('CoostoAuthManager','AuthManager.Lib/Coosto');
 App::uses('BitlyAuthManager','AuthManager.Lib/Bitly');
-App::uses('DropboxAuthManager','AuthManager.Lib/Dropbox');
 App::uses('MediaPlatform','AuthManager.Model');
 
 /**
@@ -35,6 +36,7 @@ class MediaPlatformAuthManagerFactory {
 		MediaPlatform::COOSTO => 'CoostoAuthManager',
 		MediaPlatform::INSTAGRAM => 'InstagramAuthManager',
 		MediaPlatform::DROPBOX => 'DropboxAuthManager',
+		MediaPlatform::ADWORDS => 'AdWordsAuthManager',
 	);
 
 /**

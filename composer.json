@@ -18,5 +18,6 @@
     "guzzlehttp/guzzle": "5.3",
     "ExpandOnline/Instagram-PHP-API": "dev-master",
     "ExpandOnline/dropbox-php-api-library": "dev-master",
+    "googleads/googleads-php-lib": "10.1.0"
   }
 }
