@@ -16,6 +16,7 @@ Supported media platforms:
 8. Coosto
 9. Instagram
 10. Dropbox
+11. Google AdWords
 
 Usage
 ---
