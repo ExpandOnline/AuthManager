@@ -10,4 +10,9 @@ abstract class AuthContainer {
  */
 	public $userId;
 
+	public $mediaPlatformId;
+
+	public function getMediaPlatformId() {
+		return $this->mediaPlatformId;
+	}
 }

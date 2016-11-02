@@ -21,7 +21,7 @@ class AuthContainerFactory {
  */
 	public function createAuthContainer($userId) {
 		$mediaPlatformId = $this->MediaPlatformUser->getMediaPlatformId($userId);
-		if (is_null($mediaPlatformId)) {
+		if (empty($mediaPlatformId)) {
 			throw new NotFoundException('Could not find the MediaPlatformUser #' . $userId);
 		}
 		$mediaPlatformAuthManagerFactory = new MediaPlatformAuthManagerFactory();
@@ -29,6 +29,7 @@ class AuthContainerFactory {
 
 		$authContainer = $authManager->getAuthContainer($userId);
 		$authContainer->userId = $userId;
+		$authContainer->mediaPlatformId = $mediaPlatformId;
 
 		return $authContainer;
 	}
