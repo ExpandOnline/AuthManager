@@ -60,9 +60,11 @@ class AdWordsAuthManager extends UpdatedGoogleAuthManager {
 	 */
 	public function getAuthContainer($userId) {
 		$authContainer = parent::getAuthContainer($userId);
-		$oauthInfo = $authContainer->service->GetOAuth2Info();
-		$oauthInfo['access_token'] = $authContainer->client->getOAuth2Service()->getAccessToken();
-		$oauthInfo['refresh_token'] = $authContainer->client->getOAuth2Service()->getRefreshToken();
+		$oauthInfo = [
+			'access_token' => $authContainer->client->getOAuth2Service()->getAccessToken(),
+			'client_id' => $authContainer->client->getClientId(),
+			'client_secret' => $authContainer->client->getClientSecret(),
+		];
 		$authContainer->service->SetOAuth2Info($oauthInfo);
 		return $authContainer;
 	}
