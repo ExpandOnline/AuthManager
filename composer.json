@@ -20,6 +20,6 @@
     "ExpandOnline/dropbox-php-api-library": "dev-php7",
     "googleads/googleads-php-lib": "10.1.0",
     "stevenmaguire/oauth2-microsoft": "0.2.1",
-    "pixelfear/oauth2-dropbox": "dev-master#17d1d8bc698c86f2149c614d6ae99a542f52aadf"
+    "pixelfear/oauth2-dropbox": "dev-master"
   }
 }
