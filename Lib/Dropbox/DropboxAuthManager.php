@@ -1,6 +1,5 @@
 <?php
 App::uses('MediaPlatformAuthManager', 'AuthManager.Lib');
-App::uses('DropboxOauthProvider', 'AuthManager.Lib/Dropbox');
 App::uses('DropboxAuthContainer', 'AuthManager.Lib/Dropbox');
 
 /**
@@ -16,7 +15,7 @@ class DropboxAuthManager extends MediaPlatformAuthManager {
 	public function __construct() {
 		parent::__construct();
 		Configure::load('AuthManager.API/Dropbox');
-		$this->_dropboxProvider = new DropboxOauthProvider([
+		$this->_dropboxProvider = new Pixelfear\OAuth2\Client\Provider\Dropbox([
 			'clientId' => Configure::read('Dropbox.client_id'),
 			'clientSecret' => Configure::read('Dropbox.client_secret'),
 			'redirectUri' => $this->_getCallbackUrl(MediaPlatform::DROPBOX),
@@ -51,17 +50,15 @@ class DropboxAuthManager extends MediaPlatformAuthManager {
 		if (!$tokens) {
 			return false;
 		}
-		$this->_dropboxProvider->authorizationHeader = 'Bearer';
-		$details = $this->_dropboxProvider->getUserDetails($tokens);
+		$details = $this->_dropboxProvider->getResourceOwner($tokens);
 
-		return $this->_saveUser($details->email, $tokens, MediaPlatform::DROPBOX);
+		return $this->_saveUser($details->toArray()['email'], $tokens, MediaPlatform::DROPBOX);
 	}
 
 	/**
 	 * @param $request
 	 *
 	 * @return mixed
-	 * @throws \League\OAuth2\Client\Exception\IDPException
 	 */
 	protected function _getAccessToken($request) {
 		try {

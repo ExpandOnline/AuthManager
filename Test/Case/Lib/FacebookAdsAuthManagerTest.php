@@ -50,7 +50,9 @@ class FacebookAdsAuthManagerTest extends CakeTestCase {
 /**
  *
  */
-	public function testSendEventIfTokenExpiresInTwoWeeks(){
+	public function testSendEventIfTokenExpiresInTwoWeeks() {
+		$oldEventManager = CakeEventManager::instance();
+		CakeEventManager::instance(new CakeEventManager());
 		$manager = $this->getMock('FacebookAdsAuthManager', null, array(), '', false);
 		$this->assertTrue($manager->testProtected('_sendEventIfTokenExpiresInTwoWeeks', array(
 			1,
@@ -64,6 +66,7 @@ class FacebookAdsAuthManagerTest extends CakeTestCase {
 			1,
 			date('Y-m-d H:i:s', strtotime('+2 weeks'))
 		)));
+		CakeEventManager::instance($oldEventManager);
 	}
 
 }
