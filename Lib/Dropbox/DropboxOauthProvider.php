@@ -16,6 +16,7 @@ use League\OAuth2\Client\Token\AccessToken;
  */
 class DropboxOauthProvider extends AbstractProvider {
 
+	// TODO: Fix this class
 	public $uidKey = 'account_id';
 
 	/**
