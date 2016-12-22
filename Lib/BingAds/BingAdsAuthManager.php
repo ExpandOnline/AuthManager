@@ -1,19 +1,19 @@
 <?php
+use Stevenmaguire\OAuth2\Client\Provider\Microsoft;
 App::uses('BingAdsAuthContainer','AuthManager.Lib/BingAds');
 App::uses('ClientProxyFactory','AuthManager.Lib/BingAds');
 App::uses('BingAdsApiWrapper','AuthManager.Lib/BingAds');
 App::uses('MediaPlatformAuthManager','AuthManager.Lib');
 App::uses('BingAdsApi','AuthManager.Lib/BingAds');
-use League\OAuth2\Client\Provider\Microsoft;
 
 /**
  * Class BingAdsAuthManager
  */
 class BingAdsAuthManager extends MediaPlatformAuthManager {
 
-/**
- * @var League\OAuth2\Client\Provider\Microsoft
- */
+	/**
+	 * @var Stevenmaguire\OAuth2\Client\Provider\
+	 */
 	protected $_microsoftProvider;
 
 /**
@@ -26,9 +26,6 @@ class BingAdsAuthManager extends MediaPlatformAuthManager {
 			'clientId' => Configure::read('BingAds.client_id'),
 			'clientSecret' => Configure::read('BingAds.client_secret'),
 			'redirectUri' => $this->_getCallbackUrl(MediaPlatform::BING_ADS),
-			'scopes' => [
-				'bingads.manage'
-			]
 		]);
 	}
 
@@ -38,7 +35,12 @@ class BingAdsAuthManager extends MediaPlatformAuthManager {
  * @return string
  */
 	public function getAuthUrl() {
-		return $this->_microsoftProvider->getAuthorizationUrl();
+		$options = [
+			'scope' => [
+				'bingads.manage'
+			]
+		];
+		return $this->_microsoftProvider->getAuthorizationUrl($options);
 	}
 
 /**
@@ -53,14 +55,11 @@ class BingAdsAuthManager extends MediaPlatformAuthManager {
 			return false;
 		}
 
-		/**
-		 * @var \League\OAuth2\Client\Token\AccessToken|boolean $tokens
-		 */
 		$tokens = $this->_getAccessToken($request);
 		if (!$tokens) {
 			return false;
 		}
-		$username = $this->_getUsername($tokens->accessToken);
+		$username = $this->_getUsername($tokens->getToken());
 
 		return $this->_saveUser($username, $tokens, MediaPlatform::BING_ADS);
 	}
@@ -68,8 +67,7 @@ class BingAdsAuthManager extends MediaPlatformAuthManager {
 /**
  * @param $request
  *
- * @return mixed
- * @throws \League\OAuth2\Client\Exception\IDPException
+ * @return \League\OAuth2\Client\Token\AccessToken|boolean
  */
 	protected function _getAccessToken($request) {
 		try {
@@ -108,13 +106,13 @@ class BingAdsAuthManager extends MediaPlatformAuthManager {
 		return $clientProxyFactory;
 	}
 
-/**
- * @param $username
- * @param $accessToken
- * @param $mediaPlatform
- *
- * @return mixed
- */
+	/**
+	 * @param                                         $username
+	 * @param \League\OAuth2\Client\Token\AccessToken $accessToken
+	 * @param                                         $mediaPlatform
+	 *
+	 * @return mixed
+	 */
 	protected function _saveUser($username, $accessToken, $mediaPlatform) {
 		$saveData = array(
 			'MediaPlatformUser' => array(
@@ -122,9 +120,9 @@ class BingAdsAuthManager extends MediaPlatformAuthManager {
 				'media_platform_id' => $mediaPlatform
 			),
 			'OauthToken' => array(
-				'access_token' => $accessToken->accessToken,
-				'refresh_token' => $accessToken->refreshToken,
-				'token_expires' => date('Y-m-d H:i:s', $accessToken->expires),
+				'access_token' => $accessToken->getToken(),
+				'refresh_token' => $accessToken->getRefreshToken(),
+				'token_expires' => date('Y-m-d H:i:s', $accessToken->getExpires()),
 			)
 		);
 
@@ -155,20 +153,19 @@ class BingAdsAuthManager extends MediaPlatformAuthManager {
 		return $bingAdsAuthContainer;
 	}
 
-/**
- * @param $oauthTokens
- *
- * @return mixed
- * @throws \League\OAuth2\Client\Exception\IDPException
- */
+	/**
+	 * @param $oauthTokens
+	 *
+	 * @return mixed
+	 */
 	protected function _refreshTokens($oauthTokens) {
 		$accessToken = $this->_microsoftProvider->getAccessToken('refresh_token', [
 			'refresh_token' => $oauthTokens['OauthToken']['refresh_token']
 		]);
 
 		return $this->MediaPlatformUser->updateTokenInDatabase($oauthTokens['OauthToken']['id'],
-			$accessToken->accessToken,
-			date('Y-m-d H:i:s', ($accessToken->expires))
+			$accessToken->getToken(),
+			date('Y-m-d H:i:s', ($accessToken->getRefreshToken()))
 		);
 	}
 
