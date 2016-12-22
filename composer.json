@@ -13,9 +13,9 @@
     "facebook/php-ads-sdk": "2.7.*",
     "facebook/graph-sdk": "~5.0",
     "ExpandOnline/bitly-api-php": "dev-master",
-    "league/oauth2-client": "0.12.1",
+    "league/oauth2-client": "1.4.*",
     "ExpandOnline/bing-ads-sdk-php": "dev-master",
-    "guzzlehttp/guzzle": "5.3.*",
+    "guzzlehttp/guzzle": "6.0.*",
     "ExpandOnline/Instagram-PHP-API": "dev-master",
     "ExpandOnline/dropbox-php-api-library": "dev-master",
     "googleads/googleads-php-lib": "10.1.0"
