@@ -34,10 +34,8 @@ class CoostoApi {
 	public function __construct() {
 		$this->_client = new Client([
 			'base_uri' => sprintf($this->_apiEndpoint, $this->_apiEndpoint),
-			'defaults' => [
-				'headers' => [
-					'Accept' => 'application/json'
-				]
+			'headers' => [
+				'Accept' => 'application/json'
 			]
 		]);
 	}
