@@ -56,7 +56,7 @@ class CoostoApi {
 	public function get(CoostoApiRequest $request) {
 		return json_decode($this->_client->get($request->getEndPoint(), [
 			'query' => array_merge($this->_defaultQueryStrings, $request->getOptions())
-		])->getBody()->getContents());
+		])->getBody()->getContents(), true);
 	}
 
 	/**
@@ -68,7 +68,7 @@ class CoostoApi {
 		return json_decode($this->_client->post($request->getEndPoint(), [
 			'json' => $request->getOptions(),
 			'query' => $this->_defaultQueryStrings
-		])->getBody()->getContents());
+		])->getBody()->getContents(), true);
 	}
 
 }
