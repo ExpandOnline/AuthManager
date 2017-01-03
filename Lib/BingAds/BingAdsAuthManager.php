@@ -162,10 +162,10 @@ class BingAdsAuthManager extends MediaPlatformAuthManager {
 		$accessToken = $this->_microsoftProvider->getAccessToken('refresh_token', [
 			'refresh_token' => $oauthTokens['OauthToken']['refresh_token']
 		]);
-
-		return $this->MediaPlatformUser->updateTokenInDatabase($oauthTokens['OauthToken']['id'],
+		return $this->MediaPlatformUser->updateTokenInDatabase(
+			$oauthTokens['OauthToken']['id'],
 			$accessToken->getToken(),
-			date('Y-m-d H:i:s', ($accessToken->getRefreshToken()))
+			date('Y-m-d H:i:s', $accessToken->getExpires())
 		);
 	}
 
