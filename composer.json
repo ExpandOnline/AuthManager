@@ -17,7 +17,7 @@
     "ExpandOnline/bing-ads-sdk-php": "dev-master",
     "guzzlehttp/guzzle": "6.0.*",
     "ExpandOnline/Instagram-PHP-API": "dev-master",
-    "ExpandOnline/dropbox-php-api-library": "dev-php7",
+    "ExpandOnline/dropbox-php-api-library": "dev-master",
     "googleads/googleads-php-lib": "10.1.0",
     "stevenmaguire/oauth2-microsoft": "0.2.1",
     "pixelfear/oauth2-dropbox": "dev-master"
