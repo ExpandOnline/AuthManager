@@ -5,7 +5,7 @@
   "description": "AuthManager is a CakePHP plugin that can be used to manage third party authentications.",
   "homepage": "http://github.com/ExpandOnline/AuthManager",
   "require": {
-    "php": ">=5.4.16",
+    "php": ">=5.5.0",
     "composer/installers": "*",
     "cakedc/migrations": "2.4.0",
     "ExpandOnline/google-api-php-client": "dev-master",
@@ -13,11 +13,13 @@
     "facebook/php-ads-sdk": "2.7.*",
     "facebook/graph-sdk": "~5.0",
     "ExpandOnline/bitly-api-php": "dev-master",
-    "league/oauth2-client": "0.12.1",
+    "league/oauth2-client": "1.4.*",
     "ExpandOnline/bing-ads-sdk-php": "dev-master",
-    "guzzlehttp/guzzle": "5.3.*",
+    "guzzlehttp/guzzle": "6.0.*",
     "ExpandOnline/Instagram-PHP-API": "dev-master",
     "ExpandOnline/dropbox-php-api-library": "dev-master",
-    "googleads/googleads-php-lib": "10.1.0"
+    "googleads/googleads-php-lib": "10.1.0",
+    "stevenmaguire/oauth2-microsoft": "0.2.1",
+    "pixelfear/oauth2-dropbox": "dev-master"
   }
 }

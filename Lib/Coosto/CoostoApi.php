@@ -16,7 +16,7 @@ class CoostoApi {
 	 *
 	 * @var string
 	 */
-	protected $_apiEndpoint = 'https://in.coosto.com/api/{version}/';
+	protected $_apiEndpoint = 'https://in.coosto.com/api/%s/';
 
 	/**
 	 * @var string
@@ -33,16 +33,9 @@ class CoostoApi {
 	 */
 	public function __construct() {
 		$this->_client = new Client([
-			'base_url' => [
-				$this->_apiEndpoint,
-				[
-					'version' => $this->_apiVersion
-				]
-			],
-			'defaults' => [
-				'headers' => [
-					'Accept' => 'application/json'
-				]
+			'base_uri' => sprintf($this->_apiEndpoint, $this->_apiVersion),
+			'headers' => [
+				'Accept' => 'application/json'
 			]
 		]);
 	}
@@ -61,9 +54,9 @@ class CoostoApi {
 	 * @return mixed
 	 */
 	public function get(CoostoApiRequest $request) {
-		return $this->_client->get($request->getEndPoint(), [
+		return json_decode($this->_client->get($request->getEndPoint(), [
 			'query' => array_merge($this->_defaultQueryStrings, $request->getOptions())
-		])->json();
+		])->getBody()->getContents(), true);
 	}
 
 	/**
@@ -72,10 +65,10 @@ class CoostoApi {
 	 * @return mixed
 	 */
 	public function post(CoostoApiRequest $request) {
-		return $this->_client->post($request->getEndPoint(), [
+		return json_decode($this->_client->post($request->getEndPoint(), [
 			'json' => $request->getOptions(),
 			'query' => $this->_defaultQueryStrings
-		])->json();
+		])->getBody()->getContents(), true);
 	}
 
 }
