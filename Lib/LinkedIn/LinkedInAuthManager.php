@@ -45,18 +45,23 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 	 * @return bool
 	 */
 	public function authenticateUser($request) {
-		$token = $this->_leagueWrapper->getAccessToken($request->query['code'] ?? null);
+		$token = $this->_getAccessToken($request->query['code'] ?? null);
 		if (!$token) {
 			return false;
 		}
 
-		/** @var \League\OAuth2\Client\Provider\LinkedInResourceOwner $user */
-		$user = $this->_linkedInProvider->getResourceOwner($token);
-		if (empty($user)) {
-			return false;
+		if($username = $this->_getUsername($token)) {
+			return $this->_saveUser($username, $token, MediaPlatform::LINKED_IN);
 		}
+		return false;
+	}
 
-		return $this->_saveUser($user->getFirstName() . ' ' . $user->getLastName(), $token, MediaPlatform::LINKED_IN);
+	protected function _getUsername($token) {
+		/** @var \League\OAuth2\Client\Provider\LinkedInResourceOwner $user */
+		if($user = $this->_linkedInProvider->getResourceOwner($token)) {
+			return $user->getFirstName() . ' ' . $user->getLastName();
+		}
+		return false;
 	}
 
 
@@ -69,7 +74,7 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 	 */
 	protected function _saveUser($username, $accessToken, $mediaPlatform) {
 		return $this->MediaPlatformUser->saveOauthUser(
-			$this->_leagueWrapper->getSaveData($username, $accessToken, $mediaPlatform)
+			$this->_getLeague()->getSaveData($username, $accessToken, $mediaPlatform)
 		);
 	}
 
@@ -86,7 +91,7 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 		}
 
 		if ($this->_expiresIn(strtotime($oauthTokens['OauthToken']['token_expires']), 600)) {
-			$oauthTokens = $this->_leagueWrapper->refreshToken($oauthTokens, $this->MediaPlatformUser);
+			$oauthTokens = $this->_getLeague()->refreshToken($oauthTokens, $this->MediaPlatformUser);
 		}
 
 		$authContainer = new LinkedInAuthContainer();
@@ -94,5 +99,17 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 		$authContainer->linkedInApi = new LinkedInApi($oauthTokens['OauthToken']['access_token']);
 
 		return $authContainer;
+	}
+
+
+	/**
+	 * @return LeagueOauthWrapper
+	 */
+	protected function _getLeague() {
+		return $this->_leagueWrapper;
+	}
+
+	protected function _getAccessToken($code) {
+		return $this->_getLeague()->getAccessToken($code);
 	}
 }
