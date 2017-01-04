@@ -25,6 +25,7 @@ class MediaPlatform extends AuthManagerAppModel {
 	const INSTAGRAM = 11;
 	const DROPBOX = 12;
 	const ADWORDS = 13;
+	const LINKED_IN = 14;
 
 /**
  * The table is prefixed with 'auth_manager'.
