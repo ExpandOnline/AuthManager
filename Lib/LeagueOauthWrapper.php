@@ -1,8 +1,15 @@
 <?php
 
-
+/**
+ * Class LeagueOauthWrapper
+ */
 class LeagueOauthWrapper {
 
+	/**
+	 * LeagueOauthWrapper constructor.
+	 *
+	 * @param \League\OAuth2\Client\Provider\AbstractProvider $provider
+	 */
 	public function __construct(\League\OAuth2\Client\Provider\AbstractProvider $provider) {
 		$this->_provider = $provider;
 	}
@@ -25,8 +32,14 @@ class LeagueOauthWrapper {
 		}
 	}
 
-
-	public function getSaveData($username, $token, $mediaPlatform) {
+	/**
+	 * @param $username
+	 * @param $token
+	 * @param $mediaPlatform
+	 *
+	 * @return array
+	 */
+	public function getSaveData($username, \League\OAuth2\Client\Token\AccessToken $token, $mediaPlatform) {
 		return [
 			'MediaPlatformUser' => [
 				'username' => $username,

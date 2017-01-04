@@ -9,7 +9,6 @@ App::uses('LeagueOauthWrapper', 'AuthManager.Lib');
  */
 class LinkedInAuthManager extends MediaPlatformAuthManager {
 
-
 	private $_linkedInProvider;
 
 	private $_leagueWrapper;
@@ -25,14 +24,15 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 		$this->_leagueWrapper = new LeagueOauthWrapper($this->_linkedInProvider);
 	}
 
-
 	/**
 	 * Get the authentication url to add an user.
 	 *
 	 * @return string
 	 */
 	public function getAuthUrl() {
-		$options = [];
+		$options = [
+			'scope' => ['r_basicprofile', 'rw_company_admin']
+		];
 
 		return $this->_linkedInProvider->getAuthorizationUrl($options);
 	}
@@ -56,14 +56,13 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 		return false;
 	}
 
-	protected function _getUsername($token) {
+	protected function _getUsername(\League\OAuth2\Client\Token\AccessToken $token) {
 		/** @var \League\OAuth2\Client\Provider\LinkedInResourceOwner $user */
 		if($user = $this->_linkedInProvider->getResourceOwner($token)) {
 			return $user->getFirstName() . ' ' . $user->getLastName();
 		}
 		return false;
 	}
-
 
 	/**
 	 * @param                                         $username
@@ -78,7 +77,6 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 		);
 	}
 
-
 	/**
 	 * @param $userId
 	 *
@@ -88,10 +86,6 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 		$oauthTokens = $this->MediaPlatformUser->getOauthTokens($userId);
 		if (empty($oauthTokens)) {
 			throw new NotFoundException('Could not find the oauth tokens for MediaPlatformUser #' . $userId . '.');
-		}
-
-		if ($this->_expiresIn(strtotime($oauthTokens['OauthToken']['token_expires']), 600)) {
-			$oauthTokens = $this->_getLeague()->refreshToken($oauthTokens, $this->MediaPlatformUser);
 		}
 
 		$authContainer = new LinkedInAuthContainer();
