@@ -56,7 +56,7 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 			return false;
 		}
 
-		return $this->_saveUser($user->getEmail(), $token, MediaPlatform::LINKED_IN);
+		return $this->_saveUser($user->getFirstName() . ' ' . $user->getLastName(), $token, MediaPlatform::LINKED_IN);
 	}
 
 

@@ -17,7 +17,7 @@ class LinkedInAuthContainer extends AuthContainer {
 	public $linkedInProvider;
 
 	/**
-	 * @var
+	 * @var LinkedInApi
 	 */
 	public $linkedInApi;
 }
