@@ -1,5 +1,4 @@
 <?php
-App::uses('SoapFaultException', 'AuthManager.Lib/Soap');
 
 /**
  * Class BingAdsApiWrapper
@@ -32,21 +31,16 @@ class BingAdsApiWrapper {
 	 * @param null $userId
 	 *
 	 * @return array
-	 * @throws SoapFaultException
 	 */
 	public function getUser($userId = null) {
 		$clientProxy = $this->_getClientProxy(BingAdsApi::CUSTOMER_ENDPOINT, BingAdsApi::VERSION_9);
 		$request = new \BingAds\v9\CustomerManagement\GetUserRequest();
 		$request->UserId = $userId;
 
-		try {
-			return $this->_returnIfPropertyMissing(
-				$clientProxy->GetService()->GetUser($request),
-				'User'
-			);
-		} catch (SoapFault $e) {
-			throw SoapFaultException::createBySoapFault($e);
-		}
+		return $this->_returnIfPropertyMissing(
+			$clientProxy->GetService()->GetUser($request),
+			'User'
+		);
 	}
 
 	/**
@@ -54,7 +48,6 @@ class BingAdsApiWrapper {
 	 * @param null $onlyParentAccounts
 	 *
 	 * @return array
-	 * @throws SoapFaultException
 	 */
 	public function getAccounts($customerId = null, $onlyParentAccounts = null) {
 		$clientProxy = $this->_getClientProxy(BingAdsApi::CUSTOMER_ENDPOINT, BingAdsApi::VERSION_9);
@@ -62,35 +55,26 @@ class BingAdsApiWrapper {
 		$request->CustomerId = $customerId;
 		$request->OnlyParentAccounts = $onlyParentAccounts;
 
-		try {
-			return $this->_returnIfPropertyMissing(
-				$clientProxy->GetService()->GetAccountsInfo($request)->AccountsInfo,
-				'AccountInfo'
-			);
-		} catch (SoapFault $e) {
-			throw SoapFaultException::createBySoapFault($e);
-		}
+		return $this->_returnIfPropertyMissing(
+			$clientProxy->GetService()->GetAccountsInfo($request)->AccountsInfo,
+			'AccountInfo'
+		);
 	}
 
 	/**
 	 * @param $id
 	 *
 	 * @return array
-	 * @throws SoapFaultException
 	 */
 	public function getAccount($id) {
 		$clientProxy = $this->_getClientProxy(BingAdsApi::CUSTOMER_ENDPOINT, BingAdsApi::VERSION_9);
 		$request = new \BingAds\v9\CustomerManagement\GetAccountRequest();
 		$request->AccountId = $id;
 
-		try {
-			return $this->_returnIfPropertyMissing(
-				$clientProxy->GetService()->GetAccount($request),
-				'Account'
-			);
-		} catch (SoapFault $e) {
-			throw SoapFaultException::createBySoapFault($e);
-		}
+		return $this->_returnIfPropertyMissing(
+			$clientProxy->GetService()->GetAccount($request),
+			'Account'
+		);
 	}
 
 	/**
@@ -98,7 +82,6 @@ class BingAdsApiWrapper {
 	 * @param $campaignType
 	 *
 	 * @return array
-	 * @throws SoapFaultException
 	 */
 	public function getCampaign($id, $campaignType) {
 		$clientProxy = $this->_getClientProxyWithAccountId(
@@ -109,14 +92,10 @@ class BingAdsApiWrapper {
 		$request->AccountId = $id;
 		$request->CampaignType = $campaignType;
 
-		try {
-			return $this->_returnIfPropertyMissing(
-				$clientProxy->GetService()->GetCampaignsByAccountId($request)->Campaigns,
-				'Campaign'
-			);
-		} catch (SoapFault $e) {
-			throw SoapFaultException::createBySoapFault($e);
-		}
+		return $this->_returnIfPropertyMissing(
+			$clientProxy->GetService()->GetCampaignsByAccountId($request)->Campaigns,
+			'Campaign'
+		);
 	}
 
 	/**
@@ -139,15 +118,11 @@ class BingAdsApiWrapper {
 		$request = new \BingAds\v9\Reporting\SubmitGenerateReportRequest();
 		$request->ReportRequest = $report;
 
-		try {
-			return $this->_returnIfPropertyMissing(
-				$clientProxy->GetService()->SubmitGenerateReport($request),
-				'ReportRequestId',
-				false
-			);
-		} catch (SoapFault $e) {
-			throw SoapFaultException::createBySoapFault($e);
-		}
+		return $this->_returnIfPropertyMissing(
+			$clientProxy->GetService()->SubmitGenerateReport($request),
+			'ReportRequestId',
+			false
+		);
 	}
 
 	/**
@@ -155,7 +130,6 @@ class BingAdsApiWrapper {
 	 * @param $accountId
 	 *
 	 * @return array
-	 * @throws SoapFaultException
 	 */
 	public function pollReportRequest($reportRequestId, $accountId) {
 		$clientProxy = $this->_getClientProxyWithAccountId(
@@ -166,15 +140,11 @@ class BingAdsApiWrapper {
 		$request = new \BingAds\v9\Reporting\PollGenerateReportRequest();
 		$request->ReportRequestId = $reportRequestId;
 
-		try {
-			return $this->_returnIfPropertyMissing(
-				$clientProxy->GetService()->PollGenerateReport($request),
-				'ReportRequestStatus',
-				false
-			);
-		} catch (SoapFault $e) {
-			throw SoapFaultException::createBySoapFault($e);
-		}
+		return $this->_returnIfPropertyMissing(
+			$clientProxy->GetService()->PollGenerateReport($request),
+			'ReportRequestStatus',
+			false
+		);
 	}
 
 /**
