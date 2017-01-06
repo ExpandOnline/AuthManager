@@ -12,7 +12,7 @@ class LinkedInAuthContainer extends AuthContainer {
 	public $linkedInProvider;
 
 	/**
-	 * @var LinkedInApi
+	 * @var \Happyr\LinkedIn\LinkedIn
 	 */
 	public $linkedInApi;
 }

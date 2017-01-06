@@ -27,6 +27,12 @@ class MediaPlatform extends AuthManagerAppModel {
 	const ADWORDS = 13;
 	const LINKED_IN = 14;
 
+
+	const GROUPED_PLATFORMS = [
+		self::ADWORDS => 'adwords',
+		self::LINKED_IN => 'linked_in'
+	];
+
 /**
  * The table is prefixed with 'auth_manager'.
  * @var string
@@ -93,4 +99,7 @@ class MediaPlatform extends AuthManagerAppModel {
 		]);
 	}
 
+	public static function isGroupedPlatform($mediaplatform) {
+		return array_key_exists($mediaplatform, static::GROUPED_PLATFORMS);
+	}
 }
