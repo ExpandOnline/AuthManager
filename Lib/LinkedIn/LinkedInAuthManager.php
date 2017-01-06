@@ -31,7 +31,10 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 	 */
 	public function getAuthUrl() {
 		$options = [
-			'scope' => ['r_basicprofile', 'rw_company_admin']
+			'scope' => [
+				'r_basicprofile',
+				'rw_company_admin'
+			]
 		];
 
 		return $this->_linkedInProvider->getAuthorizationUrl($options);
@@ -50,17 +53,19 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 			return false;
 		}
 
-		if($username = $this->_getUsername($token)) {
+		if ($username = $this->_getUsername($token)) {
 			return $this->_saveUser($username, $token, MediaPlatform::LINKED_IN);
 		}
+
 		return false;
 	}
 
 	protected function _getUsername(\League\OAuth2\Client\Token\AccessToken $token) {
 		/** @var \League\OAuth2\Client\Provider\LinkedInResourceOwner $user */
-		if($user = $this->_linkedInProvider->getResourceOwner($token)) {
+		if ($user = $this->_linkedInProvider->getResourceOwner($token)) {
 			return $user->getFirstName() . ' ' . $user->getLastName();
 		}
+
 		return false;
 	}
 
@@ -88,6 +93,8 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 			throw new NotFoundException('Could not find the oauth tokens for MediaPlatformUser #' . $userId . '.');
 		}
 
+		$this->_sendTokenExpiresEvent($userId, $oauthTokens['OauthToken']['token_expires']);
+
 		$authContainer = new LinkedInAuthContainer();
 		$authContainer->linkedInProvider = $this->_linkedInProvider;
 
@@ -98,6 +105,14 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 		return $authContainer;
 	}
 
+	protected function _sendTokenExpiresEvent($userId, $tokenExpiresAt) {
+		CakeEventManager::instance()->dispatch(new CakeEvent('AuthManager.LinkedInAuthManager.tokenExpiration', $this, array(
+			'media_platform_user_id' => $userId,
+			'expiration' => $tokenExpiresAt
+		)));
+
+		return true;
+	}
 
 	/**
 	 * @return LeagueOauthWrapper
