@@ -20,6 +20,9 @@
     "ExpandOnline/dropbox-php-api-library": "dev-master",
     "googleads/googleads-php-lib": "10.1.0",
     "stevenmaguire/oauth2-microsoft": "0.2.1",
-    "pixelfear/oauth2-dropbox": "dev-master"
+    "pixelfear/oauth2-dropbox": "dev-master",
+    "league/oauth2-linkedin": "^0.4.2",
+    "php-http/guzzle6-adapter": "^1.1",
+    "happyr/linkedin-api-client": "^1.0"
   }
 }

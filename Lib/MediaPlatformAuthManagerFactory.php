@@ -12,6 +12,7 @@ App::uses('DropboxAuthManager','AuthManager.Lib/Dropbox');
 App::uses('AdWordsAuthManager','AuthManager.Lib/AdWords');
 App::uses('CoostoAuthManager','AuthManager.Lib/Coosto');
 App::uses('BitlyAuthManager','AuthManager.Lib/Bitly');
+App::uses('LinkedInAuthManager','AuthManager.Lib/LinkedIn');
 App::uses('MediaPlatform','AuthManager.Model');
 
 /**
@@ -37,6 +38,7 @@ class MediaPlatformAuthManagerFactory {
 		MediaPlatform::INSTAGRAM => 'InstagramAuthManager',
 		MediaPlatform::DROPBOX => 'DropboxAuthManager',
 		MediaPlatform::ADWORDS => 'AdWordsAuthManager',
+		MediaPlatform::LINKED_IN => 'LinkedInAuthManager'
 	);
 
 /**
