@@ -90,7 +90,10 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 
 		$authContainer = new LinkedInAuthContainer();
 		$authContainer->linkedInProvider = $this->_linkedInProvider;
-		$authContainer->linkedInApi = new LinkedInApi($oauthTokens['OauthToken']['access_token']);
+
+		$api = new \Happyr\LinkedIn\LinkedIn(Configure::read('LinkedIn.client_id'), Configure::read('LinkedIn.client_secret'));
+		$api->setAccessToken($oauthTokens['OauthToken']['access_token']);
+		$authContainer->linkedInApi = $api;
 
 		return $authContainer;
 	}
