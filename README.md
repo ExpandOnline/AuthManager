@@ -17,6 +17,7 @@ Supported media platforms:
 9. Instagram
 10. Dropbox
 11. Google AdWords
+12. LinkedIn Company Pages
 
 Usage
 ---
