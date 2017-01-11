@@ -23,6 +23,8 @@
     "pixelfear/oauth2-dropbox": "dev-master",
     "league/oauth2-linkedin": "^0.4.2",
     "php-http/guzzle6-adapter": "^1.1",
-    "happyr/linkedin-api-client": "^1.0"
+    "happyr/linkedin-api-client": "^1.0",
+    "php-http/message": "^1.4",
+    "guzzlehttp/psr7": "^1.3"
   }
 }
