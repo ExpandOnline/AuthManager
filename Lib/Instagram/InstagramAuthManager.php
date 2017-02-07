@@ -1,5 +1,6 @@
 <?php
 App::uses('InstagramAuthContainer','AuthManager.Lib/Instagram');
+App::uses('InstagramAuthException','AuthManager.Lib/Instagram');
 App::uses('MediaPlatformAuthManager','AuthManager.Lib');
 
 use MetzWeb\Instagram\Instagram;
@@ -76,7 +77,7 @@ class InstagramAuthManager extends MediaPlatformAuthManager {
 	/**
 	 * @param $userId
 	 *
-	 * @return FacebookAdsAuthContainer
+	 * @return InstagramAuthContainer
 	 */
 	public function getAuthContainer($userId) {
 		$oauthTokens = $this->MediaPlatformUser->getOauthTokens($userId);
@@ -86,9 +87,24 @@ class InstagramAuthManager extends MediaPlatformAuthManager {
 
 		$instagramAuthContainer = new InstagramAuthContainer();
 		$this->_instagram->setAccessToken($oauthTokens['OauthToken']['access_token']);
+		$this->_checkStillValid();
 		$instagramAuthContainer->instagram = $this->_instagram;
 
 		return $instagramAuthContainer;
+	}
+
+	/**
+	 *
+	 */
+	protected function _checkStillValid() {
+		$response = $this->_instagram->getUser();
+		if ($response->meta->code != 200) {
+			throw new InstagramAuthException(sprintf(
+				'%s: %s',
+				$response->meta->error_type,
+				$response->meta->error_message
+			));
+		}
 	}
 
 }
