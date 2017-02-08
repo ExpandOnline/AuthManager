@@ -15,7 +15,7 @@ class DropboxAuthManager extends MediaPlatformAuthManager {
 	public function __construct() {
 		parent::__construct();
 		Configure::load('AuthManager.API/Dropbox');
-		$this->_dropboxProvider = new Stevenmaguire\OAuth2\Client\Provider\Dropbox([
+		$this->_dropboxProvider = new Pixelfear\OAuth2\Client\Provider\Dropbox([
 			'clientId' => Configure::read('Dropbox.client_id'),
 			'clientSecret' => Configure::read('Dropbox.client_secret'),
 			'redirectUri' => $this->_getCallbackUrl(MediaPlatform::DROPBOX),
