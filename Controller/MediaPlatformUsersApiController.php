@@ -1,9 +1,9 @@
 <?php
-
 App::uses('AuthManagerApiController', 'AuthManager.Controller');
 App::uses('ApiExceptionFactory', 'CakePHPUtil.Lib/Api/Exceptions');
 App::uses('JsonApiResponse', 'CakePHPUtil.Lib/Api/Response');
 App::uses('MediaPlatformUsersApiScope', 'AuthManager.Lib/Api/Scopes');
+
 /**
  * Class MediaPlatformUsersApiController
  *
