@@ -6,7 +6,7 @@ App::uses('MediaPlatformUsersApiController', 'AuthManager.Controller');
 /**
  * Class DataApiControllerTest
  */
-class MediaPlatformUsersApiControllerTest extends AuthManagerApiControllerTestCase  {
+class MediaPlatformUsersApiControllerTest extends AuthManagerApiControllerTestCase {
 
 	public $fixtures = [
 		'plugin.AuthManager.MediaPlatform',
@@ -26,6 +26,7 @@ class MediaPlatformUsersApiControllerTest extends AuthManagerApiControllerTestCa
 	 */
 	public function testReadWithInvalidId() {
 		$result = json_decode($this->testAction('/AuthManager/api/1/users?media_platform=1123123123'));
+
 		$this->assertEmpty($result->data);
 	}
 
@@ -36,8 +37,14 @@ class MediaPlatformUsersApiControllerTest extends AuthManagerApiControllerTestCa
 		$result = json_decode($this->testAction('/AuthManager/api/1/users?media_platform=3'), true);
 		$this->assertSame(
 			[
-				['id' => 1, 'name' => 'test@test.com'],
-				['id' => 2, 'name' => 'test@test.com']
+				[
+					'id' => 1,
+					'name' => 'test@test.com'
+				],
+				[
+					'id' => 2,
+					'name' => 'test@test.com'
+				]
 			],
 			$result['data']
 		);
@@ -47,8 +54,28 @@ class MediaPlatformUsersApiControllerTest extends AuthManagerApiControllerTestCa
 	 *
 	 */
 	public function testWithoutMediaPlatform() {
-		$result = json_decode($this->testAction('/AuthManager/api/1/users'));
-		$this->assertEmpty($result->data);
+		$result = json_decode($this->testAction('/AuthManager/api/1/users'), true);
+		$this->assertSame(
+			[
+				[
+					'id' => 1,
+					'name' => 'test@test.com'
+				],
+				[
+					'id' => 2,
+					'name' => 'test@test.com'
+				],
+				[
+						'id' => 3,
+					'name' => 'test@linkedin.com'
+				],
+				[
+						'id' => 4,
+					'name' => 'test@linkedin.com'
+				],
+			],
+			$result['data']
+		);
 	}
 
 	/**

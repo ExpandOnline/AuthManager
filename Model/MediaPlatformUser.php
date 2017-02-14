@@ -98,15 +98,13 @@ class MediaPlatformUser extends AuthManagerAppModel {
  * @return array|null
  */
 	public function listUsers($mediaPlatformId) {
-		return $this->find('list', array(
-			'conditions' => array(
-				'media_platform_id' => $mediaPlatformId
-			),
-			'fields' => array(
+		return $this->find('list', [
+			'conditions' => !empty($mediaPlatformId) ? ['media_platform_id' => $mediaPlatformId] : null,
+			'fields' => [
 				'id',
 				'username'
-			)
-		));
+			]
+		]);
 	}
 
 /**
