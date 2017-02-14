@@ -12,12 +12,15 @@ App::uses('MediaPlatformUsersApiScope', 'AuthManager.Lib/Api/Scopes');
 class MediaPlatformUsersApiController extends AuthManagerApiController {
 	public $uses = ['AuthManager.MediaPlatformUser'];
 
+	/**
+	 * @return string
+	 */
 	public function index() {
 		$mediaPlatformId = $this->request->query('media_platform');
 		$users = $this->MediaPlatformUser->listUsers($mediaPlatformId);
 
 		$response = [];
-		foreach($users as $id => $name) {
+		foreach ($users as $id => $name) {
 			$response[] = [
 				'id' => $id,
 				'name' => $name

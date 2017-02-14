@@ -2,12 +2,11 @@
 
 App::uses('Controller', 'Controller');
 App::uses('ApiExceptionFactory', 'CakePHPUtil.Lib/Api/Exceptions');
-App::uses('JsonApiResponse', 'CakePHPUtil.Lib/Api/Response');
 App::uses('AuthManagerApiScope', 'AuthManager.Lib/Api/Scopes');
 App::uses('ApiScopeValidator', 'CakePHPUtil.Lib/Api/Scopes');
 
 /**
- * Class CIAApiController
+ * Class AuthManagerApiController
  *
  */
 class AuthManagerApiController extends Controller {
@@ -22,7 +21,7 @@ class AuthManagerApiController extends Controller {
 	 */
 	public $components = [
 		'Auth' => [
-			'authenticate' => ['CakePHPUtil.ApiQuery'],
+			'authenticate' => ['CakePHPUtil.Api'],
 			'authorize' => ['Controller']
 		]
 	];

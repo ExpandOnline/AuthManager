@@ -44,6 +44,14 @@ class MediaPlatformUsersApiControllerTest extends AuthManagerApiControllerTestCa
 	}
 
 	/**
+	 *
+	 */
+	public function testWithoutMediaPlatform() {
+		$result = json_decode($this->testAction('/AuthManager/api/1/users'));
+		$this->assertEmpty($result->data);
+	}
+
+	/**
 	 * @return mixed
 	 */
 	protected function getControllerName() {
