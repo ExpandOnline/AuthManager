@@ -18,6 +18,7 @@ Supported media platforms:
 10. Dropbox
 11. Google AdWords
 12. LinkedIn Company Pages
+13. Twitter Ads
 
 Usage
 ---
