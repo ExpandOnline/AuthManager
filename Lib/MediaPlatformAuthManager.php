@@ -56,7 +56,7 @@ abstract class MediaPlatformAuthManager {
 	 *
 	 * @return mixed
 	 */
-	protected function _saveUser($username, $accessToken, $mediaPlatform, $refreshToken = null) {
+	protected function _saveUser($username, $accessToken, $mediaPlatform) {
 		$saveData = array(
 			'MediaPlatformUser' => array(
 				'username' => $username,
@@ -64,7 +64,6 @@ abstract class MediaPlatformAuthManager {
 			),
 			'OauthToken' => array(
 				'access_token' => $accessToken,
-				'refresh_token' => $refreshToken
 			)
 		);
 
