@@ -59,9 +59,8 @@ class TwitterAdsAuthManager extends MediaPlatformAuthManager {
 		}
 		return $this->_saveUser(
 			$reply->screen_name,
-			$reply->oauth_token,
-			MediaPlatform::TWITTER_ADS,
-			$reply->oauth_token_secret
+			$reply,
+			MediaPlatform::TWITTER_ADS
 		);
 	}
 
@@ -84,6 +83,28 @@ class TwitterAdsAuthManager extends MediaPlatformAuthManager {
 		$twitterAdsAuthContainer->codebird = $this->codebird;
 
 		return $twitterAdsAuthContainer;
+	}
+
+	/**
+	 * @param $username
+	 * @param $tokens
+	 * @param $mediaPlatform
+	 *
+	 * @return mixed
+	 */
+	protected function _saveUser($username, $tokens, $mediaPlatform) {
+		$saveData = array(
+			'MediaPlatformUser' => array(
+				'username' => $username,
+				'media_platform_id' => $mediaPlatform
+			),
+			'OauthToken' => array(
+				'access_token' => $tokens->oauth_token,
+				'refresh_token' => $tokens->oauth_token_secret,
+			)
+		);
+
+		return $this->MediaPlatformUser->saveOauthUser($saveData);
 	}
 
 }
