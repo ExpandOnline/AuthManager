@@ -19,6 +19,7 @@ Supported media platforms:
 11. Google AdWords
 12. LinkedIn Company Pages
 13. Twitter Ads
+14. Salesforce
 
 Usage
 ---

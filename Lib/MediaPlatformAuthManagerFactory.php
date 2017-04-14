@@ -6,6 +6,7 @@ App::uses('DoubleClickAuthManager','AuthManager.Lib/DoubleClick');
 App::uses('LinkedInAdsAuthManager','AuthManager.Lib/LinkedInAds');
 App::uses('TagManagerAuthManager','AuthManager.Lib/TagManager');
 App::uses('TwitterAdsAuthManager','AuthManager.Lib/TwitterAds');
+App::uses('SalesforceAuthManager','AuthManager.Lib/Salesforce');
 App::uses('FacebookAdsAuthManager','AuthManager.Lib/Facebook');
 App::uses('InstagramAuthManager','AuthManager.Lib/Instagram');
 App::uses('LinkedInAuthManager','AuthManager.Lib/LinkedIn');
@@ -41,6 +42,7 @@ class MediaPlatformAuthManagerFactory {
 		MediaPlatform::ADWORDS => 'AdWordsAuthManager',
 		MediaPlatform::LINKED_IN => 'LinkedInAuthManager',
 		MediaPlatform::TWITTER_ADS => 'TwitterAdsAuthManager',
+		MediaPlatform::SALESFORCE => 'SalesforceAuthManager',
 	);
 
 /**

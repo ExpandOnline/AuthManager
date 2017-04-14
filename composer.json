@@ -26,6 +26,7 @@
     "happyr/linkedin-api-client": "^1.0",
     "php-http/message": "^1.4",
     "guzzlehttp/psr7": "1.3.1",
-    "jublonet/codebird-php": "3.2.0-beta.1"
+    "jublonet/codebird-php": "3.2.0-beta.1",
+    "stevenmaguire/oauth2-salesforce": "^2.0"
   }
 }
