@@ -1,7 +1,9 @@
 <?php
 App::uses('MediaPlatformAuthManager','AuthManager.Lib');
 App::uses('SalesforceAuthContainer','AuthManager.Lib/Salesforce');
+App::uses('SalesforceAPI','AuthManager.Lib/Salesforce');
 
+use ExpandOnline\Salesforce\Api;
 use Stevenmaguire\OAuth2\Client\Provider\Salesforce;
 
 /**
@@ -79,7 +81,7 @@ class SalesforceAuthManager extends MediaPlatformAuthManager {
 	/**
 	 * @param $userId
 	 *
-	 * @return FacebookAdsAuthContainer
+	 * @return SalesforceAuthContainer
 	 */
 	public function getAuthContainer($userId) {
 		$oauthTokens = $this->MediaPlatformUser->getOauthTokens($userId);
@@ -87,10 +89,16 @@ class SalesforceAuthManager extends MediaPlatformAuthManager {
 			throw new NotFoundException('Could not find the oauth tokens for MediaPlatformUser #' . $userId . '.');
 		}
 		$salesforceAuthContainer = new SalesforceAuthContainer();
-		$salesforceAuthContainer->salesforce = new SalesforceAPI(
-			$this->salesforce,
-			$oauthTokens['OauthToken']['refresh_token']
-		);
+		$salesforce = $this->salesforce;
+		$refreshToken = $oauthTokens['OauthToken']['refresh_token'];
+		$function = function () use ($salesforce, $refreshToken) {
+			return $salesforce
+				->getAccessToken('refresh_token', [
+					'refresh_token' => $refreshToken
+				]
+				)->getToken();
+		};
+		$salesforceAuthContainer->salesforce = new Api($function);
 		return $salesforceAuthContainer;
 	}
 

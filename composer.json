@@ -15,6 +15,7 @@
     "ExpandOnline/bitly-api-php": "dev-master",
     "league/oauth2-client": "^2.0",
     "ExpandOnline/bing-ads-sdk-php": "dev-master",
+    "ExpandOnline/salesforce-rest-api-php": "dev-master",
     "guzzlehttp/guzzle": "6.0.*",
     "ExpandOnline/Instagram-PHP-API": "dev-master",
     "ExpandOnline/dropbox-php-api-library": "dev-master",
