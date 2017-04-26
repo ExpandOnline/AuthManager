@@ -31,7 +31,8 @@ class MediaPlatform extends AuthManagerAppModel {
 
 	const GROUPED_PLATFORMS = [
 		self::ADWORDS => 'adwords',
-		self::LINKED_IN => 'linked_in'
+		self::LINKED_IN => 'linked_in',
+		self::SEARCH_CONSOLE => 'search_console'
 	];
 
 /**
