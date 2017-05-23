@@ -48,4 +48,11 @@ class SearchConsoleAuthManager extends UpdatedGoogleAuthManager {
 		return CakePlugin::path('AuthManager') . 'Config' . DS . 'API' . DS . 'searchConsole.json';
 	}
 
+	public function getAuthContainer($userId) {
+		$authContainer = parent::getAuthContainer($userId);
+		$authContainer->setManager($this);
+		return $authContainer;
+	}
+
+
 }

@@ -16,4 +16,20 @@ class GoogleAuthContainer extends AuthContainer {
 	 */
 	public $service;
 
+
+	/** @var  GoogleAuthManager */
+	private $_manager;
+
+	public function setManager(GoogleAuthManager $manager) {
+		$this->_manager = $manager;
+	}
+
+	public function refresh() {
+		$newInstance = $this->_newInstance();
+		$this->client->setAccessToken($newInstance->client->getAccessToken());
+	}
+
+	private function _newInstance() {
+		return $this->_manager->getAuthContainer($this->userId);
+	}
 }
