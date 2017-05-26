@@ -27,7 +27,7 @@ class SalesforceAuthManager extends MediaPlatformAuthManager {
 			'clientSecret'      => Configure::read('Salesforce.client_secret'),
 			'redirectUri'       => $this->_getCallbackUrl(MediaPlatform::SALESFORCE)
 		]);
-		if (Configure::read('DEO.live') !== true) {
+		if (Configure::read('AuthManager.live') !== true) {
 			$this->salesforce->setDomain('https://test.salesforce.com');
 		}
 	}
