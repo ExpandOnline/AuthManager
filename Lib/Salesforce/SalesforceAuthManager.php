@@ -27,6 +27,9 @@ class SalesforceAuthManager extends MediaPlatformAuthManager {
 			'clientSecret'      => Configure::read('Salesforce.client_secret'),
 			'redirectUri'       => $this->_getCallbackUrl(MediaPlatform::SALESFORCE)
 		]);
+		if (Configure::read('AuthManager.live') !== true) {
+			$this->salesforce->setDomain('https://test.salesforce.com');
+		}
 	}
 
 	/**
@@ -92,11 +95,14 @@ class SalesforceAuthManager extends MediaPlatformAuthManager {
 		$salesforce = $this->salesforce;
 		$refreshToken = $oauthTokens['OauthToken']['refresh_token'];
 		$function = function () use ($salesforce, $refreshToken) {
-			return $salesforce
-				->getAccessToken('refresh_token', [
+			$token = $salesforce->getAccessToken('refresh_token', [
 					'refresh_token' => $refreshToken
-				]
-				)->getToken();
+				]);
+
+			return [
+				'token' => $token->getToken(),
+				'domain' => $token->getValues()['instance_url']
+			];
 		};
 		$salesforceAuthContainer->salesforce = new Api($function);
 		return $salesforceAuthContainer;

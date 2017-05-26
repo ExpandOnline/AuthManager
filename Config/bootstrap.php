@@ -5,3 +5,4 @@ CakeLog::config('AuthManager', array(
 	'file' => 'authManager.log',
 ));
 Configure::load('AuthManager.API/UserCredentials');
+Configure::write('AuthManager.live', Configure::read('DEO.live'));
