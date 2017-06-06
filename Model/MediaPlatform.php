@@ -28,6 +28,7 @@ class MediaPlatform extends AuthManagerAppModel {
 	const LINKED_IN = 14;
 	const TWITTER_ADS = 15;
 	const SALESFORCE = 16;
+	const PAGESPEED = 17;
 
 	const GROUPED_PLATFORMS = [
 		self::ADWORDS => 'adwords',
