@@ -1,8 +1,7 @@
 <?php
 App::uses('MediaPlatformAuthManager', 'AuthManager.Lib');
-App::uses('PagespeedAuthContainer', 'AuthManager.Lib/Facebook');
 
-abstract class GoogleDeveloperAuthManager extends MediaPlatformAuthManager {
+abstract class SelfAuthenticationAuthManager extends MediaPlatformAuthManager {
 
 	/**
 	 * Get the authentication url to add an user.

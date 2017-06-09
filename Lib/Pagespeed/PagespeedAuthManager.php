@@ -1,9 +1,9 @@
 <?php
-App::uses('GoogleDeveloperAuthManager', 'AuthManager.Lib/Google');
+App::uses('SelfAuthenticationAuthManager', 'AuthManager.Lib/Google');
 App::uses('PagespeedAuthContainer', 'AuthManager.Lib/Pagespeed');
 
 
-class PagespeedAuthManager extends GoogleDeveloperAuthManager {
+class PagespeedAuthManager extends SelfAuthenticationAuthManager {
 
 	/**
 	 * @param $userId
