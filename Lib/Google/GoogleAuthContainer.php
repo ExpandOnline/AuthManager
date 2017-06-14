@@ -32,4 +32,8 @@ class GoogleAuthContainer extends AuthContainer {
 	private function _newInstance() {
 		return $this->_manager->getAuthContainer($this->userId);
 	}
+
+	public function getService($name) {
+		return new $name($this->client);
+	}
 }
