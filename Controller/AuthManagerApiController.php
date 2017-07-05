@@ -4,7 +4,6 @@ App::uses('Controller', 'Controller');
 App::uses('ApiExceptionFactory', 'CakePHPUtil.Lib/Api/Exceptions');
 App::uses('AuthManagerApiScope', 'AuthManager.Lib/Api/Scopes');
 App::uses('ApiScopeValidator', 'CakePHPUtil.Lib/Api/Scopes');
-
 /**
  * Class AuthManagerApiController
  *
@@ -23,7 +22,8 @@ class AuthManagerApiController extends Controller {
 		'Auth' => [
 			'authenticate' => ['CakePHPUtil.Api'],
 			'authorize' => ['Controller']
-		]
+		],
+		'CakePHPUtil.Cors'
 	];
 
 	/**
