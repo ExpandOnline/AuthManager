@@ -19,12 +19,9 @@ abstract class AuthManagerApiControllerTestCase extends ControllerTestCase {
 		));
 		$token = new ApiToken($accountId);
 		$token->setScopes($this->getRequiredScopes());
-		$this->controller->Auth
-			->staticExpects($this->any())
-			->method('user')
-			->will($this->returnValue([
-				'token' => $token
-			]));
+		CakeSession::write('Auth.user', [
+			'token' => $token
+		]);
 	}
 
 	/**
