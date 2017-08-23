@@ -22,6 +22,7 @@ abstract class AuthManagerApiControllerTestCase extends ControllerTestCase {
 		CakeSession::write('Auth.user', [
 			'token' => $token
 		]);
+		$_SERVER['HTTP_AUTHORIZATION'] = 'Bearer ' . $token->encode(Configure::read('API.SECRET_KEY'));
 	}
 
 	/**

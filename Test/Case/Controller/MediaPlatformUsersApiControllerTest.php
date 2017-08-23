@@ -10,7 +10,8 @@ class MediaPlatformUsersApiControllerTest extends AuthManagerApiControllerTestCa
 
 	public $fixtures = [
 		'plugin.AuthManager.MediaPlatform',
-		'plugin.AuthManager.MediaPlatformUser'
+		'plugin.AuthManager.MediaPlatformUser',
+		'app.CakeSession'
 	];
 
 	/**
