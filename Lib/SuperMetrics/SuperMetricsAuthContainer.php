@@ -1,6 +1,6 @@
 <?php
+App::uses('AuthContainer', 'AuthManager.Lib');
 
-
-class SuperMetricsAuthContainer {
+class SuperMetricsAuthContainer extends AuthContainer {
 
 }
