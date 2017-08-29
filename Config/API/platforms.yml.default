@@ -1,0 +1,2 @@
+parameters:
+  authmanager.platforms.supermetrics.api_key: ''
