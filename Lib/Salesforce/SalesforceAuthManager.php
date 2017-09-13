@@ -94,17 +94,10 @@ class SalesforceAuthManager extends MediaPlatformAuthManager {
 		$salesforceAuthContainer = new SalesforceAuthContainer();
 		$salesforce = $this->salesforce;
 		$refreshToken = $oauthTokens['OauthToken']['refresh_token'];
-		$function = function () use ($salesforce, $refreshToken) {
-			$token = $salesforce->getAccessToken('refresh_token', [
-					'refresh_token' => $refreshToken
-				]);
-
-			return [
-				'token' => $token->getToken(),
-				'domain' => $token->getValues()['instance_url']
-			];
-		};
-		$salesforceAuthContainer->salesforce = new Api($function);
+		$token = $salesforce->getAccessToken('refresh_token', [
+			'refresh_token' => $refreshToken
+		]);
+		$salesforceAuthContainer->salesforce = new Api($token->getValues()['instance_url'], $token->getToken());
 		return $salesforceAuthContainer;
 	}
 
