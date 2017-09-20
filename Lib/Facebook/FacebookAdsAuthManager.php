@@ -46,7 +46,8 @@ class FacebookAdsAuthManager extends MediaPlatformAuthManager {
 		$permissions = array(
 			'ads_read',
 			'email',
-			'business_management'
+			'business_management',
+			'ads_management'
 		);
 		return $redirectLoginHelper->getLoginUrl(
 			$this->_getCallbackUrl(MediaPlatform::FACEBOOK_ADS),
