@@ -1,9 +1,29 @@
 <?php
-
 App::uses('MediaPlatformAuthManager','AuthManager.Lib');
-App::uses('SuperMetricsAuthContainer', 'AuthManager.Lib/SuperMetrics');
+App::uses('SuperMetricsAuthContainer','AuthManager.Lib/SuperMetrics');
 
-class SuperMetricsAuthManager extends MediaPlatformAuthManager {
+/**
+ * Class SuperMetricsAuthManager
+ */
+abstract class SuperMetricsAuthManager extends MediaPlatformAuthManager {
+
+	/**
+	 * @var UserCredentials
+	 */
+	protected $_UserCredentials;
+
+	/**
+	 * @inheritDoc
+	 */
+	public function __construct() {
+		parent::__construct();
+		$this->_UserCredentials = ClassRegistry::init('AuthManager.UserCredentials');
+	}
+
+	/**
+	 * @return mixed
+	 */
+	protected abstract function getMediaPlatform();
 
 	/**
 	 * Get the authentication url to add an user.
@@ -11,18 +31,14 @@ class SuperMetricsAuthManager extends MediaPlatformAuthManager {
 	 * @return string
 	 */
 	public function getAuthUrl() {
-		return $this->_getCallbackUrl(MediaPlatform::SM_LINKED_IN_ADS);
-	}
-
-	/**
-	 * Setup a AuthContainer object with the given User ID.
-	 *
-	 * @param $userId
-	 *
-	 * @return SuperMetricsAuthContainer
-	 */
-	public function getAuthContainer($userId) {
-		return new SuperMetricsAuthContainer();
+		return Router::url([
+			'plugin' => 'auth_manager',
+			'controller' => 'user_credentials',
+			'action' => 'index',
+			'?' => [
+				'callbackUrl' => $this->_getCallbackUrl($this->getMediaPlatform())
+			]
+		], true);
 	}
 
 	/**
@@ -33,15 +49,27 @@ class SuperMetricsAuthManager extends MediaPlatformAuthManager {
 	 * @return bool
 	 */
 	public function authenticateUser($request) {
-		if ($this->MediaPlatformUser->hasAny([
-			'media_platform_id' => MediaPlatform::SM_LINKED_IN_ADS
-		])) {
-			return false;
-		}
-
+		$username = $request->data['username'];
 		return $this->MediaPlatformUser->save([
-			'username' => 'SuperMetrics user',
-			'media_platform_id' => MediaPlatform::SM_LINKED_IN_ADS,
-		]);
+				'media_platform_id' => $this->getMediaPlatform(),
+				'username' => $username
+			]) && $this->_UserCredentials->saveEncrypted(
+				$this->MediaPlatformUser->getLastInsertID(),
+				$username,
+				null
+			);
 	}
+
+	/**
+	 * @param $userId
+	 *
+	 * @return SuperMetricsAuthContainer
+	 */
+	public function getAuthContainer($userId) {
+		$credentials = $this->_UserCredentials->getCredentials($userId);
+		$authContainer = new SuperMetricsAuthContainer();
+		$authContainer->dsUser = $credentials['UserCredentials']['username'];
+		return $authContainer;
+	}
+
 }
