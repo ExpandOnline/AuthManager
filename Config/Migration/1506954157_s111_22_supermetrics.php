@@ -1,4 +1,5 @@
 <?php
+App::uses('AuthenticationType', 'AuthManager.Model');
 class S10838Supermetrics extends CakeMigration {
 
 /**
@@ -39,9 +40,17 @@ class S10838Supermetrics extends CakeMigration {
 	public function after($direction) {
 		if ($direction === 'up') {
 			$mediaPlatform = ClassRegistry::init('AuthManager.MediaPlatform');
-			return $mediaPlatform->delete([
+			$userCredentials = ClassRegistry::init('AuthManager.UserCredentials');
+			$mediaPlatform->delete([
 				'id' => 18
 			]);
+			$mediaPlatform->id = MediaPlatform::LINKED_IN_ADS;
+			$mediaPlatform->saveField('authentication_type_id', AuthenticationType::USER_CREDENTIALS);
+			$userCredentials->saveEncrypted(
+				9,
+				'V8XvFzlv5Q',
+				null
+			);
 		}
 		return true;
 	}
