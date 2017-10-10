@@ -10,7 +10,7 @@
     "cakedc/migrations": "2.4.0",
     "ExpandOnline/google-api-php-client": "dev-master",
     "google/apiclient": "^2.0.0@RC",
-    "facebook/php-ads-sdk": "2.10.0",
+    "facebook/php-ads-sdk": "2.10.1",
     "facebook/graph-sdk": "~5.0",
     "ExpandOnline/bitly-api-php": "dev-master",
     "league/oauth2-client": "^2.0",
