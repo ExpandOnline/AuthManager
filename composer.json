@@ -14,7 +14,6 @@
     "facebook/graph-sdk": "~5.0",
     "ExpandOnline/bitly-api-php": "dev-master",
     "league/oauth2-client": "^2.0",
-    "ExpandOnline/bing-ads-sdk-php": "dev-master",
     "ExpandOnline/salesforce-rest-api-php": "dev-master",
     "guzzlehttp/guzzle": "6.0.*",
     "ExpandOnline/Instagram-PHP-API": "dev-master",
@@ -28,6 +27,7 @@
     "php-http/message": "^1.4",
     "guzzlehttp/psr7": "1.3.1",
     "jublonet/codebird-php": "3.2.0-beta.1",
-    "stevenmaguire/oauth2-salesforce": "^2.0"
+    "stevenmaguire/oauth2-salesforce": "^2.0",
+    "microsoft/bingads": "v0.11.5.5"
   }
 }

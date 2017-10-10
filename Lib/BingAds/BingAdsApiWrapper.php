@@ -1,5 +1,13 @@
 <?php
 
+use Microsoft\BingAds\Auth\ServiceClientType;
+use Microsoft\BingAds\V11\CampaignManagement\GetCampaignsByAccountIdRequest;
+use Microsoft\BingAds\V11\CustomerManagement\GetAccountRequest;
+use Microsoft\BingAds\V11\CustomerManagement\GetAccountsInfoRequest;
+use Microsoft\BingAds\V11\CustomerManagement\GetUserRequest;
+use Microsoft\BingAds\V11\Reporting\PollGenerateReportRequest;
+use Microsoft\BingAds\V11\Reporting\SubmitGenerateReportRequest;
+
 /**
  * Class BingAdsApiWrapper
  */
@@ -33,8 +41,8 @@ class BingAdsApiWrapper {
 	 * @return array
 	 */
 	public function getUser($userId = null) {
-		$clientProxy = $this->_getClientProxy(BingAdsApi::CUSTOMER_ENDPOINT, BingAdsApi::VERSION_9);
-		$request = new \BingAds\v9\CustomerManagement\GetUserRequest();
+		$clientProxy = $this->_getClientProxy(ServiceClientType::CustomerManagementVersion11);
+		$request = new GetUserRequest();
 		$request->UserId = $userId;
 
 		return $this->_returnIfPropertyMissing(
@@ -50,8 +58,8 @@ class BingAdsApiWrapper {
 	 * @return array
 	 */
 	public function getAccounts($customerId = null, $onlyParentAccounts = null) {
-		$clientProxy = $this->_getClientProxy(BingAdsApi::CUSTOMER_ENDPOINT, BingAdsApi::VERSION_9);
-		$request = new \BingAds\v9\CustomerManagement\GetAccountsInfoRequest();
+		$clientProxy = $this->_getClientProxy(ServiceClientType::CustomerManagementVersion11);
+		$request = new GetAccountsInfoRequest();
 		$request->CustomerId = $customerId;
 		$request->OnlyParentAccounts = $onlyParentAccounts;
 
@@ -67,8 +75,8 @@ class BingAdsApiWrapper {
 	 * @return array
 	 */
 	public function getAccount($id) {
-		$clientProxy = $this->_getClientProxy(BingAdsApi::CUSTOMER_ENDPOINT, BingAdsApi::VERSION_9);
-		$request = new \BingAds\v9\CustomerManagement\GetAccountRequest();
+		$clientProxy = $this->_getClientProxy(ServiceClientType::CustomerManagementVersion11);
+		$request = new GetAccountRequest();
 		$request->AccountId = $id;
 
 		return $this->_returnIfPropertyMissing(
@@ -85,10 +93,10 @@ class BingAdsApiWrapper {
 	 */
 	public function getCampaign($id, $campaignType) {
 		$clientProxy = $this->_getClientProxyWithAccountId(
-			BingAdsApi::CAMPAIGN_ENDPOINT,
+			ServiceClientType::CampaignManagementVersion11,
 			$id
 		);
-		$request = new \BingAds\v10\CampaignManagement\GetCampaignsByAccountIdRequest();
+		$request = new GetCampaignsByAccountIdRequest();
 		$request->AccountId = $id;
 		$request->CampaignType = $campaignType;
 
@@ -108,14 +116,13 @@ class BingAdsApiWrapper {
 	 */
 	public function submitReport($report, $accountId, $reportType) {
 		$clientProxy = $this->_getClientProxyWithAccountId(
-			BingAdsApi::REPORTING_ENDPOINT,
-			$accountId,
-			BingAdsApi::VERSION_9
+			ServiceClientType::ReportingVersion11,
+			$accountId
 		);
 		$report = new SoapVar(
 			$report, SOAP_ENC_OBJECT, $reportType, $clientProxy->GetNamespace()
 		);
-		$request = new \BingAds\v9\Reporting\SubmitGenerateReportRequest();
+		$request = new SubmitGenerateReportRequest();
 		$request->ReportRequest = $report;
 
 		return $this->_returnIfPropertyMissing(
@@ -133,11 +140,10 @@ class BingAdsApiWrapper {
 	 */
 	public function pollReportRequest($reportRequestId, $accountId) {
 		$clientProxy = $this->_getClientProxyWithAccountId(
-			BingAdsApi::REPORTING_ENDPOINT,
-			$accountId,
-			BingAdsApi::VERSION_9
+			ServiceClientType::ReportingVersion11,
+			$accountId
 		);
-		$request = new \BingAds\v9\Reporting\PollGenerateReportRequest();
+		$request = new PollGenerateReportRequest();
 		$request->ReportRequestId = $reportRequestId;
 
 		return $this->_returnIfPropertyMissing(
@@ -166,7 +172,7 @@ class BingAdsApiWrapper {
  * @param        $endPoint
  * @param string $apiVersion
  *
- * @return \BingAds\v10\Proxy\ClientProxy|\BingAds\v9\Proxy\ClientProxy
+ * @return \Microsoft\BingAds\Auth\ServiceClient
  */
 	protected function _getClientProxy($endPoint, $apiVersion = BingAdsApi::VERSION_10) {
 		if (isset($this->_clientProxies[$apiVersion][$endPoint])) {
@@ -182,7 +188,7 @@ class BingAdsApiWrapper {
  * @param        $accountId
  * @param string $apiVersion
  *
- * @return \BingAds\v10\Proxy\ClientProxy|\BingAds\v9\Proxy\ClientProxy
+ * @return \Microsoft\BingAds\Auth\ServiceClient
  */
 	protected function _getClientProxyWithAccountId($endPoint, $accountId, $apiVersion = BingAdsApi::VERSION_10) {
 		if (!$this->isUseCache()) {

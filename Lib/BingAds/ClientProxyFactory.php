@@ -1,4 +1,9 @@
 <?php
+
+use Microsoft\BingAds\Auth\ApiEnvironment;
+use Microsoft\BingAds\Auth\AuthorizationData;
+use Microsoft\BingAds\Auth\ServiceClient;
+
 App::uses('BingAdsApi', 'AuthManager.Lib/BingAds');
 
 /**
@@ -6,101 +11,83 @@ App::uses('BingAdsApi', 'AuthManager.Lib/BingAds');
  */
 class ClientProxyFactory {
 
-/**
- * @var string
- */
+	/**
+	 * @var string
+	 */
 	protected $_accessToken;
 
-/**
- * @var string
- */
+	/**
+	 * @var string
+	 */
 	protected $_developerToken;
 
-	protected $_clientProxies = [
-		BingAdsApi::VERSION_9 => '\BingAds\v9\Proxy\ClientProxy',
-		BingAdsApi::VERSION_10 => '\BingAds\v10\Proxy\ClientProxy',
-	];
-
-/**
- * @param        $endPoint
- * @param string $apiVersion
- *
- * @return \BingAds\v10\Proxy\ClientProxy|\BingAds\v9\Proxy\ClientProxy
- */
-	public function createClientProxy($endPoint, $apiVersion = BingAdsApi::VERSION_10) {
-		$wsdl = $this->_buildWsdl($endPoint, $apiVersion);
-		return forward_static_call(array($this->_clientProxies[$apiVersion], 'ConstructWithCredentials'),
-			$wsdl,
-			null,
-			null,
-			$this->_developerToken,
-			$this->_accessToken
-		);
+	/**
+	 * @param $serviceClientType
+	 *
+	 * @return ServiceClient
+	 */
+	public function createClientProxy($serviceClientType) {
+		return new ServiceClient($serviceClientType, $this->_createAuthorization(), ApiEnvironment::Production);
 	}
 
-/**
- * @param        $endPoint
- * @param        $accountId
- * @param string $apiVersion
- *
- * @return \BingAds\v10\Proxy\ClientProxy|\BingAds\v9\Proxy\ClientProxy
- */
-	public function createClientProxyWithAccountId($endPoint, $accountId, $apiVersion = BingAdsApi::VERSION_10) {
-		$wsdl = $this->_buildWsdl($endPoint, $apiVersion);
-		return forward_static_call(array($this->_clientProxies[$apiVersion], 'ConstructWithAccountId'),
-			$wsdl,
-			null,
-			null,
-			$this->_developerToken,
-			$accountId,
-			$this->_accessToken
-		);
+	/**
+	 * @param $serviceClientType
+	 * @param $accountId
+	 *
+	 * @return ServiceClient
+	 */
+	public function createClientProxyWithAccountId($serviceClientType, $accountId) {
+		$authorizationData = $this->_createAuthorization();
+		$authorizationData->withAccountId($accountId);
+		return new ServiceClient($serviceClientType, $authorizationData, ApiEnvironment::Production);
 	}
 
-/**
- * @param $endPoint
- * @param $apiVersion
- *
- * @return string
- */
-	protected function _buildWsdl($endPoint, $apiVersion) {
-		return sprintf(BingAdsApi::$wsdlEndPoints[$endPoint], $apiVersion);
+	/**
+	 * @return AuthorizationData
+	 */
+	protected function _createAuthorization() {
+		$authenticationData = (new \Microsoft\BingAds\Auth\OAuthWebAuthCodeGrant())
+			->withOAuthTokens((object) ['AccessToken' => $this->_accessToken]);
+		return (new AuthorizationData())
+			->withAuthentication($authenticationData)
+			->withDeveloperToken($this->_developerToken);
 	}
 
-/**
- * @return string
- */
+	/**
+	 * @return string
+	 */
 	public function getAccessToken() {
 		return $this->_accessToken;
 	}
 
-/**
- * @param string $accessToken
- *
- * @return ClientProxyFactory
- */
+	/**
+	 * @param string $accessToken
+	 *
+	 * @return ClientProxyFactory
+	 */
 	public function setAccessToken($accessToken) {
 		$this->_accessToken = $accessToken;
 
 		return $this;
 	}
 
-/**
- * @return string
- */
+	/**
+	 * @return string
+	 */
 	public function getDeveloperToken() {
 		return $this->_developerToken;
 	}
 
-/**
- * @param string $developerToken
- *
- * @return ClientProxyFactory
- */
+	/**
+	 * @param string $developerToken
+	 *
+	 * @return ClientProxyFactory
+	 */
 	public function setDeveloperToken($developerToken) {
 		$this->_developerToken = $developerToken;
 
 		return $this;
 	}
+
 
 }
