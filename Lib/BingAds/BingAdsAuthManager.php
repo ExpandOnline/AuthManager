@@ -4,7 +4,6 @@ App::uses('BingAdsAuthContainer','AuthManager.Lib/BingAds');
 App::uses('ClientProxyFactory','AuthManager.Lib/BingAds');
 App::uses('BingAdsApiWrapper','AuthManager.Lib/BingAds');
 App::uses('MediaPlatformAuthManager','AuthManager.Lib');
-App::uses('BingAdsApi','AuthManager.Lib/BingAds');
 
 /**
  * Class BingAdsAuthManager
