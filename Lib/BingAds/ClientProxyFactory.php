@@ -4,8 +4,6 @@ use Microsoft\BingAds\Auth\ApiEnvironment;
 use Microsoft\BingAds\Auth\AuthorizationData;
 use Microsoft\BingAds\Auth\ServiceClient;
 
-App::uses('BingAdsApi', 'AuthManager.Lib/BingAds');
-
 /**
  * Class ClientProxyFactory
  */

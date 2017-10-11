@@ -170,35 +170,33 @@ class BingAdsApiWrapper {
 
 /**
  * @param        $endPoint
- * @param string $apiVersion
  *
  * @return \Microsoft\BingAds\Auth\ServiceClient
  */
-	protected function _getClientProxy($endPoint, $apiVersion = BingAdsApi::VERSION_10) {
-		if (isset($this->_clientProxies[$apiVersion][$endPoint])) {
-			return $this->_clientProxies[$apiVersion][$endPoint];
+	protected function _getClientProxy($endPoint) {
+		if (isset($this->_clientProxies[$endPoint])) {
+			return $this->_clientProxies[$endPoint];
 		}
 
-		return $this->_clientProxies[$apiVersion][$endPoint]
-			= $this->_clientProxyFactory->createClientProxy($endPoint, $apiVersion);
+		return $this->_clientProxies[$endPoint]
+			= $this->_clientProxyFactory->createClientProxy($endPoint);
 	}
 
 /**
  * @param        $endPoint
  * @param        $accountId
- * @param string $apiVersion
  *
  * @return \Microsoft\BingAds\Auth\ServiceClient
  */
-	protected function _getClientProxyWithAccountId($endPoint, $accountId, $apiVersion = BingAdsApi::VERSION_10) {
+	protected function _getClientProxyWithAccountId($endPoint, $accountId) {
 		if (!$this->isUseCache()) {
-			return $this->_clientProxyFactory->createClientProxyWithAccountId($endPoint, $accountId, $apiVersion);
-		} elseif (isset($this->_clientProxies[$apiVersion][$endPoint][$accountId])) {
-			return $this->_clientProxies[$apiVersion][$endPoint][$accountId];
+			return $this->_clientProxyFactory->createClientProxyWithAccountId($endPoint, $accountId);
+		} elseif (isset($this->_clientProxies[$endPoint][$accountId])) {
+			return $this->_clientProxies[$endPoint][$accountId];
 		}
 
-		return $this->_clientProxies[$apiVersion][$endPoint][$accountId]
-			= $this->_clientProxyFactory->createClientProxyWithAccountId($endPoint, $accountId, $apiVersion);
+		return $this->_clientProxies[$endPoint][$accountId]
+			= $this->_clientProxyFactory->createClientProxyWithAccountId($endPoint, $accountId);
 	}
 
 	/**
