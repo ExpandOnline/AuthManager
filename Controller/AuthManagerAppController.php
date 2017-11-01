@@ -6,6 +6,13 @@ App::uses('Controller', 'Controller');
  */
 class AuthManagerAppController extends Controller {
 
+	/**
+	 * @var array
+	 */
+	public $components = [
+		'CakePHPUtil.ContainerBuilder'
+	];
+
 /**
  * Save the referrer in the session.
  */
@@ -25,4 +32,7 @@ class AuthManagerAppController extends Controller {
 		$this->redirect($referrer);
 	}
 
+	protected function getContainer() : \Symfony\Component\DependencyInjection\ContainerInterface {
+		return $this->ContainerBuilder->getContainer();
+	}
 }

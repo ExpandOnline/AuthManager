@@ -1,2 +1,6 @@
 imports:
   - { resource: 'API/platforms.yml', ignore_errors: true}
+
+services:
+  authmanager.media_platform.auth_manager_factory:
+    class: MediaPlatformAuthManagerFactory

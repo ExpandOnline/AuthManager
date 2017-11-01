@@ -4,9 +4,11 @@ App::uses('Controller', 'Controller');
 App::uses('ApiExceptionFactory', 'CakePHPUtil.Lib/Api/Exceptions');
 App::uses('AuthManagerApiScope', 'AuthManager.Lib/Api/Scopes');
 App::uses('ApiScopeValidator', 'CakePHPUtil.Lib/Api/Scopes');
+
 /**
  * Class AuthManagerApiController
  *
+ * @property ContainerBuilderComponent $ContainerBuilder
  */
 class AuthManagerApiController extends Controller {
 
@@ -23,7 +25,8 @@ class AuthManagerApiController extends Controller {
 			'authenticate' => ['CakePHPUtil.Api'],
 			'authorize' => ['Controller']
 		],
-		'CakePHPUtil.Cors'
+		'CakePHPUtil.Cors',
+		'CakePHPUtil.ContainerBuilder'
 	];
 
 	/**
@@ -89,4 +92,7 @@ class AuthManagerApiController extends Controller {
 		return new AuthManagerApiScope();
 	}
 
+	protected function getContainer() : \Symfony\Component\DependencyInjection\ContainerInterface {
+		return $this->ContainerBuilder->getContainer();
+	}
 }
