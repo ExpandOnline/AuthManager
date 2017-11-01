@@ -29,5 +29,10 @@
     "jublonet/codebird-php": "3.2.0-beta.1",
     "stevenmaguire/oauth2-salesforce": "^2.0",
     "microsoft/bingads": "v0.11.5.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "AuthManager\\": "."
+    }
   }
 }

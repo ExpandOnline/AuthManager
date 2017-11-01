@@ -30,6 +30,60 @@ class MediaPlatform extends AuthManagerAppModel {
 	const SALESFORCE = 16;
 	const PAGESPEED = 17;
 
+	const PLATFORM_INFO = [
+		'analytics_read' => [
+			'id' => self::GOOGLE_ANALYTICS_READONLY
+		],
+		'analytics_read_write' => [
+			'id' => self::GOOGLE_ANALYTICS_READWRITE
+		],
+		'facebook_ads' => [
+			'id' => self::FACEBOOK_ADS
+		],
+		'bitly' => [
+			'id' => self::BITLY
+		],
+		'search_console' => [
+			'id' => self::SEARCH_CONSOLE
+		],
+		'tag_manager' => [
+			'id' => self::TAG_MANAGER
+		],
+		'bing_ads' => [
+			'id' => self::BING_ADS
+		],
+		'linkedin_ads' => [
+			'id' => self::LINKED_IN_ADS
+		],
+		'doubleclick' => [
+			'id' => self::DOUBLE_CLICK
+		],
+		'coosto' => [
+			'id' => self::COOSTO
+		],
+		'instagram' => [
+			'id' => self::INSTAGRAM
+		],
+		'dropbox' => [
+			'id' => self::DROPBOX
+		],
+		'adwords' => [
+			'id' => self::ADWORDS
+		],
+		'linkedin' => [
+			'id' => self::LINKED_IN
+		],
+		'twitter_ads' => [
+			'id' => self::TWITTER_ADS
+		],
+		'salesforce' => [
+			'id' => self::SALESFORCE
+		],
+		'pagespeed' => [
+			'id' => self::PAGESPEED
+		]
+	];
+
 	const GROUPED_PLATFORMS = [
 		self::ADWORDS => 'adwords',
 		self::LINKED_IN => 'linked_in',
