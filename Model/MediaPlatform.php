@@ -29,6 +29,7 @@ class MediaPlatform extends AuthManagerAppModel {
 	const TWITTER_ADS = 15;
 	const SALESFORCE = 16;
 	const PAGESPEED = 17;
+	const DOUBLE_CLICK_DCM = 18;
 
 	const PLATFORM_INFO = [
 		'analytics_read' => [
@@ -81,6 +82,9 @@ class MediaPlatform extends AuthManagerAppModel {
 		],
 		'pagespeed' => [
 			'id' => self::PAGESPEED
+		],
+		'doubleclick_dcm' => [
+			'id' => self::DOUBLE_CLICK_DCM
 		]
 	];
 
