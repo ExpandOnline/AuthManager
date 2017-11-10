@@ -27,7 +27,7 @@ class DoubleClickDCMAuthManager extends DoubleClickAuthManager {
 	 * @return string
 	 */
 	protected function _getConfigFilePath() {
-		return CakePlugin::path('AuthManager') . 'Config' . DS . 'API' . DS . 'doubleClick.json';
+		return CakePlugin::path('AuthManager') . 'Config' . DS . 'API' . DS . 'doubleClickDCM.json';
 	}
 
 	/**
