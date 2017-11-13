@@ -4,6 +4,7 @@ App::uses('GoogleAnalyticsReadOnlyAuthManager','AuthManager.Lib/GoogleAnalytics'
 App::uses('LinkedInAdsAuthManager','AuthManager.Lib/SuperMetrics/LinkedInAds');
 App::uses('SearchConsoleAuthManager','AuthManager.Lib/SearchConsole');
 App::uses('DoubleClickAuthManager','AuthManager.Lib/DoubleClick');
+App::uses('DoubleClickDCMAuthManager','AuthManager.Lib/DoubleClickDCM');
 App::uses('TagManagerAuthManager','AuthManager.Lib/TagManager');
 App::uses('TwitterAdsAuthManager','AuthManager.Lib/TwitterAds');
 App::uses('SalesforceAuthManager','AuthManager.Lib/Salesforce');
@@ -44,6 +45,7 @@ class MediaPlatformAuthManagerFactory {
 		MediaPlatform::LINKED_IN => 'LinkedInAuthManager',
 		MediaPlatform::TWITTER_ADS => 'TwitterAdsAuthManager',
 		MediaPlatform::SALESFORCE => 'SalesforceAuthManager',
+		MediaPlatform::DOUBLE_CLICK_DCM => 'DoubleClickDCMAuthManager'
 	);
 
 /**
