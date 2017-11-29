@@ -17,6 +17,7 @@ App::uses('AdWordsAuthManager','AuthManager.Lib/AdWords');
 App::uses('CoostoAuthManager','AuthManager.Lib/Coosto');
 App::uses('BitlyAuthManager','AuthManager.Lib/Bitly');
 App::uses('SuperMetricsAuthManager', 'AuthManager.Lib/SuperMetrics');
+App::uses('TrafficEstimatorAuthManager', 'AuthManager.Lib/TrafficEstimator');
 App::uses('MediaPlatform','AuthManager.Model');
 
 /**
@@ -45,7 +46,8 @@ class MediaPlatformAuthManagerFactory {
 		MediaPlatform::LINKED_IN => 'LinkedInAuthManager',
 		MediaPlatform::TWITTER_ADS => 'TwitterAdsAuthManager',
 		MediaPlatform::SALESFORCE => 'SalesforceAuthManager',
-		MediaPlatform::DOUBLE_CLICK_DCM => 'DoubleClickDCMAuthManager'
+		MediaPlatform::DOUBLE_CLICK_DCM => 'DoubleClickDCMAuthManager',
+		MediaPlatform::TRAFFIC_ESTIMATOR => 'TrafficEstimatorAuthManager',
 	);
 
 /**
