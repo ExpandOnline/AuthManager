@@ -1,0 +1,13 @@
+{
+  "web": {
+    "client_id": "xxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com",
+    "project_id": "xxxxxxxxxxxxxxx",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://accounts.google.com/o/oauth2/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_secret": "xxxxxxxxxxxxxxxxxxxx",
+    "redirect_uris": [
+      "http://localhost:8080/deo/auth_manager/media_platform_users/callback/19"
+    ]
+  }
+}
