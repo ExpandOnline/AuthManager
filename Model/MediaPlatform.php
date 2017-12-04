@@ -30,6 +30,7 @@ class MediaPlatform extends AuthManagerAppModel {
 	const SALESFORCE = 16;
 	const PAGESPEED = 17;
 	const DOUBLE_CLICK_DCM = 18;
+	const TRAFFIC_ESTIMATOR = 19;
 
 	const PLATFORM_INFO = [
 		'analytics_read' => [
@@ -85,6 +86,9 @@ class MediaPlatform extends AuthManagerAppModel {
 		],
 		'doubleclick_dcm' => [
 			'id' => self::DOUBLE_CLICK_DCM
+		],
+		'traffic_estimator' => [
+			'id' => self::TRAFFIC_ESTIMATOR
 		]
 	];
 
