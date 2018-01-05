@@ -116,9 +116,7 @@ abstract class GoogleAuthManager extends MediaPlatformAuthManager {
 		$oauthTokens = $this->MediaPlatformUser->getOauthTokens($userId);
 		if (empty($oauthTokens)) {
 			throw new NotFoundException('Could not find the oauth tokens for MediaPlatformUser #' . $userId . '.');
-		} elseif ($this->_expiresIn(strtotime($oauthTokens['OauthToken']['token_expires']), 600)
-			|| Configure::read('debug') >= 1
-		) {
+		} elseif ($this->_expiresIn(strtotime($oauthTokens['OauthToken']['token_expires']), 600)) {
 			$this->_refreshTokens($oauthTokens);
 		} else {
 			$this->_setTokens($oauthTokens);
