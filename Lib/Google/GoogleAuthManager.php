@@ -56,7 +56,7 @@ abstract class GoogleAuthManager extends MediaPlatformAuthManager {
  */
 	protected function _setGoogleClient() {
 		$googleClient = new Google_Client();
-		$googleClient->setAuthConfigFile($this->_getConfigFilePath());
+		$googleClient->setAuthConfig($this->_getConfigFilePath());
 		$googleClient->addScope($this->_getScopes());
 		$googleClient->setRedirectUri(Router::url(array(
 			'plugin' => 'auth_manager',

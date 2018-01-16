@@ -1,5 +1,11 @@
 <?php
+
+use Google\AdsApi\AdWords\AdWordsServices;
+use Google\AdsApi\AdWords\AdWordsSessionBuilder;
+use Google\Auth\OAuth2;
+
 App::uses('UpdatedGoogleAuthManager', 'AuthManager.Lib/Google');
+App::uses('AdWordsAuthContainer', 'AuthManager.Lib/AdWords');
 
 /**
  * Class AdWordsAuthManager
@@ -26,7 +32,7 @@ class AdWordsAuthManager extends UpdatedGoogleAuthManager {
 	 * Set the google service.
 	 */
 	protected function _setGoogleService() {
-		$this->_service = new AdWordsUser();
+		$this->_service = new AdWordsServices();
 	}
 
 	/**
@@ -41,7 +47,7 @@ class AdWordsAuthManager extends UpdatedGoogleAuthManager {
 	 */
 	protected function _getScopes() {
 		return array(
-			AdWordsUser::OAUTH2_SCOPE,
+			'https://www.googleapis.com/auth/adwords',
 			Google_Service_Oauth2::USERINFO_EMAIL
 		);
 	}
@@ -56,16 +62,22 @@ class AdWordsAuthManager extends UpdatedGoogleAuthManager {
 	/**
 	 * @param $userId
 	 *
-	 * @return GoogleAuthContainer
+	 * @return AdWordsAuthContainer
 	 */
 	public function getAuthContainer($userId) {
-		$authContainer = parent::getAuthContainer($userId);
-		$oauthInfo = [
-			'access_token' => $authContainer->client->getAccessToken()['access_token'],
-			'client_id' => $authContainer->client->getClientId(),
-			'client_secret' => $authContainer->client->getClientSecret(),
-		];
-		$authContainer->service->SetOAuth2Info($oauthInfo);
+		$this->_setTokenOnClient($userId);
+		$authContainer = new AdWordsAuthContainer();
+		$authContainer->client = $this->_client;
+		$authContainer->service = $this->_service;
+		$authContainer->userId = $userId;
+		$oauth2 = new OAuth2([
+			'clientId' => $authContainer->client->getClientId(),
+			'clientSecret' => $authContainer->client->getClientSecret(),
+		]);
+		$oauth2->setAccessToken($authContainer->client->getAccessToken()['access_token']);
+		$authContainer->sessionBuilder = (new AdWordsSessionBuilder())
+			->withOAuth2Credential($oauth2)
+			->withDeveloperToken(ADWORDS_DEVELOPER_TOKEN);
 		return $authContainer;
 	}
 
