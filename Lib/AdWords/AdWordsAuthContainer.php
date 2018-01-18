@@ -3,6 +3,8 @@
 use Google\AdsApi\AdWords\AdWordsServices;
 use Google\AdsApi\AdWords\AdWordsSession;
 use Google\AdsApi\AdWords\AdWordsSessionBuilder;
+use Monolog\Handler\NullHandler;
+use Monolog\Logger;
 
 App::uses('GoogleAuthContainer', 'AuthManager.Lib/Google');
 
@@ -42,7 +44,10 @@ class AdWordsAuthContainer extends GoogleAuthContainer {
 	 * @return AdWordsSession|mixed
 	 */
 	public function getSession($clientCustomerId) {
-		return $this->sessionBuilder->withClientCustomerId($clientCustomerId)
+		return $this->sessionBuilder
+			->withClientCustomerId($clientCustomerId)
+			->withSoapLogger(new Logger('void', [new NullHandler()]))
+			->withReportDownloaderLogger(new Logger('void', [new NullHandler()]))
 			->build();
 	}
 }
