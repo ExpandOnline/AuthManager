@@ -1,10 +1,14 @@
 <?php
+
+use Facebook\Exceptions\FacebookResponseException;
+use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook;
 use Facebook\Exceptions;
 use FacebookAds\Api;
 
-App::uses('MediaPlatformAuthManager','AuthManager.Lib');
 App::uses('FacebookAdsAuthContainer','AuthManager.Lib/Facebook');
+App::uses('CakePersistentData','AuthManager.Lib/Facebook');
+App::uses('MediaPlatformAuthManager','AuthManager.Lib');
 
 /**
  * Class FacebookAdsAuthManager
@@ -32,7 +36,8 @@ class FacebookAdsAuthManager extends MediaPlatformAuthManager {
 		$this->_facebook = new Facebook(array(
 			'app_id' => Configure::read('FacebookAds.app_id'),
 			'app_secret' =>  Configure::read('FacebookAds.app_secret'),
-			'default_graph_version' => Configure::read('FacebookAds.version')
+			'default_graph_version' => Configure::read('FacebookAds.version'),
+			'persistent_data_handler' => new CakePersistentData(),
 		));
 	}
 
