@@ -12,22 +12,8 @@ App::uses('AuthContainer', 'AuthManager.Lib');
 class TwinfieldAuthContainer extends AuthContainer {
 
 	/**
-	 * @var OAuthProvider
-	 */
-	public $provider;
-
-	/**
 	 * @var string
 	 */
-	public $refreshToken;
-
-	/**
-	 * @param Office $office
-	 *
-	 * @return OpenIdConnectAuthentication
-	 */
-	public function createConnection(Office $office) {
-		return new OpenIdConnectAuthentication($this->provider, $this->refreshToken, $office);
-	}
+	public $accessToken;
 
 }
