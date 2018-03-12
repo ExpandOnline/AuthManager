@@ -5,7 +5,7 @@
   "description": "AuthManager is a CakePHP plugin that can be used to manage third party authentications.",
   "homepage": "http://github.com/ExpandOnline/AuthManager",
   "require": {
-    "php": ">=5.5.0",
+    "php": ">=7.1.0",
     "composer/installers": "*",
     "cakedc/migrations": "2.4.0",
     "ExpandOnline/google-api-php-client": "dev-master",
