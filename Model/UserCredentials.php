@@ -24,14 +24,16 @@ class UserCredentials extends AuthManagerAppModel {
 	];
 
 	/**
-	 * @param $mediaPlatformUserId
-	 * @param $username
-	 * @param $password
+	 * @param      $mediaPlatformUserId
+	 * @param      $username
+	 * @param      $password
+	 *
+	 * @param null $appToken
 	 *
 	 * @return mixed
 	 * @throws Exception
 	 */
-	public function saveEncrypted($mediaPlatformUserId, $username, $password) {
+	public function saveEncrypted($mediaPlatformUserId, $username, $password, $appToken = null) {
 		$this->create();
 		return $this->save([
 			'media_platform_user_id' => $mediaPlatformUserId,
@@ -40,7 +42,8 @@ class UserCredentials extends AuthManagerAppModel {
 				$password,
 				Configure::read('UserCredentials.encryptionMethod'),
 				Configure::read('UserCredentials.key')
-			)
+			),
+			'app_token' => $appToken,
 		]);
 	}
 

@@ -32,6 +32,7 @@ class MediaPlatform extends AuthManagerAppModel {
 	const DOUBLE_CLICK_DCM = 18;
 	const TRAFFIC_ESTIMATOR = 19;
 	const TWINFIELD = 20;
+	const CRITEO = 21;
 
 	const PLATFORM_INFO = [
 		'analytics_read' => [
@@ -96,7 +97,8 @@ class MediaPlatform extends AuthManagerAppModel {
 	const GROUPED_PLATFORMS = [
 		self::ADWORDS => 'adwords',
 		self::LINKED_IN => 'linked_in',
-		self::SEARCH_CONSOLE => 'search_console'
+		self::SEARCH_CONSOLE => 'search_console',
+		self::CRITEO => 'criteo',
 	];
 
 /**
