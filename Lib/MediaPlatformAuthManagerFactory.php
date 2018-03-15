@@ -19,6 +19,7 @@ App::uses('BitlyAuthManager','AuthManager.Lib/Bitly');
 App::uses('SuperMetricsAuthManager', 'AuthManager.Lib/SuperMetrics');
 App::uses('TrafficEstimatorAuthManager', 'AuthManager.Lib/TrafficEstimator');
 App::uses('TwinfieldAuthManager', 'AuthManager.Lib/Twinfield');
+App::uses('CriteoAuthManager', 'AuthManager.Lib/Criteo');
 App::uses('MediaPlatform','AuthManager.Model');
 
 /**
@@ -50,6 +51,7 @@ class MediaPlatformAuthManagerFactory {
 		MediaPlatform::DOUBLE_CLICK_DCM => 'DoubleClickDCMAuthManager',
 		MediaPlatform::TRAFFIC_ESTIMATOR => 'TrafficEstimatorAuthManager',
 		MediaPlatform::TWINFIELD => 'TwinfieldAuthManager',
+		MediaPlatform::CRITEO => 'CriteoAuthManager',
 	);
 
 /**
