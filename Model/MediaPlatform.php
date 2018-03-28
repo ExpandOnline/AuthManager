@@ -1,5 +1,7 @@
 <?php
+
 App::uses('AuthManagerAppModel', 'AuthManager.Model');
+App::uses('MediaPlatformNotFoundException', 'AuthManager.Lib/Exception');
 
 /**
  * Class MediaPlatform
@@ -128,6 +130,18 @@ class MediaPlatform extends AuthManagerAppModel {
 		)
 	);
 
+	/**
+	 * @throws MediaPlatformNotFoundException
+	 */
+	static function getPlatformName($id) {
+		foreach(static::PLATFORM_INFO as $name => $platform) {
+			if($platform['id'] === $id) {
+				return $name;
+			}
+		}
+
+		throw new MediaPlatformNotFoundException('No platform name found for id ' . $id);
+	}
 
 /**
  * @return array|null
