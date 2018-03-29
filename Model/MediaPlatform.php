@@ -133,7 +133,7 @@ class MediaPlatform extends AuthManagerAppModel {
 	/**
 	 * @throws MediaPlatformNotFoundException
 	 */
-	static function getPlatformName($id) {
+	static function getPlatformName(int $id) {
 		foreach(static::PLATFORM_INFO as $name => $platform) {
 			if($platform['id'] === $id) {
 				return $name;
