@@ -13,7 +13,7 @@ App::uses('AuthenticationType', 'AuthManager.Model');
 class MediaPlatformUsersController extends AuthManagerAppController {
 
 	function beforeFilter() {
-		$this->Auth->allow( 'callback', 'createByPlatform' );
+		$this->Auth->allow('callback', 'createByPlatform', 'validateRedirect');
 	}
 
 	/**
@@ -43,6 +43,15 @@ class MediaPlatformUsersController extends AuthManagerAppController {
 	}
 
 	/**
+	 * @param $mediaPlatformId
+	 *
+	 * @return MediaPlatformAuthManager
+	 */
+	protected function _getAuthManager($mediaPlatformId) {
+		return $this->getContainer()->get('authmanager.media_platform.auth_manager_factory')->createAuthManager($mediaPlatformId);
+	}
+
+	/**
 	 * Callback from the authentication URL.
 	 *
 	 * @param $mediaPlatformId
@@ -55,16 +64,48 @@ class MediaPlatformUsersController extends AuthManagerAppController {
 		 */
 		$mediaPlatformAuthManager = $this->_getAuthManager($mediaPlatformId);
 		$mediaPlatformUserId = $mediaPlatformAuthManager->authenticateUser($this->request);
-		if ($mediaPlatformUserId) {
-			$this->Session->setFlash(__d('AuthManager', 'Successfully authenticated!'), 'successbox');
-			$this->_newUserEvent($mediaPlatformId, $mediaPlatformUserId);
-		} else {
+
+		if (!$mediaPlatformUserId) {
+
 			$this->Session->setFlash(__d('AuthManager', 'There went something wrong authenticating you!'), 'errorbox');
+			$this->_redirectToLastSavedReferrer();
+
+			return;
 		}
-		$this->_redirectToLastSavedReferrer();
+
+		$this->Session->setFlash(__d('AuthManager', 'Successfully authenticated!'), 'successbox');
+		$this->_newUserEvent($mediaPlatformId, $mediaPlatformUserId);
+
+		$time = (string)time();
+
+		$this->_redirectToLastSavedReferrer(
+			$this->createHash(MediaPlatform::getPlatformName($mediaPlatformId), $mediaPlatformUserId, $time),
+			$time,
+			$mediaPlatformUserId
+		);
 	}
 
+	/**
+	 * @param $mediaPlatformId
+	 * @param $mediaPlatformUserId
+	 */
+	protected function _newUserEvent($mediaPlatformId, $mediaPlatformUserId) {
+		$event = new CakeEvent('AuthManager.MediaPlatformUser.new', $this, array(
+			'media_platform_id' => $mediaPlatformId,
+			'media_platform_user_id' => $mediaPlatformUserId
+		));
+		CakeEventManager::instance()->dispatch($event);
+	}
 
+	private function createHash($platform, $userId, $timestamp) {
+		return hash('sha512', $platform . '/' . $userId . '/' . $timestamp . '/' . Configure::read('API.SECRET_KEY'));
+	}
+
+	/**
+	 * @param $platform
+	 *
+	 * @throws UnknownMediaPlatformException
+	 */
 	public function createByPlatform($platform) {
 		if (!($platformId = MediaPlatform::PLATFORM_INFO[$platform]['id'] ?? false)) {
 			throw new UnknownMediaPlatformException(
@@ -80,25 +121,18 @@ class MediaPlatformUsersController extends AuthManagerAppController {
 	}
 
 
-	/**
-	 * @param $mediaPlatformId
-	 * @param $mediaPlatformUserId
-	 */
-	protected function _newUserEvent($mediaPlatformId, $mediaPlatformUserId) {
-		$event = new CakeEvent('AuthManager.MediaPlatformUser.new', $this, array(
-			'media_platform_id' => $mediaPlatformId,
-			'media_platform_user_id' => $mediaPlatformUserId
-		));
-		CakeEventManager::instance()->dispatch($event);
-	}
+	public function validateRedirect($platform, $userId, $timestamp, $hash) {
+		if ($timestamp < (time() - 10)) {
+			throw new UnauthorizedException();
+		}
 
-	/**
-	 * @param $mediaPlatformId
-	 *
-	 * @return MediaPlatformAuthManager
-	 */
-	protected function _getAuthManager($mediaPlatformId) {
-		return $this->getContainer()->get('authmanager.media_platform.auth_manager_factory')->createAuthManager($mediaPlatformId);
+		if ($this->createHash($platform, $userId, $timestamp) !== $hash) {
+			throw new UnauthorizedException();
+		}
+		$this->autoRender = false;
+		$this->response->type('json');
+
+		return json_encode(['data' => ['success' => true]]);
 	}
 
 }
