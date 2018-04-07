@@ -26,7 +26,6 @@ class AuthContainerFactory {
 		}
 		$mediaPlatformAuthManagerFactory = new MediaPlatformAuthManagerFactory();
 		$authManager = $mediaPlatformAuthManagerFactory->createAuthManager($mediaPlatformId);
-
 		$authContainer = $authManager->getAuthContainer($userId);
 		$authContainer->userId = $userId;
 		$authContainer->mediaPlatformId = $mediaPlatformId;

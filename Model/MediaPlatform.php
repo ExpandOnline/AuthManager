@@ -35,6 +35,7 @@ class MediaPlatform extends AuthManagerAppModel {
 	const TRAFFIC_ESTIMATOR = 19;
 	const TWINFIELD = 20;
 	const CRITEO = 21;
+	const MANUAL_UPLOAD = 22;
 
 	const PLATFORM_INFO = [
 		'analytics_read' => [
