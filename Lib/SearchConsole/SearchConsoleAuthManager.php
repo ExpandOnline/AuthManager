@@ -14,7 +14,7 @@ class SearchConsoleAuthManager extends UpdatedGoogleAuthManager {
 	protected function _getUserName() {
 		$service = new Google_Service_Plus($this->_client);
 		$user = $service->people->get('me');
-		return $user['displayName'];
+		return empty($user['displayName']) ? $user['emails'][0]['value'] : $user['displayName'];
 	}
 
 	/**
