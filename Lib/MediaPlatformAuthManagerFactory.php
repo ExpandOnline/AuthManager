@@ -7,7 +7,7 @@ App::uses('DoubleClickAuthManager','AuthManager.Lib/DoubleClick');
 App::uses('DoubleClickDCMAuthManager','AuthManager.Lib/DoubleClickDCM');
 App::uses('TagManagerAuthManager','AuthManager.Lib/TagManager');
 App::uses('TwitterAdsAuthManager','AuthManager.Lib/TwitterAds');
-App::uses('SalesforceAuthManager','AuthManager.Lib/Salesforce');
+App::uses('ManualUploadAuthManager','AuthManager.Lib/Salesforce');
 App::uses('FacebookAdsAuthManager','AuthManager.Lib/Facebook');
 App::uses('InstagramAuthManager','AuthManager.Lib/Instagram');
 App::uses('LinkedInAuthManager','AuthManager.Lib/LinkedIn');
@@ -20,6 +20,7 @@ App::uses('SuperMetricsAuthManager', 'AuthManager.Lib/SuperMetrics');
 App::uses('TrafficEstimatorAuthManager', 'AuthManager.Lib/TrafficEstimator');
 App::uses('TwinfieldAuthManager', 'AuthManager.Lib/Twinfield');
 App::uses('CriteoAuthManager', 'AuthManager.Lib/Criteo');
+App::uses('ManualUploadAuthManager', 'AuthManager.Lib/ManualUpload');
 App::uses('MediaPlatform','AuthManager.Model');
 
 /**
@@ -52,6 +53,7 @@ class MediaPlatformAuthManagerFactory {
 		MediaPlatform::TRAFFIC_ESTIMATOR => 'TrafficEstimatorAuthManager',
 		MediaPlatform::TWINFIELD => 'TwinfieldAuthManager',
 		MediaPlatform::CRITEO => 'CriteoAuthManager',
+		MediaPlatform::MANUAL_UPLOAD => 'ManualUploadAuthManager',
 	);
 
 /**
@@ -65,7 +67,9 @@ class MediaPlatformAuthManagerFactory {
 			throw new InvalidArgumentException('Media platform ID #' . $mediaPlatformId . ' is not yet implemented.');
 		}
 		$className = $this->_types[$mediaPlatformId];
-
+		if (is_null($className)) {
+			return;
+		}
 		if (!class_exists($className)) {
 			throw new Exception('Could not find class \'' . $className . '\'.');
 		}
