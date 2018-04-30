@@ -108,7 +108,7 @@ class FacebookAdsAuthManager extends MediaPlatformAuthManager {
 	protected function _getAccessToken() {
 		$redirectLoginHelper = $this->_facebook->getRedirectLoginHelper();
 		try {
-			$accessToken = $redirectLoginHelper->getAccessToken();
+			$accessToken = $redirectLoginHelper->getAccessToken($this->_getCallbackUrl(MediaPlatform::FACEBOOK_ADS));
 		} catch(FacebookResponseException $e) {
 			CakeLog::write('AuthManager', 'Graph returned an error: ' . $e->getMessage());
 			return false;
