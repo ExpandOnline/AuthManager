@@ -40,7 +40,8 @@ class GoogleAnalyticsReadWriteAuthManager extends UpdatedGoogleAuthManager {
 	protected function _getScopes() {
 		return array(
 			Google_Service_Analytics::ANALYTICS_EDIT,
-			Google_Service_AnalyticsReporting::ANALYTICS_READONLY
+			Google_Service_Analytics::ANALYTICS_MANAGE_USERS,
+			Google_Service_AnalyticsReporting::ANALYTICS_READONLY,
 		);
 	}
 
