@@ -1,12 +1,12 @@
 <?php
-App::uses('GoogleAuthManager', 'AuthManager.Lib/Google');
+App::uses('UpdatedGoogleAuthManager', 'AuthManager.Lib/Google');
 App::uses('MediaPlatformAuthManager','AuthManager.Lib');
 
 
 /**
  * Class TagManagerAuthManager
  */
-class TagManagerAuthManager extends GoogleAuthManager {
+class TagManagerAuthManager extends UpdatedGoogleAuthManager {
 
 	/**
 	 * Get the username for the authenticated user.
