@@ -18,7 +18,7 @@
     "guzzlehttp/guzzle": "6.0.*",
     "ExpandOnline/Instagram-PHP-API": "dev-master",
     "ExpandOnline/dropbox-php-api-library": "dev-master",
-    "googleads/googleads-php-lib": "32.1.0",
+    "googleads/googleads-php-lib": "35.2.0",
     "stevenmaguire/oauth2-microsoft": "^2.0",
     "stevenmaguire/oauth2-dropbox": "^2.0",
     "league/oauth2-linkedin": "^2.0",
