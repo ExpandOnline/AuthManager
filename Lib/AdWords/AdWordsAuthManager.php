@@ -70,6 +70,7 @@ class AdWordsAuthManager extends UpdatedGoogleAuthManager {
 		$authContainer->client = $this->_client;
 		$authContainer->service = $this->_service;
 		$authContainer->userId = $userId;
+		$authContainer->setManager($this);
 		$oauth2 = new OAuth2([
 			'clientId' => $authContainer->client->getClientId(),
 			'clientSecret' => $authContainer->client->getClientSecret(),
