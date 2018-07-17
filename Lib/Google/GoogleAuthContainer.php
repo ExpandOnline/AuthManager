@@ -25,6 +25,9 @@ class GoogleAuthContainer extends AuthContainer {
 	}
 
 	public function refresh() {
+		if (is_null($this->_manager)) {
+			throw new BadMethodCallException('Trying to refresh a Google Auth Container, but no AuthManager was passed via ->setManager so no refresh is possible.');
+		}
 		$newInstance = $this->_newInstance();
 		$this->client->setAccessToken($newInstance->client->getAccessToken());
 	}
