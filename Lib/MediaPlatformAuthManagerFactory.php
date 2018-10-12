@@ -1,7 +1,7 @@
 <?php
 App::uses('GoogleAnalyticsReadWriteAuthManager','AuthManager.Lib/GoogleAnalytics');
 App::uses('GoogleAnalyticsReadOnlyAuthManager','AuthManager.Lib/GoogleAnalytics');
-App::uses('LinkedInAdsAuthManager','AuthManager.Lib/SuperMetrics/LinkedInAds');
+App::uses('LinkedInAdsAuthManager','AuthManager.Lib/LinkedIn');
 App::uses('SearchConsoleAuthManager','AuthManager.Lib/SearchConsole');
 App::uses('DoubleClickAuthManager','AuthManager.Lib/DoubleClick');
 App::uses('DoubleClickDCMAuthManager','AuthManager.Lib/DoubleClickDCM');

@@ -1,7 +1,6 @@
 <?php
 App::uses('MediaPlatformAuthManager', 'AuthManager.Lib');
 App::uses('LinkedInAuthContainer', 'AuthManager.Lib/LinkedIn');
-App::uses('LinkedInApi', 'AuthManager.Lib/LinkedIn');
 App::uses('LeagueOauthWrapper', 'AuthManager.Lib');
 
 /**
@@ -19,7 +18,7 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 		$this->_linkedInProvider = new \League\OAuth2\Client\Provider\LinkedIn([
 			'clientId' => Configure::read('LinkedIn.client_id'),
 			'clientSecret' => Configure::read('LinkedIn.client_secret'),
-			'redirectUri' => $this->_getCallbackUrl(MediaPlatform::LINKED_IN),
+			'redirectUri' => $this->_getCallbackUrl($this->getMediaPlatformId()),
 		]);
 		$this->_leagueWrapper = new LeagueOauthWrapper($this->_linkedInProvider);
 	}
@@ -33,7 +32,18 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 		$options = [
 			'scope' => [
 				'r_basicprofile',
-				'rw_company_admin'
+				'rw_company_admin',
+				'r_ad_campaigns',
+				'r_ads',
+				'r_ads_reporting',
+				'r_organization_social',
+				'rw_ads',
+				'rw_company_admin',
+				'rw_organization',
+				'rw_organization_admin',
+				'w_member_social',
+				'w_organization_social',
+				'w_share'
 			]
 		];
 
@@ -77,9 +87,12 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 	 * @return mixed
 	 */
 	protected function _saveUser($username, $accessToken, $mediaPlatform) {
-		return $this->MediaPlatformUser->saveOauthUser(
-			$this->_getLeague()->getSaveData($username, $accessToken, $mediaPlatform)
-		);
+		foreach ([MediaPlatform::LINKED_IN_ADS, MediaPlatform::LINKED_IN] as $mediaPlatform) {
+			$this->MediaPlatformUser->saveOauthUser(
+				$this->_getLeague()->getSaveData($username, $accessToken, $mediaPlatform)
+			);
+		}
+		return true;
 	}
 
 	/**
@@ -124,4 +137,12 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 	protected function _getAccessToken($code) {
 		return $this->_getLeague()->getAccessToken($code);
 	}
+
+	/**
+	 * @return int
+	 */
+	protected function getMediaPlatformId() {
+		return MediaPlatform::LINKED_IN;
+	}
+
 }
