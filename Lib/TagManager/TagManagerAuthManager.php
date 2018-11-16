@@ -25,6 +25,7 @@ class TagManagerAuthManager extends UpdatedGoogleAuthManager {
 		return array(
 			Google_Service_Plus::USERINFO_EMAIL,
 			Google_Service_TagManager::TAGMANAGER_READONLY,
+			Google_Service_TagManager::TAGMANAGER_MANAGE_USERS
 		);
 	}
 
