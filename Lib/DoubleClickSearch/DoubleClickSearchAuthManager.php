@@ -1,14 +1,13 @@
 <?php
-App::uses('UpdatedGoogleAuthManager', 'AuthManager.Lib/Google');
 App::uses('DoubleClickAuthManager', 'AuthManager.Lib/DoubleClick');
 
-class DoubleClickDCMAuthManager extends DoubleClickAuthManager {
+class DoubleClickSearchAuthManager extends DoubleClickAuthManager {
 
 	/**
 	 * @return int
 	 */
 	protected function _getPlatformId() {
-		return MediaPlatform::DOUBLE_CLICK_DCM;
+		return MediaPlatform::DOUBLE_CLICK_SEARCH;
 	}
 
 	/**
@@ -16,10 +15,8 @@ class DoubleClickDCMAuthManager extends DoubleClickAuthManager {
 	 */
 	protected function _getScopes() {
 		return array(
-			'https://www.googleapis.com/auth/dfareporting',
-			'https://www.googleapis.com/auth/dfatrafficking',
+			'https://www.googleapis.com/auth/doubleclicksearch',
 			'https://www.googleapis.com/auth/userinfo.email',
-			'https://www.googleapis.com/auth/doubleclickbidmanager',
 		);
 	}
 
@@ -27,7 +24,7 @@ class DoubleClickDCMAuthManager extends DoubleClickAuthManager {
 	 * @return string
 	 */
 	protected function _getConfigFilePath() {
-		return CakePlugin::path('AuthManager') . 'Config' . DS . 'API' . DS . 'doubleClickDCM.json';
+		return CakePlugin::path('AuthManager') . 'Config' . DS . 'API' . DS . 'doubleClickSearch.json';
 	}
 
 	/**
@@ -40,9 +37,16 @@ class DoubleClickDCMAuthManager extends DoubleClickAuthManager {
 		$authContainer = new DoubleClickAuthContainer();
 		$authContainer->client = $this->_client;
 		$authContainer->service = $this->_service;
-		$authContainer->dbmService = $this->_dbmService;
+		$authContainer->dsaService = $this->_dsaService;
 		$authContainer->userId = $userId;
 		return $authContainer;
+	}
+
+	/**
+	 * Set the google service.
+	 */
+	protected function _setGoogleService() {
+		$this->_dsaService = new Google_Service_Doubleclicksearch($this->_client);
 	}
 
 }

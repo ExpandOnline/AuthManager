@@ -36,6 +36,7 @@ class MediaPlatform extends AuthManagerAppModel {
 	const TWINFIELD = 20;
 	const CRITEO = 21;
 	const MANUAL_UPLOAD = 22;
+	const DOUBLE_CLICK_SEARCH = 23;
 
 	const PLATFORM_INFO = [
 		'analytics_read' => [
@@ -94,6 +95,9 @@ class MediaPlatform extends AuthManagerAppModel {
 		],
 		'traffic_estimator' => [
 			'id' => self::TRAFFIC_ESTIMATOR
+		],
+		'double_click_search' => [
+			'id' => self::DOUBLE_CLICK_SEARCH
 		]
 	];
 

@@ -21,6 +21,7 @@ App::uses('TrafficEstimatorAuthManager', 'AuthManager.Lib/TrafficEstimator');
 App::uses('TwinfieldAuthManager', 'AuthManager.Lib/Twinfield');
 App::uses('CriteoAuthManager', 'AuthManager.Lib/Criteo');
 App::uses('ManualUploadAuthManager', 'AuthManager.Lib/ManualUpload');
+App::uses('DoubleClickSearchAuthManager', 'AuthManager.Lib/DoubleClickSearch');
 App::uses('MediaPlatform','AuthManager.Model');
 
 /**
@@ -54,6 +55,7 @@ class MediaPlatformAuthManagerFactory {
 		MediaPlatform::TWINFIELD => 'TwinfieldAuthManager',
 		MediaPlatform::CRITEO => 'CriteoAuthManager',
 		MediaPlatform::MANUAL_UPLOAD => 'ManualUploadAuthManager',
+		MediaPlatform::DOUBLE_CLICK_SEARCH => 'DoubleClickSearchAuthManager',
 	);
 
 /**
