@@ -107,6 +107,17 @@ class MediaPlatformUser extends AuthManagerAppModel {
 		]);
 	}
 
+	/**
+	 * @param $mediaPlatformId
+	 *
+	 * @return array|null
+	 */
+	public function getUsers($mediaPlatformId) {
+		return $this->find('all', [
+			'conditions' => !empty($mediaPlatformId) ? ['media_platform_id' => $mediaPlatformId] : null,
+		]);
+	}
+
 /**
  * Inserts or updates a user with oauth tokens.
  *
