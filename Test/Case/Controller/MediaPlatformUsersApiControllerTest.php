@@ -39,12 +39,14 @@ class MediaPlatformUsersApiControllerTest extends AuthManagerApiControllerTestCa
 		$this->assertSame(
 			[
 				[
-					'id' => 1,
-					'name' => 'test@test.com'
+					'id' => '1',
+					'name' => 'test@test.com',
+					'media_platform_id' => '3',
 				],
 				[
-					'id' => 2,
-					'name' => 'test@test.com'
+					'id' => '2',
+					'name' => 'test@test.com',
+					'media_platform_id' => '3',
 				]
 			],
 			$result['data']
@@ -59,20 +61,24 @@ class MediaPlatformUsersApiControllerTest extends AuthManagerApiControllerTestCa
 		$this->assertSame(
 			[
 				[
-					'id' => 1,
-					'name' => 'test@test.com'
+					'id' => '1',
+					'name' => 'test@test.com',
+					'media_platform_id' => '3',
 				],
 				[
-					'id' => 2,
-					'name' => 'test@test.com'
+					'id' => '2',
+					'name' => 'test@test.com',
+					'media_platform_id' => '3',
 				],
 				[
-						'id' => 3,
-					'name' => 'test@linkedin.com'
+					'id' => '3',
+					'name' => 'test@linkedin.com',
+					'media_platform_id' => '8',
 				],
 				[
-						'id' => 4,
-					'name' => 'test@linkedin.com'
+					'id' => '4',
+					'name' => 'test@linkedin.com',
+					'media_platform_id' => '11',
 				],
 			],
 			$result['data']

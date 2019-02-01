@@ -17,16 +17,16 @@ class MediaPlatformUsersApiController extends AuthManagerApiController {
 	 */
 	public function index() {
 		$mediaPlatformId = $this->request->query('media_platform');
-		$users = $this->MediaPlatformUser->listUsers($mediaPlatformId);
+		$users = $this->MediaPlatformUser->getUsers($mediaPlatformId);
 
 		$response = [];
-		foreach ($users as $id => $name) {
+		foreach ($users as $user) {
 			$response[] = [
-				'id' => $id,
-				'name' => $name
+				'id' => $user['MediaPlatformUser']['id'],
+				'name' => $user['MediaPlatformUser']['username'],
+				'media_platform_id' => $user['MediaPlatformUser']['media_platform_id'],
 			];
 		}
-
 		return JsonApiResponse::data($response);
 	}
 
