@@ -42,11 +42,13 @@ class MediaPlatformUsersApiControllerTest extends AuthManagerApiControllerTestCa
 					'id' => '1',
 					'name' => 'test@test.com',
 					'media_platform_id' => '3',
+					'media_platform_friendly_name' => 'facebook_ads',
 				],
 				[
 					'id' => '2',
 					'name' => 'test@test.com',
 					'media_platform_id' => '3',
+					'media_platform_friendly_name' => 'facebook_ads',
 				]
 			],
 			$result['data']
@@ -64,21 +66,25 @@ class MediaPlatformUsersApiControllerTest extends AuthManagerApiControllerTestCa
 					'id' => '1',
 					'name' => 'test@test.com',
 					'media_platform_id' => '3',
+					'media_platform_friendly_name' => 'facebook_ads',
 				],
 				[
 					'id' => '2',
 					'name' => 'test@test.com',
 					'media_platform_id' => '3',
+					'media_platform_friendly_name' => 'facebook_ads',
 				],
 				[
 					'id' => '3',
 					'name' => 'test@linkedin.com',
 					'media_platform_id' => '8',
+					'media_platform_friendly_name' => 'linkedin_ads',
 				],
 				[
 					'id' => '4',
 					'name' => 'test@linkedin.com',
 					'media_platform_id' => '11',
+					'media_platform_friendly_name' => 'instagram',
 				],
 			],
 			$result['data']
