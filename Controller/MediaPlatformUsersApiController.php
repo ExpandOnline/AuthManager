@@ -25,6 +25,12 @@ class MediaPlatformUsersApiController extends AuthManagerApiController {
 				'id' => $user['MediaPlatformUser']['id'],
 				'name' => $user['MediaPlatformUser']['username'],
 				'media_platform_id' => $user['MediaPlatformUser']['media_platform_id'],
+				'media_platform_friendly_name' => current(array_keys(array_filter(
+					MediaPlatform::PLATFORM_INFO,
+					function ($platform) use ($user) {
+						return $platform['id'] == $user['MediaPlatformUser']['media_platform_id'];
+					}
+				))),
 			];
 		}
 		return JsonApiResponse::data($response);
