@@ -21,7 +21,7 @@
     "googleads/googleads-php-lib": "^39.0",
     "stevenmaguire/oauth2-microsoft": "^2.0",
     "stevenmaguire/oauth2-dropbox": "^2.0",
-    "league/oauth2-linkedin": "^2.0",
+    "league/oauth2-linkedin": "^5.1",
     "php-http/guzzle6-adapter": "^1.1",
     "happyr/linkedin-api-client": "^1.0",
     "php-http/message": "^1.4",
