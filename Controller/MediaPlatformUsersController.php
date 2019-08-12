@@ -88,6 +88,7 @@ class MediaPlatformUsersController extends AuthManagerAppController {
 	/**
 	 * @param $mediaPlatformId
 	 * @param $mediaPlatformUserId
+	 * @param $mediaPlatformUserAgency
 	 */
 	protected function _newUserEvent($mediaPlatformId, $mediaPlatformUserId) {
 		$event = new CakeEvent('AuthManager.MediaPlatformUser.new', $this, array(
@@ -115,6 +116,7 @@ class MediaPlatformUsersController extends AuthManagerAppController {
 		}
 
 		$this->Session->write('AuthManager.referrer', $this->request->query['redirect_url']);
+		$this->_saveAgency($this->request->query['agency']);
 
 		$url = $this->_getAuthManager($platformId)->getAuthUrl();
 		$this->redirect($url);

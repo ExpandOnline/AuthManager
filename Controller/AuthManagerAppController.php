@@ -55,4 +55,19 @@ class AuthManagerAppController extends Controller {
 	protected function getContainer(): \Symfony\Component\DependencyInjection\ContainerInterface {
 		return $this->ContainerBuilder->getContainer();
 	}
+
+	/**
+	 * Save Agency in the session.
+	 */
+	protected function _saveAgency($agency){
+		$this->Session->write('AuthManager.agency', $agency);
+	}
+
+	/**
+	 * Get Agency out of the session.
+	 */
+	protected function _getAgency(){
+		$agency = $this->Session->read('AuthManager.agency');
+		return $agency;
+	}
 }
