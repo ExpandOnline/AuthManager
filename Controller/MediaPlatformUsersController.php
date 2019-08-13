@@ -120,7 +120,12 @@ class MediaPlatformUsersController extends AuthManagerAppController {
 		}
 
 		$this->Session->write('AuthManager.referrer', $this->request->query['redirect_url']);
-		$this->_saveAgency($this->request->query['agency']);
+
+		$agency = NULL;
+		if(key_exists('agency', $this->request->query)){
+			$agency = $this->request->query['agency'];
+		}
+		$this->_saveAgency($agency);
 
 		$url = $this->_getAuthManager($platformId)->getAuthUrl();
 		$this->redirect($url);
