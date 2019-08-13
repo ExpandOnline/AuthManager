@@ -59,8 +59,8 @@ class BingAdsAuthManager extends MediaPlatformAuthManager {
 			return false;
 		}
 		$username = $this->_getUsername($tokens->getToken());
-
-		return $this->_saveUser($username, $tokens, MediaPlatform::BING_ADS);
+		$agency = $request->query['agency'];
+		return $this->_saveUser($username, $agency, $tokens, MediaPlatform::BING_ADS);
 	}
 
 /**
@@ -107,15 +107,17 @@ class BingAdsAuthManager extends MediaPlatformAuthManager {
 
 	/**
 	 * @param                                         $username
+	 * @param                                         $agency
 	 * @param \League\OAuth2\Client\Token\AccessToken $accessToken
 	 * @param                                         $mediaPlatform
 	 *
 	 * @return mixed
 	 */
-	protected function _saveUser($username, $accessToken, $mediaPlatform) {
+	protected function _saveUser($username, $agency, $accessToken, $mediaPlatform) {
 		$saveData = array(
 			'MediaPlatformUser' => array(
 				'username' => $username,
+				'agency' => $agency,
 				'media_platform_id' => $mediaPlatform
 			),
 			'OauthToken' => array(

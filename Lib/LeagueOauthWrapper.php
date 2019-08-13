@@ -33,16 +33,18 @@ class LeagueOauthWrapper {
 	}
 
 	/**
-	 * @param $username
-	 * @param $token
-	 * @param $mediaPlatform
+	 * @param                                         $username
+	 * @param                                         $agency
+	 * @param \League\OAuth2\Client\Token\AccessToken $token
+	 * @param                                         $mediaPlatform
 	 *
 	 * @return array
 	 */
-	public function getSaveData($username, \League\OAuth2\Client\Token\AccessToken $token, $mediaPlatform) {
+	public function getSaveData($username, $agency, \League\OAuth2\Client\Token\AccessToken $token, $mediaPlatform) {
 		return [
 			'MediaPlatformUser' => [
 				'username' => $username,
+				'agency' => $agency,
 				'media_platform_id' => $mediaPlatform
 			],
 			'OauthToken' => [

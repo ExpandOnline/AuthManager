@@ -62,7 +62,8 @@ class InstagramAuthManager extends MediaPlatformAuthManager {
 		if (!is_object($data) || !property_exists($data, 'access_token')) {
 			return false;
 		}
-		return $this->_saveUser($data->user->username, $data->access_token, MediaPlatform::INSTAGRAM);
+		$agency = $request->query['agency'];
+		return $this->_saveUser($data->user->username, $agency, $data->access_token, MediaPlatform::INSTAGRAM);
 	}
 
 	/**

@@ -63,6 +63,10 @@ class MediaPlatformUsersController extends AuthManagerAppController {
 		 * @var MediaPlatformAuthManager $mediaPlatformAuthManager
 		 */
 		$mediaPlatformAuthManager = $this->_getAuthManager($mediaPlatformId);
+		$mediaPlatformUserAgency = $this->_getAgency();
+
+		$this->request->query['agency'] = $mediaPlatformUserAgency;
+
 		$mediaPlatformUserId = $mediaPlatformAuthManager->authenticateUser($this->request);
 
 		if (!$mediaPlatformUserId) {
@@ -88,6 +92,7 @@ class MediaPlatformUsersController extends AuthManagerAppController {
 	/**
 	 * @param $mediaPlatformId
 	 * @param $mediaPlatformUserId
+	 * @param $mediaPlatformUserAgency
 	 */
 	protected function _newUserEvent($mediaPlatformId, $mediaPlatformUserId) {
 		$event = new CakeEvent('AuthManager.MediaPlatformUser.new', $this, array(
@@ -115,6 +120,12 @@ class MediaPlatformUsersController extends AuthManagerAppController {
 		}
 
 		$this->Session->write('AuthManager.referrer', $this->request->query['redirect_url']);
+
+		$agency = NULL;
+		if(key_exists('agency', $this->request->query)){
+			$agency = $this->request->query['agency'];
+		}
+		$this->_saveAgency($agency);
 
 		$url = $this->_getAuthManager($platformId)->getAuthUrl();
 		$this->redirect($url);

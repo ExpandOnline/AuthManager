@@ -62,10 +62,12 @@ class TwinfieldAuthManager extends MediaPlatformAuthManager {
 		}
 		$resourceOwner = $this->provider->getResourceOwner($accessToken);
 		$resourceOwner = json_decode(base64_decode($resourceOwner->toArray()['sub']), true);
+		$agency = $request->query['agency'];
 		return $this->MediaPlatformUser->saveOauthUser([
 			'MediaPlatformUser' => [
 				'username' => $resourceOwner['OrganisationUser'],
-				'media_platform_id' => MediaPlatform::TWINFIELD
+				'agency' => $agency,
+				'media_platform_id' => MediaPlatform::TWINFIELD,
 			],
 			'OauthToken' => [
 				'access_token' => $accessToken->getToken(),

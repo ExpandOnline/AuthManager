@@ -59,12 +59,13 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 	 */
 	public function authenticateUser($request) {
 		$token = $this->_getAccessToken($request->query['code'] ?? null);
+		$agency = $request->query['agency'];
 		if (!$token) {
 			return false;
 		}
 
 		if ($username = $this->_getUsername($token)) {
-			return $this->_saveUser($username, $token, MediaPlatform::LINKED_IN);
+			return $this->_saveUser($username, $agency, $token, MediaPlatform::LINKED_IN);
 		}
 
 		return false;
@@ -81,17 +82,22 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 
 	/**
 	 * @param                                         $username
+	 * @param                                         $agency
 	 * @param \League\OAuth2\Client\Token\AccessToken $accessToken
 	 * @param                                         $mediaPlatform
 	 *
 	 * @return mixed
 	 */
-	protected function _saveUser($username, $accessToken, $mediaPlatform) {
-		foreach ([MediaPlatform::LINKED_IN_ADS, MediaPlatform::LINKED_IN] as $mediaPlatform) {
+	protected function _saveUser($username, $agency, $accessToken, $mediaPlatform) {
+		foreach ([
+			MediaPlatform::LINKED_IN_ADS,
+			MediaPlatform::LINKED_IN
+		] as $mediaPlatform) {
 			$this->MediaPlatformUser->saveOauthUser(
-				$this->_getLeague()->getSaveData($username, $accessToken, $mediaPlatform)
+				$this->_getLeague()->getSaveData($username, $agency, $accessToken, $mediaPlatform)
 			);
 		}
+
 		return true;
 	}
 

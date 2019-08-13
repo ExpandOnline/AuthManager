@@ -92,7 +92,8 @@ abstract class GoogleAuthManager extends MediaPlatformAuthManager {
 		}
 		$oauthTokens = $this->_getOauthTokens($data['code']);
 		$username = $this->_getUserName();
-		return $this->_saveUser($username, $oauthTokens, $this->_getPlatformId());
+		$agency = $data['agency'];
+		return $this->_saveUser($username, $agency, $oauthTokens, $this->_getPlatformId());
 	}
 
 /**
@@ -145,18 +146,20 @@ abstract class GoogleAuthManager extends MediaPlatformAuthManager {
 
 		$this->_client->setAccessToken($token);
 	}
-/**
- * @param string $username
- * @param array $oauthTokens
- * @param int $mediaPlatformId
- *
- * @return mixed
- * @throws Exception
- */
-	protected function _saveUser($username, $oauthTokens, $mediaPlatformId) {
+
+	/**
+	 * @param string $username
+	 * @param        $agency
+	 * @param array  $oauthTokens
+	 * @param int    $mediaPlatformId
+	 *
+	 * @return mixed
+	 */
+	protected function _saveUser($username, $agency, $oauthTokens, $mediaPlatformId) {
 		$saveData = array(
 			'MediaPlatformUser' => array(
 				'username' => $username,
+				'agency' => $agency,
 				'media_platform_id' => $mediaPlatformId
 			),
 			'OauthToken' => array(

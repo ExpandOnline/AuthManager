@@ -56,20 +56,23 @@ class SalesforceAuthManager extends MediaPlatformAuthManager {
 			'code' => $request->query['code']
 		]);
 		$owner = $this->salesforce->getResourceOwner($accessToken);
-		return $this->_saveUser($owner->toArray()['username'], $accessToken, MediaPlatform::SALESFORCE);
+		$agency = $request->query['agency'];
+		return $this->_saveUser($owner->toArray()['username'], $agency, $accessToken, MediaPlatform::SALESFORCE);
 	}
 
 	/**
 	 * @param $username
+	 * @param $agency
 	 * @param $accessToken
 	 * @param $mediaPlatformId
 	 *
 	 * @return mixed
 	 */
-	protected function _saveUser($username, $accessToken, $mediaPlatformId) {
+	protected function _saveUser($username, $agency, $accessToken, $mediaPlatformId) {
 		$saveData = array(
 			'MediaPlatformUser' => array(
 				'username' => $username,
+				'agency' => $agency,
 				'media_platform_id' => $mediaPlatformId
 			),
 			'OauthToken' => array(
