@@ -33,7 +33,7 @@ class InstagramAuthManagerTest extends CakeTestCase {
 		$manager->expects($this->once())->method('_getAccessToken')->will($this->returnValue($accessToken));
 
 		$request = new Object();
-		$request->query = array('code' => 'xyz');
+		$request->query = array('code' => 'xyz', 'agency' => 'DMNL');
 		$manager->authenticateUser($request);
 		$user = $MediaPlatformUser->find('first', array(
 			'contain' => array(

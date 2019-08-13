@@ -30,7 +30,7 @@ class LinkedInAuthManagerTest extends CakeTestCase {
 	public function testAuthenticateUser() {
 		$manager = $this->getMockManager();
 		$request = new Object();
-		$request->query = array('code' => 'xyz');
+		$request->query = array('code' => 'xyz', 'agency' => 'DMNL');
 		$manager->authenticateUser($request);
 		$user = $this->MediaPlatformUser->find('first', array(
 			'conditions' => array(

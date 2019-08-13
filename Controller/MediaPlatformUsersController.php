@@ -63,6 +63,10 @@ class MediaPlatformUsersController extends AuthManagerAppController {
 		 * @var MediaPlatformAuthManager $mediaPlatformAuthManager
 		 */
 		$mediaPlatformAuthManager = $this->_getAuthManager($mediaPlatformId);
+		$mediaPlatformUserAgency = $this->_getAgency();
+
+		$this->request->query['agency'] = $mediaPlatformUserAgency;
+
 		$mediaPlatformUserId = $mediaPlatformAuthManager->authenticateUser($this->request);
 
 		if (!$mediaPlatformUserId) {

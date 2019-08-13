@@ -57,8 +57,10 @@ class TwitterAdsAuthManager extends MediaPlatformAuthManager {
 		if ($reply->httpstatus != 200) {
 			return false;
 		}
+		$agency = $request->query['agency'];
 		return $this->_saveUser(
 			$reply->screen_name,
+			$agency,
 			$reply,
 			MediaPlatform::TWITTER_ADS
 		);
@@ -87,15 +89,17 @@ class TwitterAdsAuthManager extends MediaPlatformAuthManager {
 
 	/**
 	 * @param $username
+	 * @param $agency
 	 * @param $tokens
 	 * @param $mediaPlatform
 	 *
 	 * @return mixed
 	 */
-	protected function _saveUser($username, $tokens, $mediaPlatform) {
+	protected function _saveUser($username, $agency, $tokens, $mediaPlatform) {
 		$saveData = array(
 			'MediaPlatformUser' => array(
 				'username' => $username,
+				'username' => $agency,
 				'media_platform_id' => $mediaPlatform
 			),
 			'OauthToken' => array(

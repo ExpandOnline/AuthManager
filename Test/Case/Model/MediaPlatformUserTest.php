@@ -32,7 +32,7 @@ class MediaPlatformUserTest extends CakeTestCase {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public function testSaveOauthUser() {
 		$cases = [
@@ -40,7 +40,8 @@ class MediaPlatformUserTest extends CakeTestCase {
 				'data' => [
 					'MediaPlatformUser' => [
 						'username' => 'testing',
-						'media_platform_id' => MediaPlatform::FACEBOOK_ADS
+						'media_platform_id' => MediaPlatform::FACEBOOK_ADS,
+						'agency' => 'DMNL'
 					]
 				],
 				'expected' => $this->MediaPlatformUser->find('count') + 1
@@ -49,7 +50,8 @@ class MediaPlatformUserTest extends CakeTestCase {
 				'data' => [
 					'MediaPlatformUser' => [
 						'username' => 'testing',
-						'media_platform_id' => MediaPlatform::FACEBOOK_ADS
+						'media_platform_id' => MediaPlatform::FACEBOOK_ADS,
+						'agency' => 'BA'
 					]
 				],
 				'expected' => $this->MediaPlatformUser->find('count') + 1
@@ -62,7 +64,7 @@ class MediaPlatformUserTest extends CakeTestCase {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public function testGetFirstOfMediaPlatform() {
 		$cases = [

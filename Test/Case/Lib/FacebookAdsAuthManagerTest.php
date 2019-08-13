@@ -30,7 +30,7 @@ class FacebookAdsAuthManagerTest extends CakeTestCase {
 		$manager->expects($this->once())->method('_getUserName')->will($this->returnValue('Michael van Tricht'));
 
 		$request = new Object();
-		$request->query = array('code' => 'xyz');
+		$request->query = array('code' => 'xyz', 'agency' => 'DMNL');
 		$manager->authenticateUser($request);
 		$user = $MediaPlatformUser->find('first', array(
 			'conditions' => array(

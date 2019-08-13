@@ -129,6 +129,7 @@ class MediaPlatformUser extends AuthManagerAppModel {
 		$mediaPlatformUser = $this->find('first', array(
 			'conditions' => array(
 				'username' => $data['MediaPlatformUser']['username'],
+				'agency' => $data['MediaPlatformUser']['agency'],
 				'media_platform_id' => $data['MediaPlatformUser']['media_platform_id']
 			),
 			'contain' => array(
