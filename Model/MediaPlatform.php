@@ -60,6 +60,9 @@ class MediaPlatform extends AuthManagerAppModel {
 		'bing_ads' => [
 			'id' => self::BING_ADS
 		],
+		'twinfield' => [
+			'id' => self::TWINFIELD
+		],
 		'linkedin_ads' => [
 			'id' => self::LINKED_IN_ADS
 		],
