@@ -48,7 +48,8 @@ class AdWordsAuthManager extends UpdatedGoogleAuthManager {
 	protected function _getScopes() {
 		return array(
 			'https://www.googleapis.com/auth/adwords',
-			Google_Service_Oauth2::USERINFO_EMAIL
+			Google_Service_Oauth2::USERINFO_EMAIL,
+			Google_Service_Oauth2::USERINFO_PROFILE
 		);
 	}
 

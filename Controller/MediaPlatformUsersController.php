@@ -70,11 +70,7 @@ class MediaPlatformUsersController extends AuthManagerAppController {
 		$mediaPlatformUserId = $mediaPlatformAuthManager->authenticateUser($this->request);
 
 		if (!$mediaPlatformUserId) {
-
-			$this->Session->setFlash(__d('AuthManager', 'There went something wrong authenticating you!'), 'errorbox');
-			$this->_redirectToLastSavedReferrer();
-
-			return;
+			die('Something went wrong when authenticating your user. Please contact development-dm@nl.deptagency.com');
 		}
 
 		$this->Session->setFlash(__d('AuthManager', 'Successfully authenticated!'), 'successbox');

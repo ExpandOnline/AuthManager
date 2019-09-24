@@ -27,7 +27,7 @@ class AuthManagerAppController extends Controller {
 	 * @param null $hash
 	 */
 	protected function _redirectToLastSavedReferrer($hash = null, $time = null, $id = null) {
-		$url = '/';
+		$url = null;
 
 		if ($this->Session->read('AuthManager.referrer')) {
 			$url = $this->Session->read('AuthManager.referrer');
@@ -39,6 +39,10 @@ class AuthManagerAppController extends Controller {
 		}
 
 		$this->Session->delete('AuthManager.referrer');
+
+		if(empty($url)) {
+			die('Done! You can now close this page.');
+		}
 		$this->redirect($url);
 	}
 
