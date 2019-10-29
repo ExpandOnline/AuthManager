@@ -1,12 +1,12 @@
 <?php
 
 use Microsoft\BingAds\Auth\ServiceClientType;
-use Microsoft\BingAds\V12\CampaignManagement\GetCampaignsByAccountIdRequest;
-use Microsoft\BingAds\V12\CustomerManagement\GetAccountRequest;
-use Microsoft\BingAds\V12\CustomerManagement\GetAccountsInfoRequest;
-use Microsoft\BingAds\V12\CustomerManagement\GetUserRequest;
-use Microsoft\BingAds\V12\Reporting\PollGenerateReportRequest;
-use Microsoft\BingAds\V12\Reporting\SubmitGenerateReportRequest;
+use Microsoft\BingAds\V13\CampaignManagement\GetCampaignsByAccountIdRequest;
+use Microsoft\BingAds\V13\CustomerManagement\GetAccountRequest;
+use Microsoft\BingAds\V13\CustomerManagement\GetAccountsInfoRequest;
+use Microsoft\BingAds\V13\CustomerManagement\GetUserRequest;
+use Microsoft\BingAds\V13\Reporting\PollGenerateReportRequest;
+use Microsoft\BingAds\V13\Reporting\SubmitGenerateReportRequest;
 
 /**
  * Class BingAdsApiWrapper
