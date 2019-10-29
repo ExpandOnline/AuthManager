@@ -116,7 +116,7 @@ class BingAdsApiWrapper {
 	 */
 	public function submitReport($report, $accountId, $reportType) {
 		$clientProxy = $this->_getClientProxyWithAccountId(
-			ServiceClientType::ReportingVersion12,
+			ServiceClientType::ReportingVersion13,
 			$accountId
 		);
 		$report = new SoapVar(
