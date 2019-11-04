@@ -13,14 +13,14 @@ use Microsoft\BingAds\V13\Reporting\SubmitGenerateReportRequest;
  */
 class BingAdsApiWrapper {
 
-/**
- * @var null|ClientProxyFactory
- */
+	/**
+	 * @var null|ClientProxyFactory
+	 */
 	protected $_clientProxyFactory = null;
 
-/**
- * @var array
- */
+	/**
+	 * @var array
+	 */
 	protected $_clientProxies = [];
 
 	/**
@@ -28,9 +28,9 @@ class BingAdsApiWrapper {
 	 */
 	protected $_useCache = true;
 
-/**
- * @param ClientProxyFactory $clientProxyFactory
- */
+	/**
+	 * @param ClientProxyFactory $clientProxyFactory
+	 */
 	public function __construct(ClientProxyFactory $clientProxyFactory) {
 		$this->_clientProxyFactory = $clientProxyFactory;
 	}
@@ -125,18 +125,15 @@ class BingAdsApiWrapper {
 		$request = new SubmitGenerateReportRequest();
 		$request->ReportRequest = $report;
 
-		try{
+		try {
 			return $this->_returnIfPropertyMissing(
 				$clientProxy->GetService()->SubmitGenerateReport($request),
 				'ReportRequestId',
 				false
 			);
-		} catch (Exception $e){
-
+		} catch (Exception $e) {
 			CakeLog::write('AuthManager | BingAds', 'Error submitting Report: ' . $e->detail);
-
 			throw $e;
-
 		}
 	}
 
@@ -161,13 +158,13 @@ class BingAdsApiWrapper {
 		);
 	}
 
-/**
- * @param $object
- * @param $propertyName
- * @param $returnIfEmpty
- *
- * @return array
- */
+	/**
+	 * @param $object
+	 * @param $propertyName
+	 * @param $returnIfEmpty
+	 *
+	 * @return array
+	 */
 	protected function _returnIfPropertyMissing($object, $propertyName, $returnIfEmpty = []) {
 		if (!property_exists($object, $propertyName)) {
 			return $returnIfEmpty;
@@ -176,11 +173,11 @@ class BingAdsApiWrapper {
 		return $object->{$propertyName};
 	}
 
-/**
- * @param        $endPoint
- *
- * @return \Microsoft\BingAds\Auth\ServiceClient
- */
+	/**
+	 * @param        $endPoint
+	 *
+	 * @return \Microsoft\BingAds\Auth\ServiceClient
+	 */
 	protected function _getClientProxy($endPoint) {
 		if (isset($this->_clientProxies[$endPoint])) {
 			return $this->_clientProxies[$endPoint];
@@ -190,12 +187,12 @@ class BingAdsApiWrapper {
 			= $this->_clientProxyFactory->createClientProxy($endPoint);
 	}
 
-/**
- * @param        $endPoint
- * @param        $accountId
- *
- * @return \Microsoft\BingAds\Auth\ServiceClient
- */
+	/**
+	 * @param        $endPoint
+	 * @param        $accountId
+	 *
+	 * @return \Microsoft\BingAds\Auth\ServiceClient
+	 */
 	protected function _getClientProxyWithAccountId($endPoint, $accountId) {
 		if (!$this->isUseCache()) {
 			return $this->_clientProxyFactory->createClientProxyWithAccountId($endPoint, $accountId);
@@ -221,6 +218,7 @@ class BingAdsApiWrapper {
 	 */
 	public function setUseCache($useCache) {
 		$this->_useCache = $useCache;
+
 		return $this;
 	}
 
