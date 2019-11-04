@@ -125,11 +125,19 @@ class BingAdsApiWrapper {
 		$request = new SubmitGenerateReportRequest();
 		$request->ReportRequest = $report;
 
-		return $this->_returnIfPropertyMissing(
-			$clientProxy->GetService()->SubmitGenerateReport($request),
-			'ReportRequestId',
-			false
-		);
+		try{
+			return $this->_returnIfPropertyMissing(
+				$clientProxy->GetService()->SubmitGenerateReport($request),
+				'ReportRequestId',
+				false
+			);
+		} catch (Exception $e){
+
+			CakeLog::write('AuthManager | BingAds', 'Error submitting Report: ' . $e->detail);
+
+			throw $e;
+
+		}
 	}
 
 	/**
