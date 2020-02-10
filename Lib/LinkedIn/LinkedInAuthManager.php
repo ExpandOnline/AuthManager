@@ -32,18 +32,13 @@ class LinkedInAuthManager extends MediaPlatformAuthManager {
 		$options = [
 			'scope' => [
 				'r_basicprofile',
-				'rw_company_admin',
-				'r_ad_campaigns',
 				'r_ads',
 				'r_ads_reporting',
 				'r_organization_social',
 				'rw_ads',
-				'rw_company_admin',
-				'rw_organization',
 				'rw_organization_admin',
 				'w_member_social',
 				'w_organization_social',
-				'w_share'
 			]
 		];
 
