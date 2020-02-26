@@ -41,7 +41,7 @@ class BingAdsApiWrapper {
 	 * @return array
 	 */
 	public function getUser($userId = null) {
-		$clientProxy = $this->_getClientProxy(ServiceClientType::CustomerManagementVersion12);
+		$clientProxy = $this->_getClientProxy(ServiceClientType::CustomerManagementVersion13);
 		$request = new GetUserRequest();
 		$request->UserId = $userId;
 
@@ -58,11 +58,10 @@ class BingAdsApiWrapper {
 	 * @return array
 	 */
 	public function getAccounts($customerId = null, $onlyParentAccounts = null) {
-		$clientProxy = $this->_getClientProxy(ServiceClientType::CustomerManagementVersion12);
+		$clientProxy = $this->_getClientProxy(ServiceClientType::CustomerManagementVersion13);
 		$request = new GetAccountsInfoRequest();
 		$request->CustomerId = $customerId;
 		$request->OnlyParentAccounts = $onlyParentAccounts;
-
 		return $this->_returnIfPropertyMissing(
 			$clientProxy->GetService()->GetAccountsInfo($request)->AccountsInfo,
 			'AccountInfo'
@@ -75,7 +74,7 @@ class BingAdsApiWrapper {
 	 * @return array
 	 */
 	public function getAccount($id) {
-		$clientProxy = $this->_getClientProxy(ServiceClientType::CustomerManagementVersion12);
+		$clientProxy = $this->_getClientProxy(ServiceClientType::CustomerManagementVersion13);
 		$request = new GetAccountRequest();
 		$request->AccountId = $id;
 
@@ -93,7 +92,7 @@ class BingAdsApiWrapper {
 	 */
 	public function getCampaign($id, $campaignType) {
 		$clientProxy = $this->_getClientProxyWithAccountId(
-			ServiceClientType::CampaignManagementVersion12,
+			ServiceClientType::CampaignManagementVersion13,
 			$id
 		);
 		$request = new GetCampaignsByAccountIdRequest();
@@ -145,7 +144,7 @@ class BingAdsApiWrapper {
 	 */
 	public function pollReportRequest($reportRequestId, $accountId) {
 		$clientProxy = $this->_getClientProxyWithAccountId(
-			ServiceClientType::ReportingVersion12,
+			ServiceClientType::ReportingVersion13,
 			$accountId
 		);
 		$request = new PollGenerateReportRequest();
